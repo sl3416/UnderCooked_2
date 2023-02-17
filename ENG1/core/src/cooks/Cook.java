@@ -21,6 +21,7 @@ import interactions.Interactions;
 public class Cook extends GameEntity {
 
     /** The cook's current sprite. */
+    /**test */
     private Sprite sprite;
     /** The control arrow sprite. */
     private Sprite controlSprite;
