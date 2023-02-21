@@ -37,6 +37,21 @@ public class FoodItem {
         bottomBun,
         /** Top Bun -&gt; Highest bun on {@link FoodStack} is {@link #bottomBun} */
         topBun,
+        /** Dough */
+        dough,
+        /** uc_pizza */
+        uc_pizza,
+        /** C_pizza -&gt; {@link stations.PreparationStation}
+         * with type {@link stations.Station.StationID#oven} */
+        c_pizza,
+        /** Cheese */
+        cheese,
+        /** Raw Potato */
+        rawPotato,
+        /** Jacket Potato */
+        jacketPotato,
+        /** Raw Jacket Potato */
+        rawJacketPotato,
         /** Default */
         none
     }
@@ -56,6 +71,15 @@ public class FoodItem {
         foodHeights.put(FoodID.bun, 20F);
         foodHeights.put(FoodID.bottomBun, 10F);
         foodHeights.put(FoodID.topBun, 12F);
+        foodHeights.put(FoodID.dough, 5F);
+        foodHeights.put(FoodID.cheese, 5F);
+        foodHeights.put(FoodID.uc_pizza, 5F);
+        foodHeights.put(FoodID.c_pizza, 5F);
+        foodHeights.put(FoodID.rawPotato, 5F);
+        foodHeights.put(FoodID.jacketPotato, 5F);
+        foodHeights.put(FoodID.rawJacketPotato, 5F);
+
+
     }
 
 }

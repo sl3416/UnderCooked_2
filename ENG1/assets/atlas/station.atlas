@@ -18,3 +18,10 @@ fry
   orig: 20, 18
   offset: 0, 0
   index: -1
+oven
+  rotate: false
+  xy: 56, 8
+  size: 25, 21
+  orig: 25, 21
+  offset: 0, 0
+  index: -1

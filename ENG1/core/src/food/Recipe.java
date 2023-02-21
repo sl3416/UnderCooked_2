@@ -18,18 +18,22 @@ public class Recipe {
 	/** A HashMap containing how each FoodItem's FoodID, via a station of StationID, can convert to another foodID.*/
 	private static final HashMap<String, Array<FoodStack>> recipes = new HashMap<>();
 		static {
-			generateRecipes("Onion Tomato Salad", allCombos(FoodID.onionChop, FoodID.tomatoChop));
+			//generateRecipes("Onion Tomato Salad", allCombos(FoodID.onionChop, FoodID.tomatoChop));
+
 			generateRecipes("Lettuce Tomato Salad", allCombos(FoodID.lettuceChop, FoodID.tomatoChop));
-			generateRecipes("Lettuce Onion Salad", allCombos(FoodID.lettuceChop, FoodID.onionChop));
+			//generateRecipes("Lettuce Onion Salad", allCombos(FoodID.lettuceChop, FoodID.onionChop));
+
+
 			Array<FoodStack> plainBurger = new Array<>();
 			plainBurger.add(new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.bottomBun));
 			recipes.put("Plain Burger", plainBurger);
+
 
 			Array<FoodID> topBunArray = new Array<FoodID>();
 			topBunArray.add(FoodID.topBun);
 			Array<FoodID> bottomBunArray = new Array<FoodID>();
 			bottomBunArray.add(FoodID.bottomBun);
-
+            /*
 			generateRecipes("Lettuce Burger", allCombos(
 				topBunArray,
 				bottomBunArray,
@@ -65,11 +69,16 @@ public class Recipe {
 				bottomBunArray,
 				FoodID.meatCook, FoodID.tomatoChop, FoodID.onionChop)
 			);
+
+            */
 			generateRecipes("Lettuce Tomato Onion Burger", allCombos(
 				topBunArray,
 				bottomBunArray,
 				FoodID.meatCook, FoodID.lettuceChop, FoodID.tomatoChop, FoodID.onionChop)
 			);
+
+            generateRecipes("Margherita Pizza", allCombos(FoodID.c_pizza));
+            generateRecipes("Jacket Potato", allCombos(FoodID.jacketPotato));
 			/*
 			recipes.put("Onion Tomato Salad",
 				new String[] {

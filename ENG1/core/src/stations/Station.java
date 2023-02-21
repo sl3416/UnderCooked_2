@@ -20,6 +20,8 @@ public class Station extends CookInteractable {
         fry,
         /** Cutting Station, uses {@link PreparationStation}. */
         cut,
+        /** Oven Station, uses {@link PreparationStation}. */
+        oven,
         /** {@link CounterStation} that can hold {@link food.FoodItem}s. */
         counter,
         /** {@link BinStation} that can dispose of {@link food.FoodItem}s.*/

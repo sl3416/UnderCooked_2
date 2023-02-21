@@ -38,6 +38,9 @@ public class Cook extends GameEntity {
      */
     private Array<Facing> inputs;
 
+    public FoodStack pizzaIngred;
+    public FoodStack jacketIngred;
+
     /** All possible directions the cook can be facing. */
     enum Facing {
         RIGHT,
@@ -65,12 +68,22 @@ public class Cook extends GameEntity {
         // Initialize FoodStack
         this.foodStack = new FoodStack();
 
+        this.pizzaIngred = new FoodStack();
+        pizzaIngred.addStack(FoodID.cheese);
+        pizzaIngred.addStack(FoodID.dough);
+        pizzaIngred.addStack(FoodID.tomatoChop);
+
+        this.jacketIngred = new FoodStack();
+        jacketIngred.addStack(FoodID.rawPotato);
+        jacketIngred.addStack(FoodID.cheese);
+
         // Input array, with the order of inputs the user has in what direction.
         // The oldest button pressed is the one used. Pressing the opposite key removes them.
         this.inputs = new Array<>();
 
         // Set the sprite
         this.setSprite();
+
 
         float cookInteractorSize = 32;
 
@@ -140,7 +153,22 @@ public class Cook extends GameEntity {
         x = body.getPosition().x*PPM;
         y = body.getPosition().y*PPM;
         this.cookInteractor.updatePosition(x,y,dir);
+        testFoodStack();
     }
+
+    public void testFoodStack(){
+        Array<FoodID> currentFoodStack = foodStack.getStack();
+        Array<FoodID> pizzaIngredients = pizzaIngred.getStack();
+        Array<FoodID> jacketIngredients = jacketIngred.getStack();
+        if(currentFoodStack.containsAll(pizzaIngredients, true)){
+            foodStack.clearStack();
+            foodStack.addStack(FoodID.uc_pizza);
+        } else if (currentFoodStack.containsAll(jacketIngredients, true)){
+            foodStack.clearStack();
+            foodStack.addStack(FoodID.rawJacketPotato);
+        }
+    }
+
 
     /**
      * Update the current {@link Sprite} of the {@link Cook}.

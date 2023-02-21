@@ -182,6 +182,11 @@ public class MapHelper {
                             station.setID(Station.StationID.fry);
                             gameScreen.addGameEntity(station);
                             break;
+                        case "oven":
+                            station = new PreparationStation(rectangle);
+                            station.setID(Station.StationID.oven);
+                            gameScreen.addGameEntity(station);
+                            break;
                         case "counter":
                             station = new CounterStation(rectangle);
                             station.setID(Station.StationID.counter);
@@ -226,6 +231,15 @@ public class MapHelper {
                             break;
                         case "Bun":
                             pantry.setItem(FoodItem.FoodID.bun);
+                            break;
+                        case "Dough":
+                            pantry.setItem(FoodItem.FoodID.dough);
+                            break;
+                        case "Cheese":
+                            pantry.setItem(FoodItem.FoodID.cheese);
+                            break;
+                        case "RawPotato":
+                            pantry.setItem(FoodItem.FoodID.rawPotato);
                             break;
                         default:
                             pantry.setItem(FoodItem.FoodID.none);

@@ -88,3 +88,52 @@ topBun
   orig: 24, 8
   offset: 0, 0
   index: -1
+dough
+  rotate: false
+  xy: 150, 19
+  size: 14, 9
+  orig: 14, 9
+  offset: 0, 0
+  index: -1
+rawPotato
+  rotate: false
+  xy: 166, 18
+  size: 14, 10
+  orig: 14, 10
+  offset: 0, 0
+  index: -1
+jacketPotato
+  rotate: false
+  xy: 182, 16
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
+cheese
+  rotate: false
+  xy: 198, 18
+  size: 14, 10
+  orig: 14, 10
+  offset: 0, 0
+  index: -1
+uc_pizza
+  rotate: false
+  xy: 214, 0
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+c_pizza
+  rotate: false
+  xy: 246, 0
+  size: 30, 30
+  orig: 30, 30
+  offset: 0, 0
+  index: -1
+rawJacketPotato
+  rotate: false
+  xy: 280, 16
+  size: 14, 12
+  orig: 14, 12
+  offset: 0, 0
+  index: -1
