@@ -3,7 +3,7 @@ layout: single
 permalink: /
 title: false
 github: https://github.com/
-download: https://github.com/undercooked-team/UnderCooked/releases/tag/game
+download: https://github.com/sl3416/UnderCooked_2/releases
 req_pdf: https://drive.google.com/file/d/1riehAdib1IffNDNwmmPX9ugbUv2AZZnf
 arch_pdf: https://drive.google.com/file/d/1gGG0oPKWnQbTWOHgsPOo8c6Kgt7APBZx
 plan_pdf: https://drive.google.com/file/d/1HipDr3_7fABNSKuUDhcKLNDbxVc3lMcK

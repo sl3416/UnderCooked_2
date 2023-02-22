@@ -18,6 +18,8 @@ main:
     url: "/#risk-assessment-and-mitigation"
   - title: "Implementation"
     url: "/#implementation"
+  -title: "Original Credits"
+  - url: "/#original-credits"
   # - title: "Quick-Start Guide"
   #   url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   # - title: "About"
