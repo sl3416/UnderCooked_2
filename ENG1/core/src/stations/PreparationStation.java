@@ -24,6 +24,8 @@ public class PreparationStation extends Station {
     private int stepNum;
     private StationState state;
 
+    private float tempDelta;
+
     /**
      * The constructor for the {@link PreparationStation}.
      * @param rectangle The collision and interaction area of the {@link PreparationStation}.
@@ -56,6 +58,16 @@ public class PreparationStation extends Station {
                         if (progress >= steps[stepNum]) {
                             progress = steps[stepNum];
                             state = StationState.NEED_USE;
+
+                            //New Matt Code
+                            tempDelta += delta;
+                            if(tempDelta > 6F){
+                                interaction.setResult(FoodItem.FoodID.burntPatty);
+                                foodItem = FoodItem.FoodID.burntPatty;
+                                progress = 100F;
+
+                            //End New Matt Code
+                            }
                         } else {
                             state = StationState.PREPARING;
                         }

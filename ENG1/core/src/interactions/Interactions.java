@@ -67,6 +67,13 @@ public class Interactions {
          * @return A float that defines the percentage increase in a second.
          */
         public float getSpeed() { return speed; }
+
+        /**
+         * A setter to change the result of the interaction.
+         */
+        public void setResult(FoodID newResult){
+            this.result = newResult;
+        }
     }
 
     /** The different IDs of interaction. Used to get the Arrays. */

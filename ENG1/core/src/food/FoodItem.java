@@ -52,6 +52,8 @@ public class FoodItem {
         jacketPotato,
         /** Raw Jacket Potato */
         rawJacketPotato,
+        /** Burnt Patty, not used in recipes */
+        burntPatty,
         /** Default */
         none
     }
@@ -78,6 +80,7 @@ public class FoodItem {
         foodHeights.put(FoodID.rawPotato, 5F);
         foodHeights.put(FoodID.jacketPotato, 5F);
         foodHeights.put(FoodID.rawJacketPotato, 5F);
+        foodHeights.put(FoodID.burntPatty, 5F);
 
 
     }

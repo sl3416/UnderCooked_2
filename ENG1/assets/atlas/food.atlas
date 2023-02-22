@@ -137,3 +137,10 @@ rawJacketPotato
   orig: 14, 12
   offset: 0, 0
   index: -1
+burntPatty
+  rotate: false
+  xy: 297, 22
+  size: 21, 6
+  orig: 21, 6
+  offset: 0, 0
+  index: -1
