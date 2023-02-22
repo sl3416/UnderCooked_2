@@ -11,7 +11,7 @@ risk_pdf: https://drive.google.com/file/d/1VSMtAjT8UPiVwPZLI06Vrd8EyYSrAjU8
 impl_pdf: https://drive.google.com/file/d/1PoRtP0_H23nPD6mZUeKYy8YWXTVgU7Rm
 author_profile: false
 ---
-# Home Page
+# Home
 Welcome to our homepage for UnderCooked!
 
 {{ site.description }}
