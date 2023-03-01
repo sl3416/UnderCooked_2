@@ -125,7 +125,7 @@ author:
     #   # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/hs1955"
+      url: "https://github.com/sl3416"
     # - label: "Instagram"
     #   icon: "fab fa-fw fa-instagram"
     #  # url: "https://instagram.com/"
@@ -141,7 +141,7 @@ footer:
     #   # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      url: "https://github.com/undercooked-team/UnderCooked"
+      url: "https://github.com/sl3416/UnderCooked_2"
     # - label: "GitLab"
     #   icon: "fab fa-fw fa-gitlab"
     #   # url:
