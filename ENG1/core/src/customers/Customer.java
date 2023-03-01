@@ -9,6 +9,7 @@ import food.FoodStack;
 import food.Recipe;
 import game.GameScreen;
 import helper.Constants;
+import java.util.Random;
 
 /**
  * A {@link Customer} has a request that they want
@@ -31,6 +32,7 @@ public class Customer {
      */
     public Customer(Sprite sprite)
     {
+        Random rand = new Random();
         this.sprite = sprite;
         this.position = Constants.customerSpawn;
         this.request = Recipe.randomRecipe();

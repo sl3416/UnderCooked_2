@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import cooks.Cook;
 import food.FoodItem;
+import game.GameScreen;
 import game.GameSprites;
 import interactions.InputKey;
 import interactions.Interactions;
@@ -25,6 +26,8 @@ public class PreparationStation extends Station {
     private StationState state;
 
     private float tempDelta;
+
+    private GameScreen gameScreen;
 
     /**
      * The constructor for the {@link PreparationStation}.
@@ -166,64 +169,65 @@ public class PreparationStation extends Station {
      */
     @Override
     public void interact(Cook cook, InputKey.InputTypes inputType) {
+        if (!locked) {
+            // If the Cook is holding a food item, and they use the "Put down" control...
+            if (cook.foodStack.size() > 0 && inputType == InputKey.InputTypes.PUT_DOWN) {
+                // Start by getting the possible interaction result
+                Interactions.InteractionResult newInteraction = interactions.Interactions.interaction(cook.foodStack.peekStack(), stationID);
+                // If it's null, just stop here.
+                if (newInteraction == null) {
+                    return;
+                }
 
-        // If the Cook is holding a food item, and they use the "Put down" control...
-        if (cook.foodStack.size() > 0 && inputType == InputKey.InputTypes.PUT_DOWN) {
-            // Start by getting the possible interaction result
-            Interactions.InteractionResult newInteraction = interactions.Interactions.interaction(cook.foodStack.peekStack(), stationID);
-            // If it's null, just stop here.
-            if (newInteraction == null) {
-                return;
-            }
+                // Check to make sure the station isn't inUse.
+                if (!inUse) {
+                    // Set the current interaction, and put this station inUse
+                    foodItem = cook.foodStack.popStack();
+                    interaction = newInteraction;
+                    stepNum = 0;
+                    progress = 0;
+                    inUse = true;
+                    state = StationState.PREPARING;
 
-            // Check to make sure the station isn't inUse.
-            if (!inUse) {
-                // Set the current interaction, and put this station inUse
-                foodItem = cook.foodStack.popStack();
-                interaction = newInteraction;
-                stepNum = 0;
-                progress = 0;
-                inUse = true;
-                state = StationState.PREPARING;
-
-                // If the speed is -1, immediately set the progress to the first step.
-                float[] steps = interaction.getSteps();
-                if (steps.length > 0) {
-                    if (interaction.getSpeed() == -1) {
-                        progress = steps[0];
-                        state = StationState.NEED_USE;
+                    // If the speed is -1, immediately set the progress to the first step.
+                    float[] steps = interaction.getSteps();
+                    if (steps.length > 0) {
+                        if (interaction.getSpeed() == -1) {
+                            progress = steps[0];
+                            state = StationState.NEED_USE;
+                        }
                     }
                 }
             }
-        }
-        // The other two inputs require the station being inUse.
-        else if (inUse) {
-            // If the user instead uses the "Pick Up" option, check if the station is inUse
-            if (inputType == InputKey.InputTypes.PICK_UP) {
-                inUse = false;
-                // If it is done, pick up the result instead of the foodItem
-                if (progress >= 100) {
-                    cook.foodStack.addStack(interaction.getResult());
-                    return;
-                }
-                // Take the item from the Station, and change it to not being used
-                cook.foodStack.addStack(foodItem);
-                return; // Return as it the Station is no longer inUse
-            }
-            // Otherwise, check if the user is trying to use the Station.
-            if (inputType == InputKey.InputTypes.USE) {
-                // If progress >= 100, then take the result of the preparation.
-                if (progress >= 100) {
+            // The other two inputs require the station being inUse.
+            else if (inUse) {
+                // If the user instead uses the "Pick Up" option, check if the station is inUse
+                if (inputType == InputKey.InputTypes.PICK_UP) {
                     inUse = false;
-                    cook.foodStack.addStack(interaction.getResult());
-                    return;
+                    // If it is done, pick up the result instead of the foodItem
+                    if (progress >= 100) {
+                        cook.foodStack.addStack(interaction.getResult());
+                        return;
+                    }
+                    // Take the item from the Station, and change it to not being used
+                    cook.foodStack.addStack(foodItem);
+                    return; // Return as it the Station is no longer inUse
                 }
-                // If currently at a step, move to the next step.
-                float[] steps = interaction.getSteps();
-                if (stepNum < steps.length) {
-                    if (progress >= steps[stepNum]) {
-                        progress = steps[stepNum];
-                        stepNum += 1;
+                // Otherwise, check if the user is trying to use the Station.
+                if (inputType == InputKey.InputTypes.USE) {
+                    // If progress >= 100, then take the result of the preparation.
+                    if (progress >= 100) {
+                        inUse = false;
+                        cook.foodStack.addStack(interaction.getResult());
+                        return;
+                    }
+                    // If currently at a step, move to the next step.
+                    float[] steps = interaction.getSteps();
+                    if (stepNum < steps.length) {
+                        if (progress >= steps[stepNum]) {
+                            progress = steps[stepNum];
+                            stepNum += 1;
+                        }
                     }
                 }
             }

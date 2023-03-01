@@ -1,5 +1,7 @@
 package stations;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -32,9 +34,14 @@ public class Station extends CookInteractable {
         none
     }
 
+    boolean locked; //True means it is locked
+
     StationID stationID;
     boolean inUse;
     GameSprites gameSprites;
+
+    Sprite lockedSprite;
+    Texture texture;
 
     /**
      * The constructor for the {@link Station}.
@@ -43,6 +50,7 @@ public class Station extends CookInteractable {
     public Station(Rectangle rectangle) {
         super(rectangle);
         inUse = false;
+
         this.gameSprites = GameSprites.getInstance();
     }
 

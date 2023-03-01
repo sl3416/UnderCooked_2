@@ -3,7 +3,6 @@ package customers;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import food.Recipe;
 import game.GameScreen;
 import game.GameSprites;
@@ -30,6 +29,8 @@ public class CustomerController {
     customersServed;
     /** The {@link game.GameScreen} to send the {@link #customersServed} to. */
     private GameScreen gameScreen;
+
+    private int payment;
 
     /**
      * Constructor for the {@link CustomerController}.
@@ -195,6 +196,8 @@ public class CustomerController {
             return;
         }
         removeCustomer(station);
+        gameScreen.increaseCurrentMoney(payment);
+        payment += 2; //Just makes it so this variable isn't constant
         customersServed++;
         gameScreen.setCustomerHud(customersServed);
 

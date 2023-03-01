@@ -63,6 +63,8 @@ public class GameScreen extends ScreenAdapter {
     private CustomerController customerController;
     private int customersToServe;
 
+    public int currentMoney;
+
     /**
      * The constructor for the {@link GameScreen}.
      * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
@@ -93,6 +95,7 @@ public class GameScreen extends ScreenAdapter {
         this.orthogonalTiledMapRenderer = mapHelper.setupMap();
         this.gameHud = new GameHud(batch, this);
         this.instructionHUD = new InstructionHud(batch);
+        this.currentMoney = 0;
 
     }
 
@@ -427,5 +430,10 @@ public class GameScreen extends ScreenAdapter {
     }
     public InstructionHud getInstructionHUD() {
         return instructionHUD;
+    }
+
+    public void increaseCurrentMoney(int toAdd){
+        currentMoney += toAdd;
+        gameHud.updateMoney(currentMoney);
     }
 }

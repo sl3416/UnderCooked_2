@@ -12,6 +12,8 @@ import food.Recipe;
 import game.GameScreen;
 import game.GameSprites;
 
+import java.util.concurrent.LinkedBlockingDeque;
+
 // import java.awt.*;
 
 /** Responsible for displaying information above the gameplay GameScreen. */
@@ -21,6 +23,7 @@ public class GameHud extends Hud {
     /** The label with the number of {@link Customer}s left to serve.  */
     Label CustomerLabel;
     Label CustomerScore;
+    Label playerMoney;
     /** The {@link SpriteBatch} of the GameHud. Use for drawing {@link food.Recipe}s. */
     private SpriteBatch batch;
     /** The {@link FoodStack} that the {@link GameHud} should render. */
@@ -44,8 +47,11 @@ public class GameHud extends Hud {
 
         CustomerLabel = new Label("CUSTOMERS LEFT:", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
 
+        playerMoney = new Label("MONEY: 0", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
+
         table.add(CustomerLabel).expandX().padTop(80).padRight(60);
         table.add(timeLabel).expandX().padTop(80).padLeft(60);
+        table.add(playerMoney).expandX().padTop(80).padLeft(60);
 
         this.batch = batch;
     }
@@ -148,5 +154,9 @@ public class GameHud extends Hud {
      */
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void updateMoney(int newMoney){
+        playerMoney.setText("MONEY: " + newMoney);
     }
 }
