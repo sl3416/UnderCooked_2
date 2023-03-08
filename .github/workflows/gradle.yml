@@ -21,24 +21,32 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    release:
+release:
       run-on: ubuntu-22.04
       needs: ["build"]
       if: startWith(github.ref,'reds/tags/')
       permissions:
         contents: write
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-    - name: Gradle Build Action
-      # You may pin to the exact commit or the version.
-      # uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
-      uses: gradle/gradle-build-action@v2.3.3
-      with:
+      steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: lib.jar
+      - name: Release
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
+        with:
+          files: lib.jar
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+      - name: Gradle Build Action
+        # You may pin to the exact commit or the version.
+        # uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
+        uses: gradle/gradle-build-action@v2.3.3
+        with:
         # Gradle version to use
         # gradle-version: # optional
         # When 'true', all caching is disabled. No entries will be written to or read from the cache.
@@ -72,13 +80,13 @@ jobs:
         # workflow-job-context: # optional, default is ${{ toJSON(matrix) }}
         # When 'true', the action will attempt to remove any stale/unused entries from the Gradle User Home prior to saving to the GitHub Actions cache.
         # gradle-home-cache-cleanup: # optional
-    - name: Upload JaCoCO coverage report
-      uses: actions/upload-artifact@v3.1.1
-      with:
-        name: jacoco-report-${{ matrix.os }}
-        path: ENG1/core/build/reports/jacoco/test/html/
-    - name: Upload library JAR
-      uses: actions/upload-artifact@v3.1.1
-      with:
-        name: lib.jar
-        path: ENG1/core/build/libs/lib.jar
+      - name: Upload JaCoCO coverage report
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: jacoco-report-${{ matrix.os }}
+          path: ENG1/core/build/reports/jacoco/test/html/
+      - name: Upload library JAR
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: lib.jar
+          path: ENG1/core/build/libs/lib.jar
