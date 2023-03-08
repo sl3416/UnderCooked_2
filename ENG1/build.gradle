@@ -1,8 +1,4 @@
 buildscript {
-    plugins {
-        id 'java-library'
-        id 'jacoco'
-    }
 
     repositories {
         mavenLocal()
@@ -44,6 +40,7 @@ allprojects {
 
 project(":core") {
     apply plugin: "java-library"
+    apply plugin: "jacoco"
 
 
     dependencies {
