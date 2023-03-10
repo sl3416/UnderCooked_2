@@ -1,9 +1,4 @@
 buildscript {
-    plugins {
-        id 'java-library'
-        id 'jacoco'
-    }
-
     repositories {
         mavenLocal()
         mavenCentral()
@@ -12,7 +7,8 @@ buildscript {
         google()
     }
     dependencies {
-
+        classpath 'org.wisepersist:gwt-gradle-plugin:1.1.16'
+        classpath 'org.gretty:gretty:3.0.7'
 
     }
 }
@@ -44,7 +40,7 @@ allprojects {
 
 project(":core") {
     apply plugin: "java-library"
-
+    apply plugin: "jacoco"
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -70,5 +66,29 @@ project(":desktop") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 
+    }
+}
+
+project(":tests") {
+    apply plugin: "java"
+
+    sourceSets.test.java.srcDirs = ["src/"]
+
+    dependencies {
+        implementation project(":core")
+
+        implementation 'junit:junit:4.+'
+        implementation "org.mockito:mockito-core:5.1.1"
+
+        implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+        testImplementation 'junit:junit:4.+'
+        testImplementation "org.mockito:mockito-core:5.1.1"
+
+        testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+        testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     }
 }

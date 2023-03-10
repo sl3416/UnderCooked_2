@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/ENG1" />
             <option value="$PROJECT_DIR$/ENG1/core" />
             <option value="$PROJECT_DIR$/ENG1/desktop" />
+            <option value="$PROJECT_DIR$/ENG1/tests" />
           </set>
         </option>
       </GradleProjectSettings>
