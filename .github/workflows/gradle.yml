@@ -19,9 +19,6 @@ permissions:
 
 jobs: # what to do
   build: # name of our only job for now
-
-    runs-on: ubuntu-latest
-
     steps: # specific actions to take
       - uses: actions/checkout@v3
       - name: Set up JDK 11
