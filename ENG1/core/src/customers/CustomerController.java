@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import food.Recipe;
 import game.GameScreen;
 import game.GameSprites;
+import game.PowerupStatic;
 import stations.ServingStation;
 
 import java.util.Random;
@@ -47,6 +48,7 @@ public class CustomerController {
         this.customerSprite.setSize(42.5F,70);
         this.servingStations = new Array<>();
         this.gameScreen = gameScreen;
+        this.payment = 20;
     }
 
     /**
@@ -196,7 +198,11 @@ public class CustomerController {
             return;
         }
         removeCustomer(station);
-        gameScreen.increaseCurrentMoney(payment);
+        if(PowerupStatic.powerups.get("MoneyIncr") == Boolean.TRUE){
+            gameScreen.increaseCurrentMoney(payment + 15);
+        } else {
+            gameScreen.increaseCurrentMoney(payment);
+        }
         payment += 2; //Just makes it so this variable isn't constant
         customersServed++;
         gameScreen.setCustomerHud(customersServed);

@@ -14,6 +14,7 @@ import static helper.Constants.PPM;
 
 import food.FoodStack;
 import food.FoodItem.FoodID;
+import game.PowerupStatic;
 import interactions.InputKey;
 import interactions.Interactions;
 
@@ -90,6 +91,7 @@ public class Cook extends GameEntity {
         this.cookInteractor = new CookInteractor(x,y,cookInteractorSize);
     }
 
+
     /** Responsible for processing user input information into {@link #inputs}, {@link #velX} and {@link #velY}. */
     public void userInput() {
         velX = 0F;
@@ -137,6 +139,10 @@ public class Cook extends GameEntity {
             if (Gdx.input.isKeyJustPressed(inputKey.getKey())) {
                 cookInteractor.checkCollisions(this, inputKey.getType());
             }
+        }
+
+        if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
+            this.speed = 20F;
         }
 
         body.setLinearVelocity(velX * speed,velY * speed);

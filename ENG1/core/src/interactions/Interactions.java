@@ -20,8 +20,8 @@ public class Interactions {
         interactions.put(InteractionKey(FoodID.tomato, StationID.cut), new InteractionResult(FoodID.tomatoChop,new float[] {25,50,75},-1));
         interactions.put(InteractionKey(FoodID.onion, StationID.cut), new InteractionResult(FoodID.onionChop,new float[] {25,50,75},-1));
         interactions.put(InteractionKey(FoodID.meat, StationID.fry), new InteractionResult(FoodID.meatCook,new float[] {50},13F));
-        interactions.put(InteractionKey(FoodID.uc_pizza, StationID.oven), new InteractionResult(FoodID.c_pizza,new float[] {50},13F));
-        interactions.put(InteractionKey(FoodID.rawJacketPotato, StationID.oven), new InteractionResult(FoodID.jacketPotato,new float[] {50},13F));
+        interactions.put(InteractionKey(FoodID.uc_pizza, StationID.oven), new InteractionResult(FoodID.c_pizza,new float[] {},13F));
+        interactions.put(InteractionKey(FoodID.rawJacketPotato, StationID.oven), new InteractionResult(FoodID.jacketPotato,new float[] {},13F));
         // TEST interactions.put(InteractionKey(FoodID.dough, StationID.cut), new InteractionResult(FoodID.cheese,new float[] {50},13F));
     }
 
@@ -67,6 +67,10 @@ public class Interactions {
          * @return A float that defines the percentage increase in a second.
          */
         public float getSpeed() { return speed; }
+
+        public void setSpeed(float newSpeed) {
+            this.speed = newSpeed;
+        }
 
         /**
          * A setter to change the result of the interaction.

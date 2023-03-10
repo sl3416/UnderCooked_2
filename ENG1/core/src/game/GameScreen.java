@@ -1,5 +1,6 @@
 package game;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import customers.Customer;
 
 import com.badlogic.gdx.Gdx;
@@ -28,6 +29,7 @@ import stations.CookInteractable;
 import stations.ServingStation;
 
 import java.util.Comparator;
+import java.util.HashMap;
 
 /** A {@link ScreenAdapter} containing certain elements of the game. */
 public class GameScreen extends ScreenAdapter {
@@ -63,7 +65,9 @@ public class GameScreen extends ScreenAdapter {
     private CustomerController customerController;
     private int customersToServe;
 
+    //this file is being used as a "GameManager" too as there is one instance of this script.
     public int currentMoney;
+
 
     /**
      * The constructor for the {@link GameScreen}.
