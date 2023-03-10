@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(GdxTestRunner.class)
-public class InteractionTests {
+public class InteractionsTests {
 
     @Test
     public void testGrabbing() {
