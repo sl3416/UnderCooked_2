@@ -72,7 +72,7 @@ We quickly realised how limited our initial UML was surrounding the **gameMaster
 - **GameSprites** is responsible for holding multiple sprites to render.
 - **gameMaster** branched off into 2 classes:
   - **ScreenController** is responsible for switching between the main, pause, instructions, credits, gameplay-screen and game-over screen.
-  - **GameScreen** is the gameplay-screen. It contiains various methods and attributes to allow for gameplay, including **mapHelper** related methods.
+  - **GameScreen** is the gameplay-screen. It contains various methods and attributes to allow for gameplay, including **mapHelper** related methods.
 
 ### Addition 2: Food
 ![Food UML](https://raw.githubusercontent.com/undercooked-team/UnderCooked/main/ENG1/SUBMITTABLES/Architecture/food.png)
@@ -141,40 +141,33 @@ Credits to the previous team who worked on the project. Details for all the team
 <li>Hamza Salman   - hs1955@york.ac.uk</li>
 <li>Owen Thomas    - obt503@york.ac.uk</li>
 <li>Zhenyi Xu      - zx1090@york.ac.uk</li>
+</ul>
 
-## Links to Original Deliverables
-**Website:**
-
+### Links to Original Deliverables
+### Website:
 [Website](https://undercooked-team.github.io/UnderCooked/)
 
-**Requirements:**
-
+### Requirements:
 [Requirements Google Doc](https://docs.google.com/document/d/17tcN_Xeo0Gzz8ficlVVp_1x0h8Q2EDLzrCXvKtgHNlw/edit?usp=share_link)
 
 [Requirements PDF]({{page.req_pdf}})
 
-**Architecture:**
-
+### Architecture:
 [Architecture Google Doc](https://docs.google.com/document/d/11IZyqiyvOG_iuKlP9LPBgSTnA8E4lxPNE8mAL1pA26s/edit?usp=sharing)
 
 [Architecture PDF]({{page.arch_pdf}})
 
-**Method Selection and Planning**
-
+### Method Selection and Planning
 [Method Selection and Planning Google Doc](https://docs.google.com/document/d/1KpzhVRxdkBJPyYyQxW3aTuWMCYpDrK8jtEIiyoh-2Rw/edit?usp=share_link)
 
 [Method Selection and Planning PDF]({{page.plan_pdf}})
 
-**Risk Assessment and Mitigation**
-
+### Risk Assessment and Mitigation
 [Risk Assessment and Mitigation Google Doc](https://docs.google.com/document/d/1-oQ4ajU6W9XvK9kMU9fiHc9EGryhhc9Awz3sKuWzotQ/edit?usp=share_link)
 
 [Risk Assessment and Mitigation PDF]({{page.risk_pdf}})
 
-**Implementation**
-
+### Implementation
 [Implementation Google Doc](https://docs.google.com/document/d/1rC9LAZ9OATbIcQgagMG_clQ7LpItRECm9ADfuPLFHQc/edit?usp=share_link)
 
 [Implementation PDF]({{page.impl_pdf}})
-
-</ul>
