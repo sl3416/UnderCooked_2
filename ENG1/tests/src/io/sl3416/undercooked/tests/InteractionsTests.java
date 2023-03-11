@@ -1,21 +1,21 @@
-package io.sl3416.undercooked.tests;
-
+//package io.sl3416.undercooked.tests;
+//
 //import io.dimitris.gemo.Castle;
 //import io.dimitris.gemo.World;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
-@RunWith(GdxTestRunner.class)
-public class InteractionsTests {
-
-    @Test
-    public void testGrabbing() {
-
-    }
+//
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertFalse;
+//
+//@RunWith(GdxTestRunner.class)
+//public class InteractionsTests {
+//
+//    @Test
+//    public void testGrabbing() {
+//
+//    }
 //	@Test
 //	public void testDamageCastle() {
 //		World world = new World();
@@ -41,4 +41,4 @@ public class InteractionsTests {
 //		castle.damage();
 //
 //	}
-}
+//}
