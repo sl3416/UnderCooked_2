@@ -190,7 +190,6 @@ public class PreparationStation extends Station {
                     inUse = true;
                     state = StationState.PREPARING;
                     if(PowerupStatic.powerups.get("CookingSpeedIncr") == Boolean.TRUE && interaction.getSpeed() != -1){
-                        System.out.println("Hello");
                         float newSpeed = 35F;
                         interaction.setSpeed(newSpeed);
                     }

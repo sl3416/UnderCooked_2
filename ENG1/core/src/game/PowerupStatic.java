@@ -15,7 +15,7 @@ public class PowerupStatic {
         powerups.put("NewStationsCostDecr", Boolean.FALSE);
     }
 
-    public void resetPowerups(){
+    public static void resetPowerups(){
         powerups.put("SpeedIncr", Boolean.FALSE);
         powerups.put("CookingSpeedIncr", Boolean.FALSE);
         powerups.put("MoneyIncr", Boolean.FALSE);

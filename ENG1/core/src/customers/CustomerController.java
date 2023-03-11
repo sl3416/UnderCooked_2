@@ -130,6 +130,7 @@ public class CustomerController {
         // Then, if it has a customer, set the customer of the station
         // to null.
         station.setCustomer(null);
+        gameScreen.spawnPowerup();
     }
 
     /**

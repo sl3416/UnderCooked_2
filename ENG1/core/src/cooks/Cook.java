@@ -142,7 +142,7 @@ public class Cook extends GameEntity {
         }
 
         if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
-            this.speed = 20F;
+            this.speed = 15F;
         }
 
         body.setLinearVelocity(velX * speed,velY * speed);

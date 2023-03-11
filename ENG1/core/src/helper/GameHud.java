@@ -1,17 +1,30 @@
 package helper;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import customers.Customer;
 import food.FoodItem;
 import food.FoodStack;
 import food.Recipe;
 import game.GameScreen;
 import game.GameSprites;
+import game.PowerupStatic;
 
+import java.util.Random;
 import java.util.concurrent.LinkedBlockingDeque;
 
 // import java.awt.*;
@@ -24,6 +37,9 @@ public class GameHud extends Hud {
     Label CustomerLabel;
     Label CustomerScore;
     Label playerMoney;
+
+    ImageButton powerup;
+
     /** The {@link SpriteBatch} of the GameHud. Use for drawing {@link food.Recipe}s. */
     private SpriteBatch batch;
     /** The {@link FoodStack} that the {@link GameHud} should render. */
@@ -52,6 +68,9 @@ public class GameHud extends Hud {
         table.add(CustomerLabel).expandX().padTop(80).padRight(60);
         table.add(timeLabel).expandX().padTop(80).padLeft(60);
         table.add(playerMoney).expandX().padTop(80).padLeft(60);
+
+        Gdx.input.setInputProcessor(stage);
+
 
         this.batch = batch;
     }
@@ -158,5 +177,30 @@ public class GameHud extends Hud {
 
     public void updateMoney(int newMoney){
         playerMoney.setText("MONEY: " + newMoney);
+    }
+
+    public void showNewPowerup(final String powerupName, String powerupFileString){
+        powerupFileString = "ENG1/assets/powerups/" + powerupFileString + ".png";
+        Texture texture = new Texture(Gdx.files.internal(powerupFileString));
+        TextureRegion region = new TextureRegion(texture, 0, 0, 16, 16);
+        powerup = new ImageButton(new TextureRegionDrawable(region));
+        stage.addActor(powerup);
+        Random rand = new Random();
+        int randX = rand.nextInt(100, 800);
+        int randY = rand.nextInt(100, 500);
+        powerup.setPosition(randX, randY);
+        powerup.setTransform(Boolean.TRUE);
+        powerup.scaleBy(3f);
+        powerup.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                //System.out.println("Up");
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                PowerupStatic.powerups.put(powerupName, Boolean.TRUE);
+                powerup.setPosition(-100f, -100f);
+                return true;
+            }});
     }
 }
