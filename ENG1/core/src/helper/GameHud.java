@@ -27,6 +27,8 @@ import game.PowerupStatic;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingDeque;
 
+import static game.GameScreen.repPoints;
+
 // import java.awt.*;
 
 /** Responsible for displaying information above the gameplay GameScreen. */
@@ -38,6 +40,7 @@ public class GameHud extends Hud {
     Label CustomerScore;
     Label playerMoney;
 
+    Label repLabel;
     ImageButton powerup;
 
     /** The {@link SpriteBatch} of the GameHud. Use for drawing {@link food.Recipe}s. */
@@ -63,11 +66,14 @@ public class GameHud extends Hud {
 
         CustomerLabel = new Label("CUSTOMERS LEFT:", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
 
+        repLabel = new Label("REPUTATION:",new Label.LabelStyle(new BitmapFont(),Color.BLACK));
+
         playerMoney = new Label("MONEY: 0", new Label.LabelStyle(new BitmapFont(), Color.BLACK));
 
         table.add(CustomerLabel).expandX().padTop(80).padRight(60);
         table.add(timeLabel).expandX().padTop(80).padLeft(60);
         table.add(playerMoney).expandX().padTop(80).padLeft(60);
+        table.add(repLabel).expandX().padTop(80).padRight(60);
 
         Gdx.input.setInputProcessor(stage);
 
@@ -155,6 +161,10 @@ public class GameHud extends Hud {
     public void updateTime(int hoursPassed, int minutesPassed, int secondsPassed)
     {
         timeLabel.setText("TIMER: " + String.format(Util.formatTime(hoursPassed,minutesPassed,secondsPassed)));
+    }
+
+    public void updateRep(){
+        repLabel.setText(String.format("REPUTATION: %d",repPoints));
     }
 
     /**

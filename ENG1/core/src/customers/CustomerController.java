@@ -19,11 +19,11 @@ import java.util.Random;
 public class CustomerController {
 
     /** An {@link Array} of {@link Customer}s currently waiting. */
-    private Array<Customer> customers;
+    public static Array<Customer> customers;
     /** The {@link Sprite} of the {@link Customer}. */
     private static Sprite customerSprite;
     /** An array of all {@link ServingStation}s to assign to the {@link Customer}s.*/
-    private static Array<ServingStation> servingStations;
+    public static Array<ServingStation> servingStations;
     /** The number of {@link Customer}s to spawn. */
     private int customersLeft,
     /** The number of {@link Customer}s served. */
