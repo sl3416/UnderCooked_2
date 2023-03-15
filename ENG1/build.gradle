@@ -41,7 +41,16 @@ allprojects {
 project(":core") {
     apply plugin: "java-library"
     apply plugin: "jacoco"
+    apply plugin: "checkstyle"
 
+    def checkstyleVersion = '10.4'
+
+    checkstyle {
+        toolVersion "${checkstyleVersion}"
+    }
+    configurations{
+        checkstyleRules
+    }
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -66,6 +75,13 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-
+        checkstyleRules(
+                "com.badlogicgames.gdx:checkstyle:${checkstyleVersion}") {
+            transitive = false
+        }
+    }
+    checkstyle{
+        config = resources.text.fromArchieveEntry(
+                configurations.checkstyleRules, 'google_checks.xml')
     }
 }
