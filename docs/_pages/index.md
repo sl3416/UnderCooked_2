@@ -29,30 +29,27 @@ Below is a link to the GitHub Repository we've been developing our game in:
 ## The Team
 Details for all the team members can be found here:
 <ul>
-<li>Fin Cochrane   - ftc505@york.ac.uk</li>
-<li>Sehran Ahmed   - rsa533@york.ac.uk</li>
-<li>Sam Davis      - sd1598@york.ac.uk</li>
-<li>Hamza Salman   - hs1955@york.ac.uk</li>
-<li>Owen Thomas    - obt503@york.ac.uk</li>
-<li>Zhenyi Xu      - zx1090@york.ac.uk</li>
+<li>Kate Clough      - mc2434@york.ac.uk</li>
+<li>Matthew Cook     - mc2092@york.ac.uk</li>
+<li>Will Duffy       - wamd501@york.ac.uk</li>
+<li>Asude Erturhan   - ae1000@york.ac.uk</li>
+<li>Sarah Lee        - sl3416@york.ac.uk</li>
+<li>Jack Stuart      - jaks500@york.ac.uk</li>
 </ul>
 
 ## Requirements:
-[Requirements Google Doc](https://docs.google.com/document/d/17tcN_Xeo0Gzz8ficlVVp_1x0h8Q2EDLzrCXvKtgHNlw/edit?usp=share_link)
+[Requirements Google Doc](https://docs.google.com/document/d/1U10pYqpnFEOFvTqjr75mNZOtPafVNyCxo7dA3HXA9q8/edit?usp=sharing)
 
 [Requirements PDF]({{page.req_pdf}})
 
 ## Architecture:
-[Architecture Google Doc](https://docs.google.com/document/d/11IZyqiyvOG_iuKlP9LPBgSTnA8E4lxPNE8mAL1pA26s/edit?usp=sharing)
+[Architecture Google Doc](https://docs.google.com/document/d/1cUhvQSFHhEjslsz5975cgQz8ryiizfib4d6yX2QRgI8/edit?usp=sharing)
 
 [Architecture PDF]({{page.arch_pdf}})
 
-Below are UML images showcasing our development process for the Final Architecture Design (for Assessment 1).
-You can also find all the images here:
+Below are UML images showcasing our development process for the Final Architecture Design (for Assessment 1). 
 
-[Google Drive: https://drive.google.com/drive/folders/1KE2M_o6zdMu1JZjFEnv3oIxf5IxwgiiC](https://drive.google.com/drive/folders/1KE2M_o6zdMu1JZjFEnv3oIxf5IxwgiiC)
-
-[GitHub: https://github.com/undercooked-team/UnderCooked/tree/main/ENG1/SUBMITTABLES/Architecture](https://github.com/undercooked-team/UnderCooked/tree/main/ENG1/SUBMITTABLES/Architecture)
+You can also find all the images here: [GitHub](https://github.com/sl3416/UnderCooked_2/tree/main/ENG1/SUBMITTABLES)
 
 ### Use-case Diagram:
 The below summarises the general outcome of this project:
@@ -75,7 +72,7 @@ We quickly realised how limited our initial UML was surrounding the **gameMaster
 - **GameSprites** is responsible for holding multiple sprites to render.
 - **gameMaster** branched off into 2 classes:
   - **ScreenController** is responsible for switching between the main, pause, instructions, credits, gameplay-screen and game-over screen.
-  - **GameScreen** is the gameplay-screen. It contiains various methods and attributes to allow for gameplay, including **mapHelper** related methods.
+  - **GameScreen** is the gameplay-screen. It contains various methods and attributes to allow for gameplay, including **mapHelper** related methods.
 
 ### Addition 2: Food
 ![Food UML](https://raw.githubusercontent.com/undercooked-team/UnderCooked/main/ENG1/SUBMITTABLES/Architecture/food.png)
@@ -121,16 +118,56 @@ These classes were also not present in our initial UML, and we realised this a w
 - **Constants** simply contained some global values.
   
 ## Method Selection and Planning
-[Method Selection and Planning Google Doc](https://docs.google.com/document/d/1KpzhVRxdkBJPyYyQxW3aTuWMCYpDrK8jtEIiyoh-2Rw/edit?usp=share_link)
+[Method Selection and Planning Google Doc](https://docs.google.com/document/d/1FmDkTLG_bqiYZRvsn24eZqWhwerjy4e7rNOc5o1vBJA/edit?usp=sharing)
 
 [Method Selection and Planning PDF]({{page.plan_pdf}})
 
 ## Risk Assessment and Mitigation
-[Risk Assessment and Mitigation Google Doc](https://docs.google.com/document/d/1-oQ4ajU6W9XvK9kMU9fiHc9EGryhhc9Awz3sKuWzotQ/edit?usp=share_link)
+[Risk Assessment and Mitigation Google Doc](https://docs.google.com/document/d/1DtQvfPZnewUNR0Ilkky4L5rJMWlBsTqstz5U0nyFQsQ/edit?usp=sharing)
 
 [Risk Assessment and Mitigation PDF]({{page.risk_pdf}})
 
 ## Implementation
+[Implementation Google Doc](https://docs.google.com/document/d/1i-tfrvSZVNdZKVHKRos6eXhcXcg9NQY0X8W7GVdkWyw/edit?usp=sharing)
+
+[Implementation PDF]({{page.impl_pdf}})
+
+## Original Credits
+Credits to the previous team who worked on the project. Details for all the team members can be found here:
+<ul>
+<li>Fin Cochrane   - ftc505@york.ac.uk</li>
+<li>Sehran Ahmed   - rsa533@york.ac.uk</li>
+<li>Sam Davis      - sd1598@york.ac.uk</li>
+<li>Hamza Salman   - hs1955@york.ac.uk</li>
+<li>Owen Thomas    - obt503@york.ac.uk</li>
+<li>Zhenyi Xu      - zx1090@york.ac.uk</li>
+</ul>
+
+### Links to Original Deliverables
+### Website:
+[Website](https://undercooked-team.github.io/UnderCooked/)
+
+### Requirements:
+[Requirements Google Doc](https://docs.google.com/document/d/17tcN_Xeo0Gzz8ficlVVp_1x0h8Q2EDLzrCXvKtgHNlw/edit?usp=share_link)
+
+[Requirements PDF]({{page.req_pdf}})
+
+### Architecture:
+[Architecture Google Doc](https://docs.google.com/document/d/11IZyqiyvOG_iuKlP9LPBgSTnA8E4lxPNE8mAL1pA26s/edit?usp=sharing)
+
+[Architecture PDF]({{page.arch_pdf}})
+
+### Method Selection and Planning
+[Method Selection and Planning Google Doc](https://docs.google.com/document/d/1KpzhVRxdkBJPyYyQxW3aTuWMCYpDrK8jtEIiyoh-2Rw/edit?usp=share_link)
+
+[Method Selection and Planning PDF]({{page.plan_pdf}})
+
+### Risk Assessment and Mitigation
+[Risk Assessment and Mitigation Google Doc](https://docs.google.com/document/d/1-oQ4ajU6W9XvK9kMU9fiHc9EGryhhc9Awz3sKuWzotQ/edit?usp=share_link)
+
+[Risk Assessment and Mitigation PDF]({{page.risk_pdf}})
+
+### Implementation
 [Implementation Google Doc](https://docs.google.com/document/d/1rC9LAZ9OATbIcQgagMG_clQ7LpItRECm9ADfuPLFHQc/edit?usp=share_link)
 
 [Implementation PDF]({{page.impl_pdf}})

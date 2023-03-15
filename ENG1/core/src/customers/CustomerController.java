@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 import food.Recipe;
 import game.GameScreen;
 import game.GameSprites;
+import game.PowerupStatic;
 import stations.ServingStation;
 
 import java.util.Random;
@@ -18,11 +19,11 @@ import java.util.Random;
 public class CustomerController {
 
     /** An {@link Array} of {@link Customer}s currently waiting. */
-    private Array<Customer> customers;
+    public static Array<Customer> customers;
     /** The {@link Sprite} of the {@link Customer}. */
     private static Sprite customerSprite;
     /** An array of all {@link ServingStation}s to assign to the {@link Customer}s.*/
-    private static Array<ServingStation> servingStations;
+    public static Array<ServingStation> servingStations;
     /** The number of {@link Customer}s to spawn. */
     private int customersLeft,
     /** The number of {@link Customer}s served. */
@@ -47,6 +48,7 @@ public class CustomerController {
         this.customerSprite.setSize(42.5F,70);
         this.servingStations = new Array<>();
         this.gameScreen = gameScreen;
+        this.payment = 20;
     }
 
     /**
@@ -128,6 +130,7 @@ public class CustomerController {
         // Then, if it has a customer, set the customer of the station
         // to null.
         station.setCustomer(null);
+        gameScreen.spawnPowerup();
     }
 
     /**
@@ -196,7 +199,11 @@ public class CustomerController {
             return;
         }
         removeCustomer(station);
-        gameScreen.increaseCurrentMoney(payment);
+        if(PowerupStatic.powerups.get("MoneyIncr") == Boolean.TRUE){
+            gameScreen.increaseCurrentMoney(payment + 15);
+        } else {
+            gameScreen.increaseCurrentMoney(payment);
+        }
         payment += 2; //Just makes it so this variable isn't constant
         customersServed++;
         gameScreen.setCustomerHud(customersServed);

@@ -16,6 +16,7 @@ import helper.Constants;
 import helper.Util;
 import interactions.InputKey;
 import interactions.Interactions;
+import static game.GameScreen.youLose;
 
 /**
  * The {@link GameOverScreen}, which shows once the player
@@ -30,6 +31,7 @@ public class GameOverScreen extends ScreenAdapter {
     private Stage stage;
 
     private Label timeLabel;
+    private Label gameOverLabel;
 
     /**
      * The constructor for the {@link GameOverScreen}.
@@ -50,7 +52,8 @@ public class GameOverScreen extends ScreenAdapter {
         table.center();
         table.setFillParent(true);
 
-        Label gameOverLabel = new Label("GAME OVER", font);
+
+        gameOverLabel = new Label("GAME OVER", font);
         gameOverLabel.setFontScale(3);
         table.add(gameOverLabel).expandX();
 
@@ -117,5 +120,10 @@ public class GameOverScreen extends ScreenAdapter {
      */
     public void setTime(int hours, int minutes, int seconds) {
         timeLabel.setText(Util.formatTime(hours,minutes,seconds));
+    }
+
+    public void setWin(boolean youLose){
+        if(youLose){gameOverLabel.setText("GAME OVER : YOU LOSE...");}
+        else{gameOverLabel.setText("GAME OVER : YOU WIN!");}
     }
 }
