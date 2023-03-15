@@ -4,12 +4,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.TimeUtils;
 import cooks.GameEntity;
 import food.FoodStack;
 import food.Recipe;
 import game.GameScreen;
 import helper.Constants;
+import stations.ServingStation;
+import stations.Station;
+
 import java.util.Random;
+import static game.GameScreen.customerController;
 
 /**
  * A {@link Customer} has a request that they want
@@ -24,6 +30,8 @@ public class Customer {
     /** The name of the {@link Recipe} that the {@link Customer}
      * is requesting. */
     private String request;
+    private long spawnTime;
+    private int timeLimit;
 
     /**
      * The constructor for the {@link Customer}.
@@ -36,6 +44,8 @@ public class Customer {
         this.sprite = sprite;
         this.position = Constants.customerSpawn;
         this.request = Recipe.randomRecipe();
+        this.spawnTime = TimeUtils.millis();
+        this.timeLimit = 30;
     }
 
     /**
@@ -86,5 +96,23 @@ public class Customer {
      */
     public String getRequestName() {
         return request;
+    }
+
+    public void update(){
+        long timeElapsed = TimeUtils.timeSinceMillis(spawnTime);
+        if(timeElapsed >= timeLimit*1000){
+            customerController.removeCustomer(this.getStation());
+            GameScreen.repPoints -= 1;
+        }
+    }
+
+    public ServingStation getStation(){
+        Array<ServingStation> stations = new Array<>(CustomerController.servingStations);
+        for (int i = stations.size - 1 ; i >= 0 ; i--) {
+            if (stations.get(i).getCustomer() == this) {
+                return(stations.get(i));
+            }
+        }
+        return null;
     }
 }

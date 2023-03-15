@@ -1,7 +1,7 @@
 package game;
 
 import customers.Customer;
-
+import static customers.CustomerController.customers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -27,12 +27,13 @@ import interactions.Interactions;
 import stations.CookInteractable;
 import stations.ServingStation;
 
-import java.util.Comparator;
+import java.util.*;
 
 /** A {@link ScreenAdapter} containing certain elements of the game. */
 public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private int delay;
+    public static boolean youLose;
 
     private long previousSecond = 0, lastCustomerSecond = 0, nextCustomerSecond = 0;
     private int secondsPassed = 0, minutesPassed = 0, hoursPassed = 0;
@@ -60,10 +61,18 @@ public class GameScreen extends ScreenAdapter {
     private Cook cook;
 
     private int cookIndex;
-    private CustomerController customerController;
+    public static CustomerController customerController;
     private int customersToServe;
 
+    //this file is being used as a "GameManager" too as there is one instance of this script.
     public int currentMoney;
+    public static int repPoints;
+
+    public String[] powerupStrings = {"SpeedIncr", "CookingSpeedIncr", "MoneyIncr", "CustomerTimerIncr", "NewStationsCostDecr"};
+    public String[] powerupFileStrings = {"speed", "cookingSpeed", "money", "time", "stations"};
+    public Boolean testBool = Boolean.TRUE;
+    public HashMap<String, Boolean> powerupMemory;
+    public int powerupCounter;
 
     /**
      * The constructor for the {@link GameScreen}.
@@ -96,6 +105,17 @@ public class GameScreen extends ScreenAdapter {
         this.gameHud = new GameHud(batch, this);
         this.instructionHUD = new InstructionHud(batch);
         this.currentMoney = 0;
+        this.repPoints = 3;
+
+        this.powerupCounter = 0;
+        powerupMemory = new HashMap<String, Boolean>();
+        powerupMemory.put("SpeedIncr", Boolean.FALSE);
+        powerupMemory.put("CookingSpeedIncr", Boolean.FALSE);
+        powerupMemory.put("MoneyIncr", Boolean.FALSE);
+        powerupMemory.put("CustomerTimerIncr", Boolean.FALSE);
+        powerupMemory.put("NewStationsCostDecr", Boolean.FALSE);
+
+        this.youLose = false;
 
     }
 
@@ -108,6 +128,10 @@ public class GameScreen extends ScreenAdapter {
 
         // First thing, update all inputs
         Interactions.updateKeys();
+
+        if( repPoints <= 0 ){
+            youLose = true;
+        }
 
         long diffInMillis = TimeUtils.timeSinceMillis(previousSecond);
         if (diffInMillis >= 1000) {
@@ -123,7 +147,14 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
+        if(secondsPassed == 1 && testBool == Boolean.TRUE){
+            testBool = Boolean.FALSE;
+            spawnPowerup();
+        }
+
+
         gameHud.updateTime(hoursPassed, minutesPassed, secondsPassed);
+        gameHud.updateRep();
         cameraUpdate();
         orthogonalTiledMapRenderer.setView(camera);
         batch.setProjectionMatrix(camera.combined);
@@ -160,6 +191,9 @@ public class GameScreen extends ScreenAdapter {
         for (GameEntity entity : gameEntities) {
             entity.update(delta);
         }
+        for (Customer customer : customers){
+            customer.update();
+        }
     }
 
     /**
@@ -183,10 +217,11 @@ public class GameScreen extends ScreenAdapter {
 
         renderGame(delta);
 
-        if(customersToServe <= customerController.getCustomersServed())
+        if(customersToServe <= customerController.getCustomersServed() || youLose == true)
         {
             screenController.setScreen((ScreenController.ScreenID.GAMEOVER));
             ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setTime(hoursPassed,minutesPassed,secondsPassed);
+            ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setWin(youLose);
         }
     }
 
@@ -386,6 +421,9 @@ public class GameScreen extends ScreenAdapter {
         this.world = new World(new Vector2(0,0), false);
         this.orthogonalTiledMapRenderer = mapHelper.setupMap();
         cookIndex = -1;
+        PowerupStatic.resetPowerups();
+        powerupMemory.clear();
+        powerupCounter = 0;
     }
 
     /**
@@ -435,5 +473,19 @@ public class GameScreen extends ScreenAdapter {
     public void increaseCurrentMoney(int toAdd){
         currentMoney += toAdd;
         gameHud.updateMoney(currentMoney);
+    }
+
+    public void spawnPowerup(){
+        Random rand = new Random();
+        int i = rand.nextInt(5);
+        if(powerupCounter != 5) {
+            while (powerupMemory.get(powerupStrings[i]) == Boolean.TRUE) {
+                i = rand.nextInt(5);
+            }
+
+            gameHud.showNewPowerup(powerupStrings[i], powerupFileStrings[i]);
+            powerupMemory.put(powerupStrings[i], Boolean.TRUE);
+            powerupCounter += 1;
+        }
     }
 }

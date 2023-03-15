@@ -9,6 +9,7 @@ import cooks.Cook;
 import food.FoodItem;
 import game.GameScreen;
 import game.GameSprites;
+import game.PowerupStatic;
 import interactions.InputKey;
 import interactions.Interactions;
 
@@ -64,11 +65,11 @@ public class PreparationStation extends Station {
 
                             //New Matt Code
                             tempDelta += delta;
-                            if(tempDelta > 6F){
+                            if(tempDelta > 6F && foodItem == FoodItem.FoodID.meat){
                                 interaction.setResult(FoodItem.FoodID.burntPatty);
                                 foodItem = FoodItem.FoodID.burntPatty;
                                 progress = 100F;
-
+                                tempDelta = 0F;
                             //End New Matt Code
                             }
                         } else {
@@ -188,6 +189,16 @@ public class PreparationStation extends Station {
                     progress = 0;
                     inUse = true;
                     state = StationState.PREPARING;
+                    if(PowerupStatic.powerups.get("CookingSpeedIncr") == Boolean.TRUE && interaction.getSpeed() != -1){
+                        float newSpeed = 35F;
+                        interaction.setSpeed(newSpeed);
+                    }
+                    /*
+                    if(gameScreen.powerups.get("SpeedIncr") == Boolean.TRUE && interaction.getSpeed() != -1){
+                        interaction.setSpeed(speed / 2);
+                    }
+                    */
+
 
                     // If the speed is -1, immediately set the progress to the first step.
                     float[] steps = interaction.getSteps();
