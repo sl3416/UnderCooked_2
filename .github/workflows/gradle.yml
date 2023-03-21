@@ -97,4 +97,4 @@ jobs:
         uses: actions/upload-artifact@v3.1.1
         with:
           name: checkstyle-report
-          path: ENG1/tests/build.gradle/checkstyle
+          path: ENG1/core/build/libs/reports/checkstyle
