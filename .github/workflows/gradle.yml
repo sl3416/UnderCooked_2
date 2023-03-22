@@ -5,39 +5,40 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+ name: Java CI with Gradle
 
-on: # when to run the workflow
-  push: # when pushing to main branch
+ on:
+  push:
     branches: [ "main" ]
     tags: ["v[0-9]+.[0-9]+.[0-9]+"]
-  pull_request: # when pushing to a main
+  pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
+  permissions:
+    contents: read
 
-jobs: # what to do
-  build: # name of our only job for now
+ jobs:
+  build:
     strategy:
       matrix:
-        os: [ ubuntu-22.04, windows-2022, macos-12 ]
+        os: [ubuntu-22.04, windows-2022, macos-12]
     runs-on: ${{ matrix.os }}
+    ##runs-on: ubuntu-latest
 
     permissions:
       contents: read
 
-    steps: # specific actions to take
+    steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
-        java-version: '11'
-        distribution: 'temurin'
+          java-version: '11'
+          distribution: 'temurin'
     - name: Gradle Build Action
-      # You may pin to the exact commit or the version.
-      # uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
+        # You may pin to the exact commit or the version.
       uses: gradle/gradle-build-action@v2.3.3
+        #uses: gradle/gradle-build-action@v2.3.3
       with:
         # Gradle version to use
         # gradle-version: # optional
@@ -76,28 +77,44 @@ jobs: # what to do
       uses: actions/upload-artifact@v3.1.1
       with:
         name: jacoco-report-${{ matrix.os }}
-        path: ..testing env/build/reports/jacoco/test/html/
-    # Add binary artifacts - Adding JAR upload to GHA workflow
+        path: ENG1/core/build/reports/jacoco/test/html/
     - name: Upload library JAR
       uses: actions/upload-artifact@v3.1.1
       with:
-        name: lib.jar
+        name: lib-${{ matrix.os }}.jar
         path: ENG1/core/build/libs/lib.jar
+    - name: Upload Checkstyle report
+      uses: actions/upload-artifact@v3.1.1
+      if: startsWith(matrix.os, 'ubuntu')
+      with:
+        name: checkstyle-report
+        path: ENG1/core/build/libs/reports/checkstyle
+
 
   release:
-    runs-on: ubuntu-22.04
-    needs: ["build"]
-    if: startsWith(github.ref,'reds/tags/')
+      runs-on: ubuntu-22.04
+      needs: [ "build" ]
+      if: startsWith(github.ref,'refs/tags/')
 
-    permissions:
-      contents: write
+      permissions:
+        contents: write
 
-    steps:
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v3.0.1
-      with:
-        name: lib.jar
-    - name: Release
-      uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
-      with:
-        files: lib.jar
+      steps:
+      - name: Download Ubuntu Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with: { name: lib-ubuntu-22.04.jar }
+      - name: Rename Ubuntu Build Artifact
+        run: mv lib.jar lib-ubuntu.jar
+      - name: Download MacOS Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with: { name: lib-macos-12.jar }
+      - name: Rename MacOS Build Artifact
+        run: mv lib.jar lib-macos.jar
+      - name: Download Windows Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with: {  name: lib-windows-2022.jar }
+      - name: Rename Windows Build Artifact
+        run: mv lib.jar lib-windows.jar
+      - name: Release
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
+        with: { files: lib*.jar }
