@@ -74,6 +74,8 @@ public class GameScreen extends ScreenAdapter {
     public HashMap<String, Boolean> powerupMemory;
     public int powerupCounter;
 
+    public static boolean endless;
+
     /**
      * The constructor for the {@link GameScreen}.
      * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
@@ -96,6 +98,7 @@ public class GameScreen extends ScreenAdapter {
         this.gameEntities = new Array<>();
         this.drawQueueComparator = new DrawQueueComparator();
         this.customerController = new CustomerController(this);
+
 
         this.world = new World(new Vector2(0,0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
@@ -170,9 +173,9 @@ public class GameScreen extends ScreenAdapter {
         }
 
         // Spawning code to spawn a customer after an amount of time.
-        /*if(TimeUtils.millis() >= nextCustomerSecond)
+        if(TimeUtils.millis() >= nextCustomerSecond)
         {
-            int recipeComplexity = customerController.addCustomer();
+            int recipeComplexity = customerController.addCustomer(GameScreen.endless);
             if (recipeComplexity == -1) {
                 // If customer couldn't be added, then wait 2 seconds.
                 nextCustomerSecond += 2000;
@@ -181,7 +184,7 @@ public class GameScreen extends ScreenAdapter {
                 lastCustomerSecond = TimeUtils.millis();
                 nextCustomerSecond += 1000 * Math.floor(9 + 5.4F * Math.log(recipeComplexity - 0.7));
             }
-        }*/
+        }
 
         if(Interactions.isJustPressed(InputKey.InputTypes.PAUSE))
         {
@@ -325,7 +328,12 @@ public class GameScreen extends ScreenAdapter {
      *                      {@link Customer}s to.
      */
     public void setCustomerHud(int customerCount) {
-        gameHud.setCustomerCount(customersToServe - customerCount);
+        if (endless == false) {
+            gameHud.setCustomerCount(customersToServe - customerCount);
+        }
+        else {
+            gameHud.setCustomerCount(customerCount);
+        }
     }
 
     /**
@@ -428,25 +436,29 @@ public class GameScreen extends ScreenAdapter {
 
     /**
      * A variable for setting up the game when it starts.
+     *
      * @param customers The number of customers that need to be
      *                  served in the game to finish.
+     *
      */
-    public void startGame(int customers) {
+    public void startGame(int customers, boolean endless) {
         secondsPassed = 0;
         minutesPassed = 0;
         hoursPassed = 0;
-
         previousSecond = TimeUtils.millis();
         lastCustomerSecond = TimeUtils.millis();
         nextCustomerSecond = TimeUtils.millis()+2000;
+
+        GameScreen.endless = endless;
 
         gameHud.setRecipe(null);
         customersToServe = customers;
         customerController.setCustomersLeft(customers);
         customerController.setCustomersServed(0);
-        customerController.addCustomer();
+        customerController.addCustomer(GameScreen.endless);
         setCustomerHud(customers);
         gameHud.setCustomerCount(customers);
+
     }
 
     /**

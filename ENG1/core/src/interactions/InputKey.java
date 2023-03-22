@@ -12,10 +12,14 @@ public class InputKey {
     /** All the different inputs available in the game. */
     public enum InputTypes {
         // MENU
-        /** Starting the game, {@link GameScreen#startGame(int)}. */
+        /** Starting the game, {@link GameScreen#startGame(int, boolean)}. */
         START_GAME,
         /** Resetting the game, {@link ScreenController#resetGameScreen()} and {@link GameScreen#reset()}. */
         RESET_GAME,
+        /**   */
+        STARTS_GAME,
+        /**  */
+        STARTE_GAME,
         /** Opening the {@link game.InstructionScreen}. */
         INSTRUCTIONS,
         /** Pausing the game, {@link ScreenController#pauseGameScreen()} .*/

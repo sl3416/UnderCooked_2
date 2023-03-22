@@ -79,10 +79,13 @@ public class CustomerController {
      *                       <br>It is -1 if the {@link Customer} fails
      *                       to spawn.
      */
-    public int addCustomer() {
+    public int addCustomer(boolean endlesss) {
         // If there are no more customers left to serve, then don't bother
-        if (customersLeft <= 0) {
-            return -1;
+        if (GameScreen.endless == false) {
+
+            if (customersLeft <= 0) {
+                return -1;
+            }
         }
         // Get a deep copy of all the ServingStations.
         Array<ServingStation> emptyStations = new Array<>(servingStations);
@@ -110,9 +113,14 @@ public class CustomerController {
         chosenStation.setCustomer(newCustomer);
         // Show the Customer's recipe
         gameScreen.getGameHud().setRecipe(newCustomer);
+        if (GameScreen.endless == true) {
+            return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
+        }
+        else {
+            customersLeft--;
+            return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
+        }
 
-        customersLeft--;
-        return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
     }
 
     /**
@@ -210,7 +218,7 @@ public class CustomerController {
 
         // If there are any customers left, spawn a new one.
         if (customersLeft > 0) {
-            addCustomer();
+            addCustomer(GameScreen.endless);
         }
 
         // BELOW IS CODE FOR CUSTOMER SPAWNING.
