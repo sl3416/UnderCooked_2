@@ -87,7 +87,7 @@
         path: ENG1/core/build/libs/reports/checkstyle
 
 
-    release:
+  release:
       run-on: ubuntu-22.04
       needs: [ "build" ]
       if: startWith(github.ref,'reds/tags/')
