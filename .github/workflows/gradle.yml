@@ -32,10 +32,10 @@
       with:
           java-version: '11'
           distribution: 'temurin'
-    - name: Gradle Build Action
+    - name: Build with Gradle
         # You may pin to the exact commit or the version.
-        # uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
-      uses: gradle/gradle-build-action@v2.3.3
+      uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
+        #uses: gradle/gradle-build-action@v2.3.3
       with:
         # Gradle version to use
         # gradle-version: # optional
@@ -70,7 +70,7 @@
         # workflow-job-context: # optional, default is ${{ toJSON(matrix) }}
         # When 'true', the action will attempt to remove any stale/unused entries from the Gradle User Home prior to saving to the GitHub Actions cache.
         # gradle-home-cache-cleanup: # optional
-    - name: Upload JaCoCO coverage report
+    - name: Upload JaCoCO coverage report as a workflow artifact
       uses: actions/upload-artifact@v3.1.1
       with:
         name: jacoco-report-${{ matrix.os }}
@@ -82,6 +82,7 @@
         path: ENG1/core/build/libs/lib.jar
     - name: Upload Checkstyle report
       uses: actions/upload-artifact@v3.1.1
+      if: startsWith(matrix.os, 'ubuntu')
       with:
         name: checkstyle-report
         path: ENG1/core/build/libs/reports/checkstyle
@@ -90,7 +91,7 @@
   release:
       runs-on: ubuntu-22.04
       needs: [ "build" ]
-      if: startWith(github.ref,'reds/tags/')
+      if: startsWith(github.ref,'refs/tags/')
 
       permissions:
         contents: write
