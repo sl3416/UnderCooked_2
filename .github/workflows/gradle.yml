@@ -37,7 +37,7 @@
           distribution: 'temurin'
     - name: Gradle Build Action
         # You may pin to the exact commit or the version.
-      uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
+      uses: gradle/gradle-build-action@v2.3.3
         #uses: gradle/gradle-build-action@v2.3.3
       with:
         # Gradle version to use
