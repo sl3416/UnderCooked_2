@@ -196,8 +196,9 @@ public class GameHud extends Hud {
         powerup = new ImageButton(new TextureRegionDrawable(region));
         stage.addActor(powerup);
         Random rand = new Random();
-        int randX = rand.nextInt(100, 800);
+        //int randX = rand.nextInt(100, 800);
         int randY = rand.nextInt(100, 500);
+        int randX = rand.nextInt(800-100)+100;
         powerup.setPosition(randX, randY);
         powerup.setTransform(Boolean.TRUE);
         powerup.scaleBy(3f);
