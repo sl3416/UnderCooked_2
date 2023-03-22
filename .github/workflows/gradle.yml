@@ -35,8 +35,8 @@
     - name: Gradle Build Action
         # You may pin to the exact commit or the version.
         # uses: gradle/gradle-build-action@3fbe033aaae657f011f88f29be9e65ed26bd29ef
-    uses: gradle/gradle-build-action@v2.3.3
-    with:
+      uses: gradle/gradle-build-action@v2.3.3
+      with:
         # Gradle version to use
         # gradle-version: # optional
         # When 'true', all caching is disabled. No entries will be written to or read from the cache.
@@ -87,7 +87,7 @@
         path: ENG1/core/build/libs/reports/checkstyle
 
 
-    release:
+  release:
       run-on: ubuntu-22.04
       needs: [ "build" ]
       if: startWith(github.ref,'reds/tags/')
