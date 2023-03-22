@@ -197,7 +197,8 @@ public class GameHud extends Hud {
         stage.addActor(powerup);
         Random rand = new Random();
         //int randX = rand.nextInt(100, 800);
-        int randY = rand.nextInt(100, 500);
+        //int randY = rand.nextInt(100, 500);
+        int randY = rand.nextInt(500-100)+100;
         int randX = rand.nextInt(800-100)+100;
         powerup.setPosition(randX, randY);
         powerup.setTransform(Boolean.TRUE);
