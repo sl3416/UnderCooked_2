@@ -133,6 +133,19 @@ public class GameHud extends Hud {
             return;
         }
         this.recipe = Recipe.randomRecipeOption(customer.getRequestName());
+        if(this.recipe == Recipe.firstRecipeOption("Margherita Pizza")){
+            FoodStack pizzaIngred = new FoodStack();
+            pizzaIngred.addStack(FoodItem.FoodID.cheese);
+            pizzaIngred.addStack(FoodItem.FoodID.dough);
+            pizzaIngred.addStack(FoodItem.FoodID.tomatoChop);
+            this.recipe = pizzaIngred;
+        }
+        else if(this.recipe == Recipe.firstRecipeOption("Jacket Potato")){
+            FoodStack potatoIngred = new FoodStack();
+            potatoIngred.addStack(FoodItem.FoodID.cheese);
+            potatoIngred.addStack(FoodItem.FoodID.rawPotato);
+            this.recipe = potatoIngred;
+        }
     }
 
     /**

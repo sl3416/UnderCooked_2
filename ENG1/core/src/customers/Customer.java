@@ -45,7 +45,7 @@ public class Customer {
         this.position = Constants.customerSpawn;
         this.request = Recipe.randomRecipe();
         this.spawnTime = TimeUtils.millis();
-        this.timeLimit = 30;
+        this.timeLimit = 60;
     }
 
     /**
