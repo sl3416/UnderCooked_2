@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
-import javax.swing.plaf.nimbus.State;
-
 public class FileInteractor {
 
     public static FileInteractor INSTANCE;
