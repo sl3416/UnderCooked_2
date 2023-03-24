@@ -1,5 +1,6 @@
 package game;
 
+import com.badlogic.gdx.Input;
 import customers.Customer;
 import static customers.CustomerController.customers;
 import com.badlogic.gdx.Gdx;
@@ -27,6 +28,7 @@ import interactions.Interactions;
 import stations.CookInteractable;
 import stations.ServingStation;
 
+import java.security.Key;
 import java.util.*;
 
 /** A {@link ScreenAdapter} containing certain elements of the game. */
@@ -70,11 +72,13 @@ public class GameScreen extends ScreenAdapter {
 
     public String[] powerupStrings = {"SpeedIncr", "CookingSpeedIncr", "MoneyIncr", "CustomerTimerIncr", "NewStationsCostDecr"};
     public String[] powerupFileStrings = {"speed", "cookingSpeed", "money", "time", "stations"};
-    public Boolean testBool = Boolean.TRUE;
+    public Boolean testBool = Boolean.TRUE; //DO NOT DELETE
     public HashMap<String, Boolean> powerupMemory;
     public int powerupCounter;
 
     public static boolean endless;
+
+    public boolean testbool2 = true;
 
     /**
      * The constructor for the {@link GameScreen}.
@@ -120,6 +124,9 @@ public class GameScreen extends ScreenAdapter {
 
         this.youLose = false;
 
+        FileInteractor.getInstance();
+        StateOfGame.getInstance();
+
     }
 
     /**
@@ -128,7 +135,6 @@ public class GameScreen extends ScreenAdapter {
      */
     private void update(float delta)
     {
-
         // First thing, update all inputs
         Interactions.updateKeys();
 
@@ -150,6 +156,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
+        //This spawns the first powerup before a customer is served
         if(secondsPassed == 1 && testBool == Boolean.TRUE){
             testBool = Boolean.FALSE;
             spawnPowerup();
@@ -197,6 +204,8 @@ public class GameScreen extends ScreenAdapter {
         for (Customer customer : customers){
             customer.update();
         }
+
+        this.saveVariables();
     }
 
     /**
@@ -498,6 +507,29 @@ public class GameScreen extends ScreenAdapter {
             gameHud.showNewPowerup(powerupStrings[i], powerupFileStrings[i]);
             powerupMemory.put(powerupStrings[i], Boolean.TRUE);
             powerupCounter += 1;
+        }
+    }
+
+    public void saveVariables(){
+        StateOfGame.getInstance().customersLeft = customersToServe;
+        StateOfGame.getInstance().reputation = repPoints;
+        StateOfGame.getInstance().money = currentMoney;
+        StateOfGame.getInstance().endless = endless;
+
+        if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
+            StateOfGame.getInstance().powerups[0] = true;
+        }
+        if(PowerupStatic.powerups.get("CookingSpeedIncr") == Boolean.TRUE){
+            StateOfGame.getInstance().powerups[1] = true;
+        }
+        if(PowerupStatic.powerups.get("MoneyIncr") == Boolean.TRUE){
+            StateOfGame.getInstance().powerups[2] = true;
+        }
+        if(PowerupStatic.powerups.get("CustomerTimerIncr") == Boolean.TRUE){
+            StateOfGame.getInstance().powerups[3] = true;
+        }
+        if(PowerupStatic.powerups.get("NewStationsCostDecr") == Boolean.TRUE){
+            StateOfGame.getInstance().powerups[4] = true;
         }
     }
 }

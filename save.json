@@ -1,0 +1,20 @@
+{
+cooksFoodStacks: [
+	{}
+	{}
+	{}
+]
+countersFoodStacks: [
+	{}
+	{}
+]
+reputation: 3
+powerups: [
+	false
+	false
+	false
+	true
+	false
+]
+customersLeft: 3
+}

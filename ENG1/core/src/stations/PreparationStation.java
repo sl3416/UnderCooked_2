@@ -10,6 +10,7 @@ import food.FoodItem;
 import game.GameScreen;
 import game.GameSprites;
 import game.PowerupStatic;
+import game.StateOfGame;
 import interactions.InputKey;
 import interactions.Interactions;
 
@@ -24,18 +25,21 @@ public class PreparationStation extends Station {
     private Interactions.InteractionResult interaction;
     private float progress;
     private int stepNum;
-    private StationState state;
+    public StationState state;
 
     private float tempDelta;
 
     private GameScreen gameScreen;
 
+    public int saveID;
+
     /**
      * The constructor for the {@link PreparationStation}.
      * @param rectangle The collision and interaction area of the {@link PreparationStation}.
      */
-    public PreparationStation(Rectangle rectangle) {
+    public PreparationStation(Rectangle rectangle, int saveId) {
         super(rectangle);
+        this.saveID = saveId;
     }
 
     /**
@@ -88,6 +92,8 @@ public class PreparationStation extends Station {
                 state = StationState.FINISHED;
             }
         }
+
+        saveVariables();
     }
 
     /**
@@ -117,7 +123,7 @@ public class PreparationStation extends Station {
         }
     }
 
-    private enum StationState {
+    public enum StationState {
         PREPARING,
         NEED_USE,
         FINISHED
@@ -243,5 +249,12 @@ public class PreparationStation extends Station {
                 }
             }
         }
+    }
+
+    private void saveVariables(){
+        StateOfGame.getInstance().stationFoods[saveID] = this.foodItem;
+        StateOfGame.getInstance().stationStates[saveID] = this.state;
+        StateOfGame.getInstance().stationProgresses[saveID] = this.progress;
+
     }
 }

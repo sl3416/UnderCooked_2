@@ -7,7 +7,9 @@ import com.badlogic.gdx.utils.Array;
 import cooks.Cook;
 import food.FoodItem;
 import food.FoodStack;
+import game.GameScreen;
 import game.GameSprites;
+import game.StateOfGame;
 import interactions.InputKey;
 
 /**
@@ -18,14 +20,21 @@ public class CounterStation extends Station {
 
     FoodStack foodStack;
 
+    public int saveID;
+
     /**
      * The constructor for the {@link CounterStation}. It sets up the
      * {@link FoodStack} for the {@link CounterStation}.
      * @param rectangle The collision and interaction area of the {@link PreparationStation}.
      */
-    public CounterStation(Rectangle rectangle) {
+    public CounterStation(Rectangle rectangle, int saveId) {
         super(rectangle);
         foodStack = new FoodStack();
+        this.saveID = saveId;
+    }
+
+    public void update(float delta) {
+        saveVariables();
     }
 
     /**
@@ -101,5 +110,9 @@ public class CounterStation extends Station {
             foodSprite.draw(batch);
             drawY += drawInc;
         }
+    }
+
+    public void saveVariables(){
+        StateOfGame.getInstance().countersFoodStacks[saveID] = this.foodStack;
     }
 }

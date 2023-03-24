@@ -122,6 +122,9 @@ public class PauseScreen extends ScreenAdapter {
         else if (Interactions.isJustPressed(InputKey.InputTypes.QUIT)) {
             Gdx.app.exit();
         }
+        else if (Interactions.isJustPressed(InputKey.InputTypes.SAVE_GAME)){
+            FileInteractor.getInstance().saveToJSON();
+        }
     }
 
     /**

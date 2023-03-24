@@ -51,7 +51,9 @@ public class InputKey {
 
         // COOK_MISC
         /** Swapping between the {@link cooks.Cook} in the {@link GameScreen}. */
-        COOK_SWAP
+        COOK_SWAP,
+
+        SAVE_GAME
     }
 
     /** The key on the keyboard, represented as an int. */

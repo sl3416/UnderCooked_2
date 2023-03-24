@@ -15,6 +15,7 @@ import static helper.Constants.PPM;
 import food.FoodStack;
 import food.FoodItem.FoodID;
 import game.PowerupStatic;
+import game.StateOfGame;
 import interactions.InputKey;
 import interactions.Interactions;
 
@@ -28,7 +29,7 @@ public class Cook extends GameEntity {
     private Sprite controlSprite;
     private GameSprites gameSprites;
     private CookInteractor cookInteractor;
-    // private GameScreen gameScreen;
+    private GameScreen gameScreen;
     /** The direction this cook is facing. */
     private Facing dir;
     /** The cook's stack of things, containing all the items they're holding. Index 0 = Top Item */
@@ -41,6 +42,8 @@ public class Cook extends GameEntity {
 
     public FoodStack pizzaIngred;
     public FoodStack jacketIngred;
+
+    public int saveID;
 
     /** All possible directions the cook can be facing. */
     enum Facing {
@@ -58,13 +61,16 @@ public class Cook extends GameEntity {
      * @param body The {@link World}.{@link Body} which will become the {@link Cook}
      * @param gameScreen The {@link GameScreen} that creates the {@link Cook}.
      */
-    public Cook(float width, float height, Body body, GameScreen gameScreen) {
+    public Cook(float width, float height, Body body, GameScreen gameScreen, int saveId) {
         super(width, height, body);
         this.dir = Facing.DOWN;
         this.speed = 10f;
         // this.gameScreen = gameScreen;
         this.gameSprites = GameSprites.getInstance();
         this.controlSprite = gameSprites.getSprite(GameSprites.SpriteID.COOK,"control");
+
+        this.saveID = saveId;
+        this.gameScreen = gameScreen;
 
         // Initialize FoodStack
         this.foodStack = new FoodStack();
@@ -160,6 +166,7 @@ public class Cook extends GameEntity {
         y = body.getPosition().y*PPM;
         this.cookInteractor.updatePosition(x,y,dir);
         testFoodStack();
+        saveVariables();
     }
 
     public void testFoodStack(){
@@ -376,5 +383,9 @@ public class Cook extends GameEntity {
             // If the opposite isn't there, it's fine to switch.
             dir = possibleNext;
         }
+    }
+
+    private void saveVariables(){
+        StateOfGame.getInstance().cooksFoodStacks[saveID] = this.foodStack;
     }
 }

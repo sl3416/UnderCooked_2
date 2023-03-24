@@ -28,6 +28,10 @@ public class MapHelper {
     private TiledMap tiledMap;
     private static MapHelper INSTANCE;
 
+    private int nextCookID = 0;
+    private int nextPrepStationID = 0;
+    private int nextCounterStationID = 0;
+
     /**
      * The {@link MapHelper} constructor.
      * It is {@code private} as it is a Singleton.
@@ -151,15 +155,17 @@ public class MapHelper {
                 if(rectangleName.equals("CookStart"))
                 {
                     Body body = makeBody(rectangle, false);
-                    int cookInd = gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen));
+                    int cookInd = gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));
                     gameScreen.setCook(cookInd);
+                    nextCookID++;
                     continue;
                 }
 
                 if(rectangleName.equals("Cook"))
                 {
                     Body body = makeBody(rectangle, false);
-                    gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen));
+                    gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));
+                    nextCookID++;
                     continue;
                 }
 
@@ -173,24 +179,28 @@ public class MapHelper {
                     Station station;
                     switch(rectangleName) {
                         case "cut":
-                            station = new PreparationStation(rectangle);
+                            station = new PreparationStation(rectangle, nextPrepStationID);
                             station.setID(Station.StationID.cut);
                             gameScreen.addGameEntity(station);
+                            nextPrepStationID++;
                             break;
                         case "fry":
-                            station = new PreparationStation(rectangle);
+                            station = new PreparationStation(rectangle, nextPrepStationID);
                             station.setID(Station.StationID.fry);
                             gameScreen.addGameEntity(station);
+                            nextPrepStationID++;
                             break;
                         case "oven":
-                            station = new PreparationStation(rectangle);
+                            station = new PreparationStation(rectangle, nextPrepStationID);
                             station.setID(Station.StationID.oven);
                             gameScreen.addGameEntity(station);
+                            nextPrepStationID++;
                             break;
                         case "counter":
-                            station = new CounterStation(rectangle);
+                            station = new CounterStation(rectangle, nextCounterStationID);
                             station.setID(Station.StationID.counter);
                             gameScreen.addGameEntity(station);
+                            nextCounterStationID++;
                             break;
                         case "bin":
                             station = new BinStation(rectangle);
