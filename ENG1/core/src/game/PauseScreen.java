@@ -125,6 +125,9 @@ public class PauseScreen extends ScreenAdapter {
         else if (Interactions.isJustPressed(InputKey.InputTypes.SAVE_GAME)){
             FileInteractor.getInstance().saveToJSON();
         }
+        else if (Interactions.isJustPressed(InputKey.InputTypes.LOAD_GAME)) {
+            FileInteractor.getInstance().loadFromJSON(gameScreen);
+        }
     }
 
     /**

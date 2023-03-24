@@ -21,9 +21,9 @@ import interactions.Interactions;
  */
 public class PreparationStation extends Station {
 
-    private FoodItem.FoodID foodItem;
+    public FoodItem.FoodID foodItem;
     private Interactions.InteractionResult interaction;
-    private float progress;
+    public float progress;
     private int stepNum;
     public StationState state;
 

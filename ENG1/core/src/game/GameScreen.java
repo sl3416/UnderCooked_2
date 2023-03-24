@@ -1,6 +1,5 @@
 package game;
 
-import com.badlogic.gdx.Input;
 import customers.Customer;
 import static customers.CustomerController.customers;
 import com.badlogic.gdx.Gdx;
@@ -19,14 +18,15 @@ import com.badlogic.gdx.utils.TimeUtils;
 import cooks.Cook;
 import cooks.GameEntity;
 import customers.CustomerController;
+import food.FoodItem;
+import food.FoodStack;
 import helper.CollisionHelper;
 import helper.GameHud;
 import helper.InstructionHud;
 import helper.MapHelper;
 import interactions.InputKey;
 import interactions.Interactions;
-import stations.CookInteractable;
-import stations.ServingStation;
+import stations.*;
 
 import java.security.Key;
 import java.util.*;
@@ -157,7 +157,7 @@ public class GameScreen extends ScreenAdapter {
         }
 
         //This spawns the first powerup before a customer is served
-        if(secondsPassed == 1 && testBool == Boolean.TRUE){
+        if(secondsPassed == 5 && testBool == Boolean.TRUE){
             testBool = Boolean.FALSE;
             spawnPowerup();
         }
@@ -530,6 +530,70 @@ public class GameScreen extends ScreenAdapter {
         }
         if(PowerupStatic.powerups.get("NewStationsCostDecr") == Boolean.TRUE){
             StateOfGame.getInstance().powerups[4] = true;
+        }
+    }
+    public void loadVariables(StateOfGame gameState){
+        reset();
+        this.currentMoney = gameState.money;
+        this.repPoints = gameState.reputation;
+        this.customersToServe = gameState.customersLeft;
+        this.endless = gameState.endless;
+        startGame(gameState.customersLeft, gameState.endless);
+        boolean[] powerups = gameState.powerups;
+
+        FoodStack[] countersSave = gameState.countersFoodStacks;
+
+        FoodItem.FoodID[] stationFoodsSave = gameState.stationFoods;
+        PreparationStation.StationState[] stationStatesSave = gameState.stationStates;
+        float[] stationProgressesSave = gameState.stationProgresses;
+
+        processPowerupsFromLoad(powerups);
+
+        List<CounterStation> counters = mapHelper.counterStationsList;
+        List<PreparationStation> preps = mapHelper.prepStationsList;
+
+        for(int i = 0; i< countersSave.length; i++){
+            if(counters.get(i).saveID == 0){
+                counters.get(i).foodStack = countersSave[0];
+            }
+            else if(counters.get(i).saveID == 1){
+                counters.get(i).foodStack = countersSave[1];
+            }
+        }
+
+        for(int i = 0; i < stationFoodsSave.length; i++){
+            preps.get(i).foodItem = stationFoodsSave[i];
+            preps.get(i).progress = stationProgressesSave[i];
+            preps.get(i).state = stationStatesSave[i];
+        }
+
+        for(int i = 0; i < cooks.size; i++){
+            if(cooks.get(i).saveID == 0){
+                cooks.get(i).foodStack = gameState.cooksFoodStacks[0];
+            }
+            else if (cooks.get(i).saveID == 1) {
+                cooks.get(i).foodStack = gameState.cooksFoodStacks[1];
+            }
+            else if (cooks.get(i).saveID == 2) {
+                cooks.get(i).foodStack = gameState.cooksFoodStacks[2];
+            }
+        }
+    }
+    public void processPowerupsFromLoad(boolean[] powerups){
+        for(int i = 0; i < powerups.length; i++){
+            if(powerups[i]){
+                if(i == 0){
+                    PowerupStatic.powerups.put("SpeedIncr", Boolean.TRUE);
+                } else if (i == 1) {
+                    PowerupStatic.powerups.put("CookingSpeedIncr", Boolean.TRUE);
+                } else if (i == 2) {
+                    PowerupStatic.powerups.put("MoneyIncr", Boolean.TRUE);
+                } else if (i == 3) {
+                    PowerupStatic.powerups.put("CustomerTimerIncr", Boolean.TRUE);
+                } else if (i == 4) {
+                    PowerupStatic.powerups.put("NewStationsCostDecr", Boolean.TRUE);
+                }
+            }
         }
     }
 }

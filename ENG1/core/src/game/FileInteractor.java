@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 
+import javax.swing.plaf.nimbus.State;
+
 public class FileInteractor {
 
     public static FileInteractor INSTANCE;
@@ -24,9 +26,18 @@ public class FileInteractor {
 
     public void saveToJSON(){
         Json json = new Json();
-        String temp = json.prettyPrint(StateOfGame.getInstance());
-        FileHandle file = Gdx.files.local("save.json");
-        file.writeString(temp, false);
-        System.out.println(temp);
+        String write = json.prettyPrint(StateOfGame.getInstance());
+        FileHandle file = Gdx.files.local("save.txt");
+        file.writeString(write, false);
+        System.out.println(write);
+    }
+
+    public void loadFromJSON(GameScreen gameScreen){
+        Json json = new Json();
+        FileHandle file = Gdx.files.local("save.txt");
+        String read = file.readString();
+        StateOfGame game = json.fromJson(StateOfGame.class, read);
+        System.out.println(game);
+        gameScreen.loadVariables(game);
     }
 }

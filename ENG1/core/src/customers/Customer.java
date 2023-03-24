@@ -10,6 +10,7 @@ import cooks.GameEntity;
 import food.FoodStack;
 import food.Recipe;
 import game.GameScreen;
+import game.PowerupStatic;
 import helper.Constants;
 import stations.ServingStation;
 import stations.Station;
@@ -100,6 +101,9 @@ public class Customer {
 
     public void update(){
         long timeElapsed = TimeUtils.timeSinceMillis(spawnTime);
+        if(PowerupStatic.powerups.get("CustomerTimerIncr")){
+            timeLimit = 90;
+        }
         if(timeElapsed >= timeLimit*1000){
             customerController.removeCustomer(this.getStation());
             GameScreen.repPoints -= 1;

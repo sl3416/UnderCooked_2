@@ -18,7 +18,7 @@ import interactions.InputKey;
  */
 public class CounterStation extends Station {
 
-    FoodStack foodStack;
+    public FoodStack foodStack;
 
     public int saveID;
 

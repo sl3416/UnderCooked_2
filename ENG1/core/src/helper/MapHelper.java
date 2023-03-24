@@ -18,6 +18,9 @@ import food.FoodItem;
 import game.GameScreen;
 import stations.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static helper.Constants.PPM;
 
 /** The {@link MapHelper} class helps by setting up the map
@@ -31,6 +34,10 @@ public class MapHelper {
     private int nextCookID = 0;
     private int nextPrepStationID = 0;
     private int nextCounterStationID = 0;
+
+    public List<PreparationStation> prepStationsList;
+    public List<Cook> cooksList;
+    public List<CounterStation> counterStationsList;
 
     /**
      * The {@link MapHelper} constructor.
@@ -140,6 +147,9 @@ public class MapHelper {
      */
     private void parseMapObjects(MapObjects mapObjects)
     {
+        prepStationsList = new ArrayList<>();
+        cooksList = new ArrayList<>();
+        counterStationsList = new ArrayList<>();
         for(MapObject mapObject:mapObjects)
         {
             if(mapObject instanceof PolygonMapObject)
@@ -179,46 +189,57 @@ public class MapHelper {
                     Station station;
                     switch(rectangleName) {
                         case "cut":
-                            station = new PreparationStation(rectangle, nextPrepStationID);
-                            station.setID(Station.StationID.cut);
-                            gameScreen.addGameEntity(station);
+                            PreparationStation stationP = new PreparationStation(rectangle, nextPrepStationID);
+                            stationP.setID(Station.StationID.cut);
+                            gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
+                            prepStationsList.add(stationP);
+                            gameScreen.addInteractable(stationP);
                             break;
                         case "fry":
-                            station = new PreparationStation(rectangle, nextPrepStationID);
-                            station.setID(Station.StationID.fry);
-                            gameScreen.addGameEntity(station);
+                            stationP = new PreparationStation(rectangle, nextPrepStationID);
+                            stationP.setID(Station.StationID.fry);
+                            gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
+                            prepStationsList.add(stationP);
+                            gameScreen.addInteractable(stationP);
                             break;
                         case "oven":
-                            station = new PreparationStation(rectangle, nextPrepStationID);
-                            station.setID(Station.StationID.oven);
-                            gameScreen.addGameEntity(station);
+                            stationP = new PreparationStation(rectangle, nextPrepStationID);
+                            stationP.setID(Station.StationID.oven);
+                            gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
+                            prepStationsList.add(stationP);
+                            gameScreen.addInteractable(stationP);
                             break;
                         case "counter":
-                            station = new CounterStation(rectangle, nextCounterStationID);
-                            station.setID(Station.StationID.counter);
-                            gameScreen.addGameEntity(station);
+                            CounterStation stationC = new CounterStation(rectangle, nextCounterStationID);
+                            stationC.setID(Station.StationID.counter);
+                            gameScreen.addGameEntity(stationC);
                             nextCounterStationID++;
+                            counterStationsList.add(stationC);
+                            gameScreen.addInteractable(stationC);
                             break;
                         case "bin":
-                            station = new BinStation(rectangle);
-                            station.setID(Station.StationID.bin);
+                            BinStation stationB = new BinStation(rectangle);
+                            stationB.setID(Station.StationID.bin);
+                            gameScreen.addInteractable(stationB);
                             break;
                         case "serving":
-                            station = new ServingStation(rectangle);
-                            station.setID(Station.StationID.serving);
-                            gameScreen.addGameEntity(station);
-                            gameScreen.addServingStation((ServingStation) station);
-                            ((ServingStation) station).setGameScreen(gameScreen);
+                            ServingStation stationS = new ServingStation(rectangle);
+                            stationS.setID(Station.StationID.serving);
+                            gameScreen.addGameEntity(stationS);
+                            gameScreen.addServingStation((ServingStation) stationS);
+                            ((ServingStation) stationS).setGameScreen(gameScreen);
+                            gameScreen.addInteractable(stationS);
                             break;
                         default:
                             station = new Station(rectangle);
                             station.setID(Station.StationID.none);
+                            gameScreen.addInteractable(station);
                             break;
+
                     }
-                    gameScreen.addInteractable(station);
                 }
 
                 if (rectangleName.startsWith("Pantry")) {

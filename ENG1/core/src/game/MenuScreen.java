@@ -94,6 +94,7 @@ public class MenuScreen extends ScreenAdapter {
             screenController.setScreen(ScreenID.GAME);
             ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(3, false);
         }
+        // Set the screen to the gameplay screen on endless mode
         else if (Interactions.isJustPressed(InputKey.InputTypes.STARTE_GAME)) {
             screenController.setScreen(ScreenID.GAME);
             ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(2, true);
