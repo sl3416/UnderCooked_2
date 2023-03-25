@@ -61,6 +61,7 @@ public class PauseScreen extends ScreenAdapter {
             String.format("Press %s for instructions",Interactions.getKeyString(InputKey.InputTypes.INSTRUCTIONS)),
             String.format("Press %s for credits",Interactions.getKeyString(InputKey.InputTypes.CREDITS)),
             String.format("Press %s to reset",Interactions.getKeyString(InputKey.InputTypes.RESET_GAME)),
+            String.format("Press %s to save",Interactions.getKeyString(InputKey.InputTypes.SAVE_GAME)),
             String.format("Press %s to quit",Interactions.getKeyString(InputKey.InputTypes.QUIT))
         };
         /* OLD CODE
@@ -124,9 +125,6 @@ public class PauseScreen extends ScreenAdapter {
         }
         else if (Interactions.isJustPressed(InputKey.InputTypes.SAVE_GAME)){
             FileInteractor.getInstance().saveToJSON();
-        }
-        else if (Interactions.isJustPressed(InputKey.InputTypes.LOAD_GAME)) {
-            FileInteractor.getInstance().loadFromJSON(gameScreen);
         }
     }
 

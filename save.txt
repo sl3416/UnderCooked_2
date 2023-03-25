@@ -4,38 +4,10 @@ cooksFoodStacks: [
 	{}
 	{}
 ]
-stationFoods: [
-	null
-	null
-	meat
-	null
-	null
-	null
-]
-stationStates: [
-	null
-	null
-	PREPARING
-	null
-	null
-	null
-]
-stationProgresses: [ 0, 0, 16.028921, 0, 0, 0 ]
 countersFoodStacks: [
-	{
-		foodStack: [
-			rawPotato
-		]
-	}
+	{}
 	{}
 ]
 reputation: 3
-powerups: [
-	true
-	false
-	false
-	false
-	false
-]
 customersLeft: 3
 }

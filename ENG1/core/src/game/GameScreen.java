@@ -28,7 +28,6 @@ import interactions.InputKey;
 import interactions.Interactions;
 import stations.*;
 
-import java.security.Key;
 import java.util.*;
 
 /** A {@link ScreenAdapter} containing certain elements of the game. */
@@ -72,13 +71,12 @@ public class GameScreen extends ScreenAdapter {
 
     public String[] powerupStrings = {"SpeedIncr", "CookingSpeedIncr", "MoneyIncr", "CustomerTimerIncr", "NewStationsCostDecr"};
     public String[] powerupFileStrings = {"speed", "cookingSpeed", "money", "time", "stations"};
-    public Boolean testBool = Boolean.TRUE; //DO NOT DELETE
+    public Boolean firstPowerupSpawnBool = Boolean.TRUE; //DO NOT DELETE
     public HashMap<String, Boolean> powerupMemory;
     public int powerupCounter;
 
     public static boolean endless;
 
-    public boolean testbool2 = true;
 
     /**
      * The constructor for the {@link GameScreen}.
@@ -157,8 +155,8 @@ public class GameScreen extends ScreenAdapter {
         }
 
         //This spawns the first powerup before a customer is served
-        if(secondsPassed == 5 && testBool == Boolean.TRUE){
-            testBool = Boolean.FALSE;
+        if(secondsPassed == 5 && firstPowerupSpawnBool == Boolean.TRUE){
+            firstPowerupSpawnBool = Boolean.FALSE;
             spawnPowerup();
         }
 
@@ -534,24 +532,26 @@ public class GameScreen extends ScreenAdapter {
     }
     public void loadVariables(StateOfGame gameState){
         reset();
+        //GameScreen variables
         this.currentMoney = gameState.money;
         this.repPoints = gameState.reputation;
         this.customersToServe = gameState.customersLeft;
         this.endless = gameState.endless;
         startGame(gameState.customersLeft, gameState.endless);
+        //Powerups variables
         boolean[] powerups = gameState.powerups;
-
+        processPowerupsFromLoad(powerups);
+        //Setting up for loading counters variables
         FoodStack[] countersSave = gameState.countersFoodStacks;
-
+        List<CounterStation> counters = mapHelper.counterStationsList;
+        //Setting up for preparation station variables
         FoodItem.FoodID[] stationFoodsSave = gameState.stationFoods;
         PreparationStation.StationState[] stationStatesSave = gameState.stationStates;
         float[] stationProgressesSave = gameState.stationProgresses;
-
-        processPowerupsFromLoad(powerups);
-
-        List<CounterStation> counters = mapHelper.counterStationsList;
         List<PreparationStation> preps = mapHelper.prepStationsList;
 
+
+        //Counters variables
         for(int i = 0; i< countersSave.length; i++){
             if(counters.get(i).saveID == 0){
                 counters.get(i).foodStack = countersSave[0];
@@ -561,12 +561,14 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
+        //Preparation station variables
         for(int i = 0; i < stationFoodsSave.length; i++){
             preps.get(i).foodItem = stationFoodsSave[i];
             preps.get(i).progress = stationProgressesSave[i];
             preps.get(i).state = stationStatesSave[i];
         }
 
+        //Cooks variables
         for(int i = 0; i < cooks.size; i++){
             if(cooks.get(i).saveID == 0){
                 cooks.get(i).foodStack = gameState.cooksFoodStacks[0];

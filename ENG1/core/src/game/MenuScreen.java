@@ -76,6 +76,10 @@ public class MenuScreen extends ScreenAdapter {
 
         Label quitLabel = new Label(String.format("PRESS %s TO QUIT",Interactions.getKeyString(InputKey.InputTypes.QUIT).toUpperCase()), font);
         table.add(quitLabel).expandX();
+        table.row();
+
+        Label loadLabel = new Label(String.format("PRESS %s TO LOAD THE SAVED GAME",Interactions.getKeyString(InputKey.InputTypes.LOAD_GAME).toUpperCase()), font);
+        table.add(loadLabel).expandX();
 
         welcomeLabel.setFontScale(4);
         stage.addActor(table);
@@ -109,6 +113,11 @@ public class MenuScreen extends ScreenAdapter {
         }
         else if (Interactions.isJustPressed(InputKey.InputTypes.QUIT)) {
             Gdx.app.exit();
+        } else if (Interactions.isJustPressed(InputKey.InputTypes.LOAD_GAME)){
+            screenController.setScreen(ScreenID.GAME);
+            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(2, true);
+            //Values in startGame() don't matter as they get overwritten in this next line
+            FileInteractor.getInstance().loadFromJSON((GameScreen) screenController.getScreen(ScreenID.GAME));
         }
     }
 

@@ -27,7 +27,6 @@ public class FileInteractor {
         String write = json.prettyPrint(StateOfGame.getInstance());
         FileHandle file = Gdx.files.local("save.txt");
         file.writeString(write, false);
-        System.out.println(write);
     }
 
     public void loadFromJSON(GameScreen gameScreen){
@@ -35,7 +34,6 @@ public class FileInteractor {
         FileHandle file = Gdx.files.local("save.txt");
         String read = file.readString();
         StateOfGame game = json.fromJson(StateOfGame.class, read);
-        System.out.println(game);
         gameScreen.loadVariables(game);
     }
 }

@@ -85,7 +85,11 @@ public class InstructionScreen extends ScreenAdapter {
                         Interactions.getKeyString(InputKey.InputTypes.PICK_UP),
                         Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),
                 "",
+                "To make Jacket Potatoes and Pizza, just hold the ingredients shown in the recipe and you will create a single uncooked food from them.",
+                "",
                 "Your goal is to successfully give every customer the food they request, and the game will end once you do.",
+                "",
+                "You can save your game in the pause menu and load the last saved game from the main menu. Only one saved game is supported.",
                 "",
                 String.format("You can pause the game by pressing %s.", Interactions.getKeyString(InputKey.InputTypes.PAUSE)),
                 ""
