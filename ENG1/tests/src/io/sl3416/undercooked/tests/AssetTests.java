@@ -77,7 +77,7 @@ public class AssetTests {
     @Test
     public void testAssetExists() {
         for (String filePath : filePaths) {
-            assertTrue(("The asset file path " + filePath + " does not exist"), Gdx.files.internal(filePath).exists());
+            assertTrue(("The asset file path " + filePath + " does not exist"), Gdx.files.classpath(filePath).exists());
         }
     }
 }
