@@ -27,6 +27,8 @@ import static helper.Constants.PPM;
  * of the game, and providing the {@link OrthogonalTiledMapRenderer}
  * which is used to draw the {@link TiledMap}.*/
 public class MapHelper {
+    public static boolean fryLocked;
+    public static boolean bakeLocked;
     private GameScreen gameScreen;
     private TiledMap tiledMap;
     private static MapHelper INSTANCE;
@@ -199,6 +201,8 @@ public class MapHelper {
                         case "fry":
                             stationP = new PreparationStation(rectangle, nextPrepStationID);
                             stationP.setID(Station.StationID.fry);
+                            stationP.lock();
+                            fryLocked = true;
                             gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
                             prepStationsList.add(stationP);
@@ -207,6 +211,8 @@ public class MapHelper {
                         case "oven":
                             stationP = new PreparationStation(rectangle, nextPrepStationID);
                             stationP.setID(Station.StationID.oven);
+                            stationP.lock();
+                            bakeLocked = true;
                             gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
                             prepStationsList.add(stationP);
