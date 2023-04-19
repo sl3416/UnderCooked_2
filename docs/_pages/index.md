@@ -132,6 +132,9 @@ These classes were also not present in our initial UML, and we realised this a w
 
 [Implementation PDF]({{page.impl_pdf}})
 
+## Software Testing
+[Software Testing Google Doc](https://docs.google.com/document/d/1Kf8yILYmphwpJCcRPEVtu4urq7ENJq62d8E_3HKMHUc/edit?usp=sharing)
+
 ## Original Credits
 Credits to the previous team who worked on the project. Details for all the team members can be found here:
 <ul>

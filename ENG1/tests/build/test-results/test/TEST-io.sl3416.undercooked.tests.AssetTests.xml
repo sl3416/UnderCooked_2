@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.sl3416.undercooked.tests.AssetTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-01T16:36:19" hostname="LAPTOP-LI9Q8A9H" time="0.037">
+<testsuite name="io.sl3416.undercooked.tests.AssetTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-19T11:21:15" hostname="LAPTOP-LI9Q8A9H" time="0.042">
   <properties/>
-  <testcase name="testAssetExists" classname="io.sl3416.undercooked.tests.AssetTests" time="0.037"/>
+  <testcase name="testAssetExists" classname="io.sl3416.undercooked.tests.AssetTests" time="0.042"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
