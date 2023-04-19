@@ -12,6 +12,7 @@ import food.Recipe;
 import game.GameScreen;
 import game.PowerupStatic;
 import helper.Constants;
+import helper.MapHelper;
 import stations.ServingStation;
 import stations.Station;
 
@@ -61,7 +62,20 @@ public class Customer {
     }
 
     public String randomRecipe() {
-        this.request = Recipe.randomRecipe();
+        boolean recipeValid = false;
+        while(!recipeValid) {
+            this.request = Recipe.randomRecipe();
+            recipeValid = true;
+            if(MapHelper.fryLocked) {
+                if(request.contains("Burger")){
+                    recipeValid = false;
+                }
+            } if(MapHelper.bakeLocked){
+                if(request == "Jacket Potato" || request == "Margherita Pizza"){
+                    recipeValid = false;
+                }
+            }
+        }
         return request;
     }
 

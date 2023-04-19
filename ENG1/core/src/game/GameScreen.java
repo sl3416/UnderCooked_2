@@ -1,5 +1,6 @@
 package game;
 
+import com.badlogic.gdx.Input;
 import customers.Customer;
 import static customers.CustomerController.customers;
 import com.badlogic.gdx.Gdx;
@@ -202,6 +203,26 @@ public class GameScreen extends ScreenAdapter {
         for (Customer customer : customers){
             customer.update();
         }
+
+        // - - - DEBUG CONTROLS - - - //
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
+            MapHelper.bakeLocked = false;
+            for (PreparationStation stationP: mapHelper.prepStationsList) {
+                if(stationP.getID() == Station.StationID.oven){
+                    stationP.unlock();
+                }
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
+            MapHelper.fryLocked = false;
+            for (PreparationStation stationP: mapHelper.prepStationsList) {
+                if(stationP.getID() == Station.StationID.fry){
+                    stationP.unlock();
+                }
+            }
+        }
+        // - - - DEBUG END - - - //
 
         this.saveVariables();
     }
