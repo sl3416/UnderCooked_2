@@ -76,28 +76,43 @@ jobs: # what to do
         uses: actions/upload-artifact@v3.1.1
         with:
           name: jacoco-report-${{ matrix.os }}
-          path: ...tests/build/reports/tests/test/index.html
+          path: ENG1/tests/build/reports/tests/test/index.html
       # Add binary artifacts - Adding JAR upload to GHA workflow
       - name: Upload library JAR
         uses: actions/upload-artifact@v3.1.1
         with:
-          name: lib.jar
+          name: lib-${{ matrix.os }}.jar
           path: ENG1/core/build/libs/lib.jar
-
+     # - name: Upload Checkstyle report
+      #  uses: actions/upload-artifact@v3.1.1
+      #  if: startsWith(matrix.os, 'ubuntu')
+       # with:
+        #  name: checkstyle-report
+         # path: ENG1/core/build/reports/checkstyle
   release:
     runs-on: ubuntu-22.04
     needs: ["build"]
-    if: startsWith(github.ref,'reds/tags/')
+    if: startsWith(github.ref,'refs/tags/')
 
     permissions:
       contents: write
 
     steps:
-      - name: Download a Build Artifact
+      - name: Download Ubuntu Build Artifact
         uses: actions/download-artifact@v3.0.1
-        with:
-          name: lib.jar
+        with: {name: lib-ubuntu-22.04.jar}
+      - name: Rename Ubuntu Build Artifact
+        run: mv lib.jar lib-ubuntu.jar
+      - name: Download MacOS Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with: { name: lib-macos-12.jar }
+      - name: Rename MacOS Build Artifact
+        run: mv lib.jar lib-macos.jar
+      - name: Download Windows Build Artifact
+        uses: actions/download-artifact@v3.0.1
+        with: { name: lib-windows-2022.jar }
+      - name: Rename Windows Build Artifact
+        run: mv lib.jar lib-windows.jar
       - name: Release
         uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844
-        with:
-          files: lib.jar
+        with: {files: lib*.jar}
