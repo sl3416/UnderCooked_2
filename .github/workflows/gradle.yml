@@ -76,7 +76,7 @@ jobs: # what to do
         uses: actions/upload-artifact@v3.1.1
         with:
           name: jacoco-report-${{ matrix.os }}
-          path: ...tests/build/reports/tests/test/index.html
+          path: ENG1/tests/build/reports/tests/test/index.html
       # Add binary artifacts - Adding JAR upload to GHA workflow
       - name: Upload library JAR
         uses: actions/upload-artifact@v3.1.1
