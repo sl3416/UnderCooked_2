@@ -75,6 +75,7 @@ public class GameScreen extends ScreenAdapter {
     public Boolean firstPowerupSpawnBool = Boolean.TRUE; //DO NOT DELETE
     public HashMap<String, Boolean> powerupMemory;
     public int powerupCounter;
+    public static boolean powerupOnScreen;
 
     public static boolean endless;
 
@@ -120,6 +121,8 @@ public class GameScreen extends ScreenAdapter {
         powerupMemory.put("MoneyIncr", Boolean.FALSE);
         powerupMemory.put("CustomerTimerIncr", Boolean.FALSE);
         powerupMemory.put("NewStationsCostDecr", Boolean.FALSE);
+        this.powerupOnScreen = false;
+
 
         this.youLose = false;
 
@@ -460,6 +463,7 @@ public class GameScreen extends ScreenAdapter {
         PowerupStatic.resetPowerups();
         powerupMemory.clear();
         powerupCounter = 0;
+        powerupOnScreen = false;
     }
 
     /**
@@ -518,7 +522,7 @@ public class GameScreen extends ScreenAdapter {
     public void spawnPowerup(){
         Random rand = new Random();
         int i = rand.nextInt(5);
-        if(powerupCounter != 5) {
+        if(powerupCounter != 5 && powerupOnScreen == false) {
             while (powerupMemory.get(powerupStrings[i]) == Boolean.TRUE) {
                 i = rand.nextInt(5);
             }
@@ -526,6 +530,7 @@ public class GameScreen extends ScreenAdapter {
             gameHud.showNewPowerup(powerupStrings[i], powerupFileStrings[i]);
             powerupMemory.put(powerupStrings[i], Boolean.TRUE);
             powerupCounter += 1;
+            powerupOnScreen = true;
         }
     }
 
@@ -571,6 +576,25 @@ public class GameScreen extends ScreenAdapter {
         float[] stationProgressesSave = gameState.stationProgresses;
         List<PreparationStation> preps = mapHelper.prepStationsList;
 
+
+        MapHelper.bakeLockedFlag = gameState.ovensLocked;
+        MapHelper.fryLockedFlag = gameState.fryersLocked;
+
+        if(gameState.ovensLocked == false) {
+            for (PreparationStation stationP : this.getMapHelper().prepStationsList) {
+                if (stationP.getID() == Station.StationID.oven) {
+                    stationP.unlock();
+                }
+            }
+        }
+
+        if(gameState.fryersLocked == false) {
+            for (PreparationStation stationP: this.getMapHelper().prepStationsList) {
+                if(stationP.getID() == Station.StationID.fry){
+                    stationP.unlock();
+                }
+            }
+        }
 
         //Counters variables
         for(int i = 0; i< countersSave.length; i++){

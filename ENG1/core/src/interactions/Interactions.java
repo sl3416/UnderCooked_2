@@ -119,7 +119,7 @@ public class Interactions {
                 new InputKey(InputKey.InputTypes.UNPAUSE, Input.Keys.ESCAPE),
                 new InputKey(InputKey.InputTypes.CREDITS, Input.Keys.C),
                 new InputKey(InputKey.InputTypes.QUIT, Input.Keys.Q),
-                new InputKey(InputKey.InputTypes.SAVE_GAME, Input.Keys.BACKSLASH),
+                new InputKey(InputKey.InputTypes.SAVE_GAME, Input.Keys.SEMICOLON),
                 new InputKey(InputKey.InputTypes.LOAD_GAME, Input.Keys.APOSTROPHE)
         }));
         inputs.put(InputID.COOK_MOVEMENT, new Array<>(new InputKey[] {
