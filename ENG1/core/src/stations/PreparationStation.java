@@ -11,8 +11,11 @@ import game.GameScreen;
 import game.GameSprites;
 import game.PowerupStatic;
 import game.StateOfGame;
+import helper.MapHelper;
 import interactions.InputKey;
 import interactions.Interactions;
+
+import static game.GameScreen.currentMoney;
 
 /**
  * The {@link PreparationStation} class, where the {@link cooks.Cook}
@@ -37,8 +40,9 @@ public class PreparationStation extends Station {
      * The constructor for the {@link PreparationStation}.
      * @param rectangle The collision and interaction area of the {@link PreparationStation}.
      */
-    public PreparationStation(Rectangle rectangle, int saveId) {
+    public PreparationStation(Rectangle rectangle, int saveId, GameScreen gameScreen) {
         super(rectangle);
+        this.gameScreen = gameScreen;
         this.saveID = saveId;
     }
 
@@ -245,6 +249,28 @@ public class PreparationStation extends Station {
                             progress = steps[stepNum];
                             stepNum += 1;
                         }
+                    }
+                }
+            }
+        }
+        else if(currentMoney >= 20){
+            if(this.getID() == StationID.oven) {
+                currentMoney -= 20;
+                gameScreen.increaseCurrentMoney(0);
+                MapHelper.bakeLockedFlag = false;
+                for (PreparationStation stationP : gameScreen.getMapHelper().prepStationsList) {
+                    if (stationP.getID() == Station.StationID.oven) {
+                        stationP.unlock();
+                    }
+                }
+            }
+            else if(this.getID() == StationID.fry){
+                currentMoney -= 20;
+                gameScreen.increaseCurrentMoney(0);
+                MapHelper.fryLockedFlag = false;
+                for (PreparationStation stationP: gameScreen.getMapHelper().prepStationsList) {
+                    if(stationP.getID() == Station.StationID.fry){
+                        stationP.unlock();
                     }
                 }
             }

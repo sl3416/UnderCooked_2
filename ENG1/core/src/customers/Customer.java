@@ -2,19 +2,15 @@ package customers;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
-import cooks.GameEntity;
-import food.FoodStack;
 import food.Recipe;
 import game.GameScreen;
 import game.PowerupStatic;
 import helper.Constants;
 import helper.MapHelper;
 import stations.ServingStation;
-import stations.Station;
 
 import java.util.Random;
 import static game.GameScreen.customerController;
@@ -66,11 +62,11 @@ public class Customer {
         while(!recipeValid) {
             this.request = Recipe.randomRecipe();
             recipeValid = true;
-            if(MapHelper.fryLocked) {
+            if(MapHelper.fryLockedFlag) {
                 if(request.contains("Burger")){
                     recipeValid = false;
                 }
-            } if(MapHelper.bakeLocked){
+            } if(MapHelper.bakeLockedFlag){
                 if(request == "Jacket Potato" || request == "Margherita Pizza"){
                     recipeValid = false;
                 }

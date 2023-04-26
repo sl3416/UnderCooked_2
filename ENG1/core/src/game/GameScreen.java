@@ -67,7 +67,7 @@ public class GameScreen extends ScreenAdapter {
     private int customersToServe;
 
     //this file is being used as a "GameManager" too as there is one instance of this script.
-    public int currentMoney;
+    public static int currentMoney;
     public static int repPoints;
 
     public String[] powerupStrings = {"SpeedIncr", "CookingSpeedIncr", "MoneyIncr", "CustomerTimerIncr", "NewStationsCostDecr"};
@@ -207,7 +207,7 @@ public class GameScreen extends ScreenAdapter {
         // - - - DEBUG CONTROLS - - - //
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
-            MapHelper.bakeLocked = false;
+            MapHelper.bakeLockedFlag = false;
             for (PreparationStation stationP: mapHelper.prepStationsList) {
                 if(stationP.getID() == Station.StationID.oven){
                     stationP.unlock();
@@ -215,7 +215,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
-            MapHelper.fryLocked = false;
+            MapHelper.fryLockedFlag = false;
             for (PreparationStation stationP: mapHelper.prepStationsList) {
                 if(stationP.getID() == Station.StationID.fry){
                     stationP.unlock();
@@ -602,6 +602,9 @@ public class GameScreen extends ScreenAdapter {
             }
         }
     }
+
+    public MapHelper getMapHelper(){return mapHelper;}
+
     public void processPowerupsFromLoad(boolean[] powerups){
         for(int i = 0; i < powerups.length; i++){
             if(powerups[i]){
