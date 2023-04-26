@@ -18,7 +18,7 @@ public class Station extends CookInteractable {
 
     /** IDs of all the different possible types of stations.*/
     public enum StationID {
-        /** Frying Station, uses {@link PreparationStation}. */
+         /** Frying Station, uses {@link PreparationStation}. */
         fry,
         /** Cutting Station, uses {@link PreparationStation}. */
         cut,
@@ -66,6 +66,10 @@ public class Station extends CookInteractable {
     public void setID(StationID stationID) {
         this.stationID = stationID;
     }
+    public StationID getID(){return this.stationID;}
+
+    public void lock(){this.locked = true;}
+    public void unlock(){this.locked = false;}
 
     /**
      * The function that allows a {@link Cook} to interact with the {@link Station}.

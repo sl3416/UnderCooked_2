@@ -9,63 +9,104 @@ import game.ScreenController;
  */
 public class InputKey {
 
-    /** All the different inputs available in the game. */
+    /**
+     * All the different inputs available in the game.
+     */
     public enum InputTypes {
         // MENU
-        /** Starting the game, {@link GameScreen#startGame(int, boolean)}. */
+        /**
+         * Starting the game, {@link GameScreen#startGame(int, boolean)}.
+         */
         START_GAME,
-        /** Resetting the game, {@link ScreenController#resetGameScreen()} and {@link GameScreen#reset()}. */
+        /**
+         * Resetting the game, {@link ScreenController#resetGameScreen()} and {@link GameScreen#reset()}.
+         */
         RESET_GAME,
-        /**   */
+        /**
+         *
+         */
         STARTS_GAME,
-        /**  */
+        /**
+         *
+         */
         STARTE_GAME,
-        /** Opening the {@link game.InstructionScreen}. */
+        /**
+         * Opening the {@link game.InstructionScreen}.
+         */
         INSTRUCTIONS,
-        /** Pausing the game, {@link ScreenController#pauseGameScreen()} .*/
+        /**
+         * Pausing the game, {@link ScreenController#pauseGameScreen()} .
+         */
         PAUSE,
-        /** Unpausing the game, {@link ScreenController#playGameScreen()} */
+        /**
+         * Unpausing the game, {@link ScreenController#playGameScreen()}
+         */
         UNPAUSE,
-        /** Opening the credits, {@link game.CreditsScreen} */
+        /**
+         * Opening the credits, {@link game.CreditsScreen}
+         */
         CREDITS,
-        /** Quitting the game. */
+        /**
+         * Quitting the game.
+         */
         QUIT,
 
         // COOK_INTERACT
-        /** Put down an item onto a {@link stations.Station} in the {@link cooks.Cook}'s hands. */
+        /**
+         * Put down an item onto a {@link stations.Station} in the {@link cooks.Cook}'s hands.
+         */
         PUT_DOWN,
-        /** Pick up an item from a {@link stations.Station} or {@link stations.Pantry}. */
+        /**
+         * Pick up an item from a {@link stations.Station} or {@link stations.Pantry}.
+         */
         PICK_UP,
-        /** Use the {@link stations.Station} in front of the Cook. */
+        /**
+         * Use the {@link stations.Station} in front of the Cook.
+         */
         USE,
 
         // COOK_MOVEMENT
-        /** Player moving up. */
+        /**
+         * Player moving up.
+         */
         COOK_UP,
-        /** Player moving right. */
+        /**
+         * Player moving right.
+         */
         COOK_RIGHT,
-        /** Player moving down. */
+        /**
+         * Player moving down.
+         */
         COOK_DOWN,
-        /** Playter moving left. */
+        /**
+         * Player moving left.
+         */
         COOK_LEFT,
 
         // COOK_MISC
-        /** Swapping between the {@link cooks.Cook} in the {@link GameScreen}. */
+        /**
+         * Swapping between the {@link cooks.Cook} in the {@link GameScreen}.
+         */
         COOK_SWAP,
 
         SAVE_GAME,
         LOAD_GAME
     }
 
-    /** The key on the keyboard, represented as an int. */
+    /**
+     * The key on the keyboard, represented as an int.
+     */
     private int key;
-    /** The enum constant which is representing the key above. */
+    /**
+     * The enum constant which is representing the key above.
+     */
     private InputTypes inputType;
 
     /**
      * The InputKey Constructor
+     *
      * @param inputType The {@link InputTypes} enum constant.
-     * @param key The key for the {@link InputTypes} input.
+     * @param key       The key for the {@link InputTypes} input.
      */
     public InputKey(InputTypes inputType, int key) {
         this.key = key;
@@ -74,6 +115,7 @@ public class InputKey {
 
     /**
      * Getter for the integer.
+     *
      * @return The key as an int.
      */
     public int getKey() {
@@ -82,9 +124,12 @@ public class InputKey {
 
     /**
      * Getter for the {@link InputTypes} enum constant.
+     *
      * @return The {@link InputTypes} enum constant for this input.
      */
     public InputTypes getType() {
         return inputType;
     }
+
+//    public InputID getTypeId() {}
 }

@@ -1,5 +1,6 @@
 package game;
 
+import com.badlogic.gdx.Input;
 import customers.Customer;
 import static customers.CustomerController.customers;
 import com.badlogic.gdx.Gdx;
@@ -66,7 +67,7 @@ public class GameScreen extends ScreenAdapter {
     private int customersToServe;
 
     //this file is being used as a "GameManager" too as there is one instance of this script.
-    public int currentMoney;
+    public static int currentMoney;
     public static int repPoints;
 
     public String[] powerupStrings = {"SpeedIncr", "CookingSpeedIncr", "MoneyIncr", "CustomerTimerIncr", "NewStationsCostDecr"};
@@ -74,6 +75,7 @@ public class GameScreen extends ScreenAdapter {
     public Boolean firstPowerupSpawnBool = Boolean.TRUE; //DO NOT DELETE
     public HashMap<String, Boolean> powerupMemory;
     public int powerupCounter;
+    public static boolean powerupOnScreen;
 
     public static boolean endless;
 
@@ -119,6 +121,8 @@ public class GameScreen extends ScreenAdapter {
         powerupMemory.put("MoneyIncr", Boolean.FALSE);
         powerupMemory.put("CustomerTimerIncr", Boolean.FALSE);
         powerupMemory.put("NewStationsCostDecr", Boolean.FALSE);
+        this.powerupOnScreen = false;
+
 
         this.youLose = false;
 
@@ -178,8 +182,25 @@ public class GameScreen extends ScreenAdapter {
         }
 
         // Spawning code to spawn a customer after an amount of time.
+        Random rand = new Random();
+        int rand1 = rand.nextInt(100);
+        int rand2 = rand.nextInt(100);
         if(TimeUtils.millis() >= nextCustomerSecond)
         {
+            if (minutesPassed > 1)
+            {
+                if (minutesPassed > 3)
+                {
+                    if (rand2 <= 30)
+                    {
+                        int recipeComplexity = customerController.addCustomer(GameScreen.endless);
+                    }
+                }
+                if (rand1 <= 40)
+                {
+                    int recipeComplexity = customerController.addCustomer(GameScreen.endless);
+                }
+            }
             int recipeComplexity = customerController.addCustomer(GameScreen.endless);
             if (recipeComplexity == -1) {
                 // If customer couldn't be added, then wait 2 seconds.
@@ -203,6 +224,26 @@ public class GameScreen extends ScreenAdapter {
             customer.update();
         }
 
+        // - - - DEBUG CONTROLS - - - //
+        // /* unlock stations cheat
+        if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
+            MapHelper.bakeLockedFlag = false;
+            for (PreparationStation stationP: mapHelper.prepStationsList) {
+                if(stationP.getID() == Station.StationID.oven){
+                    stationP.unlock();
+                }
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Z)){
+            MapHelper.fryLockedFlag = false;
+            for (PreparationStation stationP: mapHelper.prepStationsList) {
+                if(stationP.getID() == Station.StationID.fry){
+                    stationP.unlock();
+                }
+            }
+        }
+        // - - - DEBUG END - - - //
+        //*/
         this.saveVariables();
     }
 
@@ -336,10 +377,10 @@ public class GameScreen extends ScreenAdapter {
      */
     public void setCustomerHud(int customerCount) {
         if (endless == false) {
-            gameHud.setCustomerCount(customersToServe - customerCount);
+            gameHud.setCustomerCount(customersToServe - customerCount, GameScreen.endless);
         }
         else {
-            gameHud.setCustomerCount(customerCount);
+            gameHud.setCustomerCount(customerCount, GameScreen.endless);
         }
     }
 
@@ -439,6 +480,7 @@ public class GameScreen extends ScreenAdapter {
         PowerupStatic.resetPowerups();
         powerupMemory.clear();
         powerupCounter = 0;
+        powerupOnScreen = false;
     }
 
     /**
@@ -464,7 +506,7 @@ public class GameScreen extends ScreenAdapter {
         customerController.setCustomersServed(0);
         customerController.addCustomer(GameScreen.endless);
         setCustomerHud(customers);
-        gameHud.setCustomerCount(customers);
+        gameHud.setCustomerCount(customers, GameScreen.endless);
 
     }
 
@@ -497,7 +539,7 @@ public class GameScreen extends ScreenAdapter {
     public void spawnPowerup(){
         Random rand = new Random();
         int i = rand.nextInt(5);
-        if(powerupCounter != 5) {
+        if(powerupCounter != 5 && powerupOnScreen == false) {
             while (powerupMemory.get(powerupStrings[i]) == Boolean.TRUE) {
                 i = rand.nextInt(5);
             }
@@ -505,6 +547,7 @@ public class GameScreen extends ScreenAdapter {
             gameHud.showNewPowerup(powerupStrings[i], powerupFileStrings[i]);
             powerupMemory.put(powerupStrings[i], Boolean.TRUE);
             powerupCounter += 1;
+            powerupOnScreen = true;
         }
     }
 
@@ -513,6 +556,7 @@ public class GameScreen extends ScreenAdapter {
         StateOfGame.getInstance().reputation = repPoints;
         StateOfGame.getInstance().money = currentMoney;
         StateOfGame.getInstance().endless = endless;
+        StateOfGame.getInstance().customersServed = customerController.getCustomersServed();
 
         if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
             StateOfGame.getInstance().powerups[0] = true;
@@ -537,6 +581,7 @@ public class GameScreen extends ScreenAdapter {
         this.repPoints = gameState.reputation;
         this.customersToServe = gameState.customersLeft;
         this.endless = gameState.endless;
+        customerController.setCustomersServed(gameState.customersServed);
         startGame(gameState.customersLeft, gameState.endless);
         //Powerups variables
         boolean[] powerups = gameState.powerups;
@@ -550,6 +595,25 @@ public class GameScreen extends ScreenAdapter {
         float[] stationProgressesSave = gameState.stationProgresses;
         List<PreparationStation> preps = mapHelper.prepStationsList;
 
+
+        MapHelper.bakeLockedFlag = gameState.ovensLocked;
+        MapHelper.fryLockedFlag = gameState.fryersLocked;
+
+        if(gameState.ovensLocked == false) {
+            for (PreparationStation stationP : this.getMapHelper().prepStationsList) {
+                if (stationP.getID() == Station.StationID.oven) {
+                    stationP.unlock();
+                }
+            }
+        }
+
+        if(gameState.fryersLocked == false) {
+            for (PreparationStation stationP: this.getMapHelper().prepStationsList) {
+                if(stationP.getID() == Station.StationID.fry){
+                    stationP.unlock();
+                }
+            }
+        }
 
         //Counters variables
         for(int i = 0; i< countersSave.length; i++){
@@ -581,6 +645,9 @@ public class GameScreen extends ScreenAdapter {
             }
         }
     }
+
+    public MapHelper getMapHelper(){return mapHelper;}
+
     public void processPowerupsFromLoad(boolean[] powerups){
         for(int i = 0; i < powerups.length; i++){
             if(powerups[i]){

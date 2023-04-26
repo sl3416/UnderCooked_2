@@ -13,9 +13,11 @@ public class AssetTests {
             "atlas/cook.atlas",
             "atlas/cook.png",
             "atlas/customer.atlas",
-            "atlas/customer.png",
+            "atlas/Customer.png",
             "atlas/food.atlas",
             "atlas/food.png",
+            "atlas/powerups.atlas",
+            "atlas/powerups.png",
             "atlas/station.atlas",
             "atlas/station.png",
 
@@ -34,6 +36,7 @@ public class AssetTests {
             "customers/customer.tpproj",
             "customers/CustomerAngry1.png",
             "customers/CustomerAngry2.png",
+
             "foods/Burger_BunsUpscaled.png",
             "foods/BottomBun.png",
             "foods/Burger_Buns.png",
@@ -53,6 +56,14 @@ public class AssetTests {
             "foods/TomatoUpscaled.png",
             "foods/TopBun.png",
 
+            "Individual_Stations/Bin.png",
+            "Individual_Stations/Cutting_Station.png",
+            "Individual_Stations/Fryer.png",
+            "Individual_Stations/Lock.png",
+            "Individual_Stations/stations.tpproj",
+            "Individual_Stations/Table.png",
+            "Individual_Stations/TableWithChairs.png",
+
             "Maps/StartMenuBackground.png",
             "Maps/Stations.png",
             "Maps/Stations.tsx",
@@ -61,6 +72,12 @@ public class AssetTests {
             "Maps/StationsMap.tmx",
             "Maps/StationsMap1.tmx",
             "Maps/StationsMap2.tmx",
+
+            "powerups/cookingSpeed.png",
+            "powerups/money.png",
+            "powerups/speed.png",
+            "powerups/stations.png",
+            "powerups/time.png",
 
             "Sprites/xcfs/Burger.xcf",
             "Sprites/xcfs/Burger_Buns.xcf",
@@ -77,7 +94,7 @@ public class AssetTests {
     @Test
     public void testAssetExists() {
         for (String filePath : filePaths) {
-            assertTrue(("The asset file path " + filePath + " does not exist"), Gdx.files.internal(filePath).exists());
+            assertTrue("The asset file path " + filePath + " does not exist", Gdx.files.internal(filePath).exists());
         }
     }
 }

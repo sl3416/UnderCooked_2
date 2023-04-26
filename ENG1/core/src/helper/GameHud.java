@@ -184,8 +184,14 @@ public class GameHud extends Hud {
      * Set the Customer Count label
      * @param customerCount New Customer Count
      */
-    public void setCustomerCount(int customerCount) {
-        CustomerLabel.setText(String.format("CUSTOMERS: %d",customerCount));
+    public void setCustomerCount(int customerCount, boolean endless) {
+        if (endless == true)
+        {
+            CustomerLabel.setText(String.format("CUSTOMERS: ENDLESS"));
+        }
+        else {
+            CustomerLabel.setText(String.format("CUSTOMERS: %d",customerCount));
+        }
     }
 
     /**
@@ -225,6 +231,7 @@ public class GameHud extends Hud {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 PowerupStatic.powerups.put(powerupName, Boolean.TRUE);
                 powerup.setPosition(-100f, -100f);
+                GameScreen.powerupOnScreen = false;
                 return true;
             }});
     }

@@ -27,6 +27,8 @@ import static helper.Constants.PPM;
  * of the game, and providing the {@link OrthogonalTiledMapRenderer}
  * which is used to draw the {@link TiledMap}.*/
 public class MapHelper {
+    public static boolean fryLockedFlag;
+    public static boolean bakeLockedFlag;
     private GameScreen gameScreen;
     private TiledMap tiledMap;
     private static MapHelper INSTANCE;
@@ -189,7 +191,7 @@ public class MapHelper {
                     Station station;
                     switch(rectangleName) {
                         case "cut":
-                            PreparationStation stationP = new PreparationStation(rectangle, nextPrepStationID);
+                            PreparationStation stationP = new PreparationStation(rectangle, nextPrepStationID,gameScreen);
                             stationP.setID(Station.StationID.cut);
                             gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
@@ -197,16 +199,20 @@ public class MapHelper {
                             gameScreen.addInteractable(stationP);
                             break;
                         case "fry":
-                            stationP = new PreparationStation(rectangle, nextPrepStationID);
+                            stationP = new PreparationStation(rectangle, nextPrepStationID,gameScreen);
                             stationP.setID(Station.StationID.fry);
+                            stationP.lock();
+                            fryLockedFlag = true;
                             gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
                             prepStationsList.add(stationP);
                             gameScreen.addInteractable(stationP);
                             break;
                         case "oven":
-                            stationP = new PreparationStation(rectangle, nextPrepStationID);
+                            stationP = new PreparationStation(rectangle, nextPrepStationID,gameScreen);
                             stationP.setID(Station.StationID.oven);
+                            stationP.lock();
+                            bakeLockedFlag = true;
                             gameScreen.addGameEntity(stationP);
                             nextPrepStationID++;
                             prepStationsList.add(stationP);

@@ -87,6 +87,7 @@ public class CustomerController {
                 return -1;
             }
         }
+
         // Get a deep copy of all the ServingStations.
         Array<ServingStation> emptyStations = new Array<>(servingStations);
         // Loop through and remove all the stations that have a
@@ -113,13 +114,9 @@ public class CustomerController {
         chosenStation.setCustomer(newCustomer);
         // Show the Customer's recipe
         gameScreen.getGameHud().setRecipe(newCustomer);
-        if (GameScreen.endless == true) {
-            return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
-        }
-        else {
-            customersLeft--;
-            return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
-        }
+        customersLeft--;
+        return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
+
 
     }
 
@@ -217,9 +214,9 @@ public class CustomerController {
         gameScreen.setCustomerHud(customersServed);
 
         // If there are any customers left, spawn a new one.
-        if (customersLeft > 0) {
-            addCustomer(GameScreen.endless);
-        }
+        //if (customersLeft > 0) {
+        //    addCustomer(GameScreen.endless);
+        //}
 
         // BELOW IS CODE FOR CUSTOMER SPAWNING.
 

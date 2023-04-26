@@ -4,10 +4,35 @@ cooksFoodStacks: [
 	{}
 	{}
 ]
+stationFoods: [
+	tomato
+	lettuce
+	null
+	null
+	null
+	null
+]
+stationStates: [
+	FINISHED
+	FINISHED
+	null
+	null
+	null
+	null
+]
+stationProgresses: [ 100, 100, 0, 0, 0, 0 ]
 countersFoodStacks: [
 	{}
 	{}
 ]
 reputation: 3
+powerups: [
+	true
+	false
+	false
+	true
+	false
+]
 customersLeft: 3
+fryersLocked: false
 }
