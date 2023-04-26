@@ -26,6 +26,7 @@ public class StateOfGame {
     public boolean[] powerups;
     public int customersLeft;
     public boolean endless;
+    public int customersServed;
 
     public StateOfGame(){
         cooksFoodStacks = new FoodStack[3];
@@ -35,6 +36,7 @@ public class StateOfGame {
         powerups = new boolean[5];
         countersFoodStacks = new FoodStack[2];
         money = 0;
+        customersServed = 0;
 
     }
 

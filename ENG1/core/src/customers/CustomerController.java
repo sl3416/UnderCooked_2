@@ -87,6 +87,7 @@ public class CustomerController {
                 return -1;
             }
         }
+
         // Get a deep copy of all the ServingStations.
         Array<ServingStation> emptyStations = new Array<>(servingStations);
         // Loop through and remove all the stations that have a

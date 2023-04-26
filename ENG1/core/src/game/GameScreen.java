@@ -179,8 +179,25 @@ public class GameScreen extends ScreenAdapter {
         }
 
         // Spawning code to spawn a customer after an amount of time.
+        Random rand = new Random();
+        int rand1 = rand.nextInt(100);
+        int rand2 = rand.nextInt(100);
         if(TimeUtils.millis() >= nextCustomerSecond)
         {
+            if (minutesPassed > 1)
+            {
+                if (minutesPassed > 3)
+                {
+                    if (rand2 <= 30)
+                    {
+                        int recipeComplexity = customerController.addCustomer(GameScreen.endless);
+                    }
+                }
+                if (rand1 <= 40)
+                {
+                    int recipeComplexity = customerController.addCustomer(GameScreen.endless);
+                }
+            }
             int recipeComplexity = customerController.addCustomer(GameScreen.endless);
             if (recipeComplexity == -1) {
                 // If customer couldn't be added, then wait 2 seconds.
@@ -534,6 +551,7 @@ public class GameScreen extends ScreenAdapter {
         StateOfGame.getInstance().reputation = repPoints;
         StateOfGame.getInstance().money = currentMoney;
         StateOfGame.getInstance().endless = endless;
+        StateOfGame.getInstance().customersServed = customerController.getCustomersServed();
 
         if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
             StateOfGame.getInstance().powerups[0] = true;
@@ -558,6 +576,7 @@ public class GameScreen extends ScreenAdapter {
         this.repPoints = gameState.reputation;
         this.customersToServe = gameState.customersLeft;
         this.endless = gameState.endless;
+        customerController.setCustomersServed(gameState.customersServed);
         startGame(gameState.customersLeft, gameState.endless);
         //Powerups variables
         boolean[] powerups = gameState.powerups;
