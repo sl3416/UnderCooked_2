@@ -35,6 +35,7 @@ public class PreparationStation extends Station {
     private GameScreen gameScreen;
 
     public int saveID;
+    private float progBurn;
 
     /**
      * The constructor for the {@link PreparationStation}.
@@ -58,9 +59,10 @@ public class PreparationStation extends Station {
     @Override
     public void update(float delta) {
         if (inUse) {
+            progBurn = progBurn + interaction.getSpeed() * delta;
             if (progress < 100) {
-                float[] steps = interaction.getSteps();
                 progress = Math.min(progress + interaction.getSpeed() * delta, 100);
+                float[] steps = interaction.getSteps();
                 if (stepNum < steps.length) {
                     // -1 instant case
                     if (interaction.getSpeed() == -1) {
@@ -71,15 +73,16 @@ public class PreparationStation extends Station {
                             progress = steps[stepNum];
                             state = StationState.NEED_USE;
 
-                            //New Matt Code
+                            /* //New Matt Code
                             tempDelta += delta;
                             if(tempDelta > 6F && foodItem == FoodItem.FoodID.meat){
                                 interaction.setResult(FoodItem.FoodID.burntPatty);
                                 foodItem = FoodItem.FoodID.burntPatty;
                                 progress = 100F;
                                 tempDelta = 0F;
-                            //End New Matt Code
                             }
+                            //End New Matt Code */
+
                         } else {
                             state = StationState.PREPARING;
                         }
@@ -93,8 +96,16 @@ public class PreparationStation extends Station {
                     }
                 }
             } else {
-                state = StationState.FINISHED;
+                if(state != StationState.FINISHED){
+                    state = StationState.FINISHED;
+                } else{
+
+                }
             }
+            if(progBurn >= 200){
+                inUse = false;
+            }
+            System.out.println(progBurn);
         }
 
         saveVariables();
@@ -172,6 +183,11 @@ public class PreparationStation extends Station {
                     break;
             }
             shape.rect(rectX+2,rectY+2,progress/100*progressWidth,rectHeight-4,progressColor,progressColor,progressColor,progressColor);
+            if(progress>=100){
+                shape.rect(rectX+2,rectY+2,(progBurn-100)/100*progressWidth,rectHeight-4,Color.RED,Color.RED,Color.RED,Color.RED);
+            } else if(state == StationState.NEED_USE){
+                shape.rect(rectX+2,rectY+2,Math.max((progBurn-95),0)/200*progressWidth,rectHeight-4,Color.RED,Color.RED,Color.RED,Color.RED);
+            }
         }
     }
 
@@ -204,6 +220,7 @@ public class PreparationStation extends Station {
                     interaction = newInteraction;
                     stepNum = 0;
                     progress = 0;
+                    progBurn = 0;
                     inUse = true;
                     state = StationState.PREPARING;
                     if(PowerupStatic.powerups.get("CookingSpeedIncr") == Boolean.TRUE && interaction.getSpeed() != -1){
@@ -254,6 +271,7 @@ public class PreparationStation extends Station {
                     if (stepNum < steps.length) {
                         if (progress >= steps[stepNum]) {
                             progress = steps[stepNum];
+                            progBurn = 50;
                             stepNum += 1;
                         }
                     }
