@@ -184,8 +184,14 @@ public class GameHud extends Hud {
      * Set the Customer Count label
      * @param customerCount New Customer Count
      */
-    public void setCustomerCount(int customerCount) {
-        CustomerLabel.setText(String.format("CUSTOMERS: %d",customerCount));
+    public void setCustomerCount(int customerCount, boolean endless) {
+        if (endless == true)
+        {
+            CustomerLabel.setText(String.format("CUSTOMERS: ENDLESS"));
+        }
+        else {
+            CustomerLabel.setText(String.format("CUSTOMERS: %d",customerCount));
+        }
     }
 
     /**
