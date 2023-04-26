@@ -14,6 +14,7 @@ import stations.ServingStation;
 
 import java.util.Random;
 import static game.GameScreen.customerController;
+import static game.GameScreen.diffMultiplier;
 
 /**
  * A {@link Customer} has a request that they want
@@ -43,7 +44,7 @@ public class Customer {
         this.position = Constants.customerSpawn;
         this.request = Recipe.randomRecipe();
         this.spawnTime = TimeUtils.millis();
-        this.timeLimit = 60;
+        this.timeLimit = 120/diffMultiplier;
     }
 
     /**

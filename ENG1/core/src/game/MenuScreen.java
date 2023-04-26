@@ -34,6 +34,10 @@ public class MenuScreen extends ScreenAdapter {
     private Viewport viewport;
     private Stage stage;
     private Sprite backgroundSprite;
+    private int nCustomers=5;
+    private Label startSLabel;
+    private Label startELabel;
+    public static String difficulty = "Normal";
 
     /**
      * The constructor for the {@link MenuScreen}.
@@ -58,13 +62,29 @@ public class MenuScreen extends ScreenAdapter {
         table.add(welcomeLabel).expandX();
         table.row();
 
-        Label startSLabel = new Label(String.format("PRESS %s TO START SCENARIO MODE",Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase()), font);
+        startSLabel = new Label(String.format("PRESS %s TO START SCENARIO MODE (%s CUSTOMERS)",Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(),nCustomers), font);
         table.add(startSLabel).expandX();
         table.row();
 
-        Label startELabel = new Label(String.format("PRESS %s TO START ENDLESS MODE",Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase()), font);
+        Label scenarioLabel = new Label("use arrow keys to change customer count", font);
+        table.add(scenarioLabel).expandX();
+        table.row();
+
+        table.add(new Label(" ",font)).expandX();
+        table.row();
+
+        startELabel = new Label(String.format("PRESS %s TO START ENDLESS MODE (%s)",Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()), font);
         table.add(startELabel).expandX();
         table.row();
+
+        Label endlessLabel = new Label("use B N or M to control difficulty", font);
+        table.add(endlessLabel).expandX();
+        table.row();
+
+        table.add(new Label(" ",font)).expandX();
+        table.row();
+
+
 
         Label instructionLabel = new Label(String.format("PRESS %s FOR INSTRUCTIONS",Interactions.getKeyString(InputKey.InputTypes.INSTRUCTIONS).toUpperCase()), font);
         table.add(instructionLabel).expandX();
@@ -93,15 +113,41 @@ public class MenuScreen extends ScreenAdapter {
     public void update(float delta) {
         Interactions.updateKeys();
 
+        // Sets scenario mode customer count
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){
+            nCustomers = Math.min(nCustomers+1,20);
+            startSLabel.setText(String.format("PRESS %s TO START SCENARIO MODE (%s CUSTOMERS)",Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(),nCustomers));
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            nCustomers = Math.max(nCustomers - 1, 1);
+            if (nCustomers == 1) {
+                startSLabel.setText(String.format("PRESS %s TO START SCENARIO MODE (%s CUSTOMER)", Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(), nCustomers));
+            } else {
+                startSLabel.setText(String.format("PRESS %s TO START SCENARIO MODE (%s CUSTOMERS)", Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(), nCustomers));
+            }
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
+            difficulty = "Beginner";
+            startELabel.setText(String.format("PRESS %s TO START ENDLESS MODE (%s)",Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()));
+        } else if(Gdx.input.isKeyJustPressed(Input.Keys.N)){
+            difficulty = "Normal";
+            startELabel.setText(String.format("PRESS %s TO START ENDLESS MODE (%s)",Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()));
+        } else if(Gdx.input.isKeyJustPressed(Input.Keys.M)){
+            difficulty = "Master";
+            startELabel.setText(String.format("PRESS %s TO START ENDLESS MODE (%s)",Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()));
+        }
+
+
+
         // Set the screen to the gameplay screen
         if (Interactions.isJustPressed(InputKey.InputTypes.STARTS_GAME)) {
             screenController.setScreen(ScreenID.GAME);
-            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(3, false);
+            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(nCustomers, false);
         }
         // Set the screen to the gameplay screen on endless mode
         else if (Interactions.isJustPressed(InputKey.InputTypes.STARTE_GAME)) {
             screenController.setScreen(ScreenID.GAME);
-            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(Integer.MAX_VALUE, true);
+            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(Integer.MAX_VALUE, true, difficulty);
         }
         // Set the screen to the instructions screen
         else if (Interactions.isJustPressed(InputKey.InputTypes.INSTRUCTIONS)) {

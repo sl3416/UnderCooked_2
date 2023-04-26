@@ -36,7 +36,8 @@ public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private int delay;
     public static boolean youLose;
-
+    private long customerTimer = 10000;
+    public static int diffMultiplier;
     private long previousSecond = 0, lastCustomerSecond = 0, nextCustomerSecond = 0;
     private int secondsPassed = 0, minutesPassed = 0, hoursPassed = 0;
     private GameHud gameHud;
@@ -104,6 +105,7 @@ public class GameScreen extends ScreenAdapter {
         this.customerController = new CustomerController(this);
 
 
+
         this.world = new World(new Vector2(0,0), false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
         this.mapHelper = MapHelper.getInstance();
@@ -130,6 +132,13 @@ public class GameScreen extends ScreenAdapter {
         StateOfGame.getInstance();
 
     }
+
+    public enum difficulty{
+        EASY,
+        MEDIUM,
+        HARD
+    }
+
 
     /**
      * Update the game's values, {@link GameEntity}s and so on.
@@ -208,7 +217,7 @@ public class GameScreen extends ScreenAdapter {
             } else {
                 // Wait longer if the recipe has more steps.
                 lastCustomerSecond = TimeUtils.millis();
-                nextCustomerSecond += 1000 * Math.floor(9 + 5.4F * Math.log(recipeComplexity - 0.7));
+                nextCustomerSecond += (customerTimer/2 * Math.floor(9 + 5.4F * Math.log(recipeComplexity - 0.7)))/diffMultiplier;
             }
         }
 
@@ -490,13 +499,14 @@ public class GameScreen extends ScreenAdapter {
      *                  served in the game to finish.
      *
      */
-    public void startGame(int customers, boolean endless) {
+    public void startGame(int customers, boolean endless, int difficultyMultiplier) {
         secondsPassed = 0;
         minutesPassed = 0;
         hoursPassed = 0;
         previousSecond = TimeUtils.millis();
         lastCustomerSecond = TimeUtils.millis();
-        nextCustomerSecond = TimeUtils.millis()+2000;
+        nextCustomerSecond = TimeUtils.millis()+customerTimer/difficultyMultiplier;
+        diffMultiplier = difficultyMultiplier;
 
         GameScreen.endless = endless;
 
@@ -508,6 +518,24 @@ public class GameScreen extends ScreenAdapter {
         setCustomerHud(customers);
         gameHud.setCustomerCount(customers, GameScreen.endless);
 
+    }
+    public void startGame(int customers, boolean endless, String difficulty){
+        int diffMultiplier = 2;
+        switch (difficulty){
+            case "Beginner":
+                diffMultiplier = 1;
+                break;
+            case "Normal":
+                diffMultiplier = 2;
+                break;
+            case "Master":
+                diffMultiplier = 4;
+                break;
+        }
+        this.startGame(customers,endless,diffMultiplier);
+    }
+    public void startGame(int customers, boolean endless) {
+        this.startGame(customers,endless,"Beginner");
     }
 
     /**
