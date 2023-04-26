@@ -357,10 +357,10 @@ public class GameScreen extends ScreenAdapter {
      */
     public void setCustomerHud(int customerCount) {
         if (endless == false) {
-            gameHud.setCustomerCount(customersToServe - customerCount);
+            gameHud.setCustomerCount(customersToServe - customerCount, GameScreen.endless);
         }
         else {
-            gameHud.setCustomerCount(customerCount);
+            gameHud.setCustomerCount(customerCount, GameScreen.endless);
         }
     }
 
@@ -485,7 +485,7 @@ public class GameScreen extends ScreenAdapter {
         customerController.setCustomersServed(0);
         customerController.addCustomer(GameScreen.endless);
         setCustomerHud(customers);
-        gameHud.setCustomerCount(customers);
+        gameHud.setCustomerCount(customers, GameScreen.endless);
 
     }
 
