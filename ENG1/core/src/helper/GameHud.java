@@ -231,6 +231,7 @@ public class GameHud extends Hud {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 PowerupStatic.powerups.put(powerupName, Boolean.TRUE);
                 powerup.setPosition(-100f, -100f);
+                GameScreen.powerupOnScreen = false;
                 return true;
             }});
     }

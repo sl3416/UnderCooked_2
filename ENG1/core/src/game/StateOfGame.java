@@ -28,6 +28,9 @@ public class StateOfGame {
     public boolean endless;
     public int customersServed;
 
+    public boolean ovensLocked;
+    public boolean fryersLocked;
+
     public StateOfGame(){
         cooksFoodStacks = new FoodStack[3];
         stationFoods = new FoodItem.FoodID[6];
@@ -36,6 +39,8 @@ public class StateOfGame {
         powerups = new boolean[5];
         countersFoodStacks = new FoodStack[2];
         money = 0;
+        ovensLocked = true;
+        fryersLocked = true;
         customersServed = 0;
 
     }
