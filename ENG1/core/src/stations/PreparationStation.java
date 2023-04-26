@@ -218,6 +218,9 @@ public class PreparationStation extends Station {
                     // Set the current interaction, and put this station inUse
                     foodItem = cook.foodStack.popStack();
                     interaction = newInteraction;
+                    if(foodItem == FoodItem.FoodID.meat){
+                        interaction.setResult(FoodItem.FoodID.meatCook);
+                    }
                     stepNum = 0;
                     progress = 0;
                     progBurn = 0;
@@ -280,9 +283,14 @@ public class PreparationStation extends Station {
         }
         else if(currentMoney >= 20){
             if(this.getID() == StationID.oven) {
-                currentMoney -= 20;
+                if(PowerupStatic.powerups.get("NewStationsCostDecr") == Boolean.TRUE){
+                    currentMoney -= 10;
+                } else {
+                    currentMoney -= 20;
+                }
                 gameScreen.increaseCurrentMoney(0);
                 MapHelper.bakeLockedFlag = false;
+                StateOfGame.getInstance().ovensLocked = false;
                 for (PreparationStation stationP : gameScreen.getMapHelper().prepStationsList) {
                     if (stationP.getID() == Station.StationID.oven) {
                         stationP.unlock();
@@ -290,9 +298,16 @@ public class PreparationStation extends Station {
                 }
             }
             else if(this.getID() == StationID.fry){
-                currentMoney -= 20;
+
+                if(PowerupStatic.powerups.get("NewStationsCostDecr") == Boolean.TRUE){
+                    currentMoney -= 10;
+                } else {
+                    currentMoney -= 20;
+                }
+
                 gameScreen.increaseCurrentMoney(0);
                 MapHelper.fryLockedFlag = false;
+                StateOfGame.getInstance().fryersLocked = false;
                 for (PreparationStation stationP: gameScreen.getMapHelper().prepStationsList) {
                     if(stationP.getID() == Station.StationID.fry){
                         stationP.unlock();
