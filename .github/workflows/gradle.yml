@@ -83,10 +83,11 @@ jobs: # what to do
       - name: Upload library JAR
         uses: actions/upload-artifact@v3.1.1
         with:
-          name: lib.jar
+          name: lib-${{ matrix.os }}.jar
           path: ENG1/core/build/libs/*.jar
       - name: Upload Checkstyle report
         uses: actions/upload-artifact@v3.1.1
+        if: startsWith(matrix.os, 'ubuntu')
         with:
           name: checkstyle-report
           path: ENG1/core/build/reports/checkstyle
