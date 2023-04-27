@@ -81,14 +81,6 @@ project(":core") {
 
 project(":desktop") {
     apply plugin: "java-library"
-    apply plugin: "jacoco"
-    apply plugin: "checkstyle"
-
-    def checkstyleVersion = '10.4'
-
-    configurations{
-        checkstyleRules
-    }
 
     dependencies {
         implementation project(":core")
@@ -106,10 +98,6 @@ project(":desktop") {
 //
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.11.0"
 //        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-        checkstyleRules(
-                "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"){
-            transitive = false
-        }
     }
 }
 
