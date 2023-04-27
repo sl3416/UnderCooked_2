@@ -46,12 +46,12 @@ public class GameSprites {
      * each {@link Sprite} to be accessed via a simple {@link String}.
      * This is not static, or final, as it can be modified as needed during the game.
      */
-    private HashMap<String, Sprite> spriteMap;
+    public HashMap<String, Sprite> spriteMap;
 
     private static GameSprites INSTANCE;
 
     /** Private constructor to allow for a Singleton. */
-    private GameSprites() {
+    public GameSprites() {
         this.spriteMap = new HashMap<>();
         createResources();
     }
