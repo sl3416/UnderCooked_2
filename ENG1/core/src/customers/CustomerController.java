@@ -25,7 +25,7 @@ public class CustomerController {
     /** An array of all {@link ServingStation}s to assign to the {@link Customer}s.*/
     public static Array<ServingStation> servingStations;
     /** The number of {@link Customer}s to spawn. */
-    private int customersLeft,
+    static private int customersLeft,
     /** The number of {@link Customer}s served. */
     customersServed;
     /** The {@link game.GameScreen} to send the {@link #customersServed} to. */

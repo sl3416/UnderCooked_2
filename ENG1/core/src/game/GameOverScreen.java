@@ -7,15 +7,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import customers.CustomerController;
 import helper.Constants;
 import helper.Util;
 import interactions.InputKey;
 import interactions.Interactions;
+
+import static game.GameScreen.customerController;
 import static game.GameScreen.youLose;
 
 /**
@@ -68,6 +72,14 @@ public class GameOverScreen extends ScreenAdapter {
         Label extraText = new Label(String.format("To restart, press %s.", Interactions.getKeyString(InputKey.InputTypes.RESET_GAME)), font);
         extraText.setFontScale(1);
         table.add(extraText);
+
+        table.row();
+
+        String CustomerC = Integer.toString(customerController.getCustomersServed());
+
+        Label customersServedtext = new Label(String.format("Customers Served: %s", CustomerC), font);
+        customersServedtext.setFontScale(1);
+        table.add(customersServedtext);
 
         table.row();
 
