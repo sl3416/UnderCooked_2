@@ -73,16 +73,6 @@ public class PreparationStation extends Station {
                             progress = steps[stepNum];
                             state = StationState.NEED_USE;
 
-                            /* //New Matt Code
-                            tempDelta += delta;
-                            if(tempDelta > 6F && foodItem == FoodItem.FoodID.meat){
-                                interaction.setResult(FoodItem.FoodID.burntPatty);
-                                foodItem = FoodItem.FoodID.burntPatty;
-                                progress = 100F;
-                                tempDelta = 0F;
-                            }
-                            //End New Matt Code */
-
                         } else {
                             state = StationState.PREPARING;
                         }
@@ -102,10 +92,10 @@ public class PreparationStation extends Station {
 
                 }
             }
+            // Burn case
             if(progBurn >= 200){
                 inUse = false;
             }
-            System.out.println(progBurn);
         }
 
         saveVariables();
@@ -183,7 +173,8 @@ public class PreparationStation extends Station {
                     break;
             }
             shape.rect(rectX+2,rectY+2,progress/100*progressWidth,rectHeight-4,progressColor,progressColor,progressColor,progressColor);
-            if(progress>=100){
+            // Once the food is cooked, show the burn bar
+            if(progress>=100 && this.stationID != StationID.cut){
                 shape.rect(rectX+2,rectY+2,(progBurn-100)/100*progressWidth,rectHeight-4,Color.RED,Color.RED,Color.RED,Color.RED);
             } else if(state == StationState.NEED_USE){
                 shape.rect(rectX+2,rectY+2,Math.max((progBurn-95),0)/200*progressWidth,rectHeight-4,Color.RED,Color.RED,Color.RED,Color.RED);

@@ -234,7 +234,7 @@ public class GameScreen extends ScreenAdapter {
         }
 
         // - - - DEBUG CONTROLS - - - //
-        // /* unlock stations cheat
+        /* unlock stations cheat
         if(Gdx.input.isKeyJustPressed(Input.Keys.X)){
             MapHelper.bakeLockedFlag = false;
             for (PreparationStation stationP: mapHelper.prepStationsList) {
@@ -252,7 +252,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
         // - - - DEBUG END - - - //
-        //*/
+        // */
         this.saveVariables();
     }
 
