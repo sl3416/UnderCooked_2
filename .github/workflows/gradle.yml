@@ -85,11 +85,11 @@ jobs: # what to do
         with:
           name: lib.jar
           path: ENG1/core/build/libs/*.jar
-     - name: Upload Checkstyle report
-       uses: actions/upload-artifact@v3.1.1
-       with:
-         name: checkstyle-report
-         path: ENG1/core/build/reports/checkstyle
+      - name: Upload Checkstyle report
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: checkstyle-report
+          path: ENG1/core/build/reports/checkstyle
   release:
     runs-on: ubuntu-22.04
     needs: ["build"]
