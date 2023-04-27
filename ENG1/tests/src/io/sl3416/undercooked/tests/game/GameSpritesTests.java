@@ -44,7 +44,7 @@ public class GameSpritesTests {
     @Test
     public void testGetInstance() {
         // checks if it returns INSTANCE of GameSprite and not null
-        assertNotNull("Did not return instance of game sprite", GameSprites.getInstance());
+        assertNotNull("Did not return instance of GameSprite", GameSprites.getInstance());
     }
 
     /**

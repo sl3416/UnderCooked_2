@@ -42,7 +42,6 @@ public class StateOfGame {
         ovensLocked = true;
         fryersLocked = true;
         customersServed = 0;
-
     }
 
     public static StateOfGame getInstance() {

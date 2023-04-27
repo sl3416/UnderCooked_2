@@ -22,7 +22,7 @@ public class Boot extends Game {
     /** The camera for the game. */
     private OrthographicCamera orthographicCamera;
     /** Boot Singleton Constructor */
-    private Boot()
+    public Boot()
     {
         INSTANCE = this;
     }
