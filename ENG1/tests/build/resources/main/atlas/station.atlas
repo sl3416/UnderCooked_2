@@ -25,3 +25,10 @@ oven
   orig: 25, 21
   offset: 0, 0
   index: -1
+lock
+  rotate: false
+  xy: 86,13
+  size: 16,16
+  orig: 16,16
+  offset: 0,0
+  index: -1

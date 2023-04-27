@@ -18,7 +18,7 @@ public class InputKeyTests {
         InputTypes inputType = InputTypes.START_GAME;
         int key = 32;
 
-        InputKey inputKey = new InputKey(inputType, key);
+        InputKey inputKey = new InputKey(InputTypes.START_GAME, key);
 
         assertEquals(inputType, inputKey.getType());
         assertEquals(key, inputKey.getKey());

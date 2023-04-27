@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.sl3416.undercooked.tests.InteractionsTests" tests="16" skipped="0" failures="0" errors="0" timestamp="2023-04-27T13:05:19" hostname="LAPTOP-LI9Q8A9H" time="0.496">
+  <properties/>
+  <testcase name="testInteractionResultConstructor" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.003"/>
+  <testcase name="testGetSpeed" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.0"/>
+  <testcase name="testGetSteps" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.0"/>
+  <testcase name="testResetKeys" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.006"/>
+  <testcase name="testGetInputKeys" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.005"/>
+  <testcase name="testGetKeyStringInputType" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.005"/>
+  <testcase name="testGetKeyStringInputKey" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.0"/>
+  <testcase name="testUpdateKeys" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.243"/>
+  <testcase name="testInteractionKey" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.001"/>
+  <testcase name="testIsPressed" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.001"/>
+  <testcase name="testGetKeyStrings" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.001"/>
+  <testcase name="testInteraction" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.002"/>
+  <testcase name="testSetResult" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.0"/>
+  <testcase name="testGetResults" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.0"/>
+  <testcase name="testIsJustPressed" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.0"/>
+  <testcase name="testSetSpeed" classname="io.sl3416.undercooked.tests.InteractionsTests" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

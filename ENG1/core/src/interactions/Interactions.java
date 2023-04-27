@@ -15,7 +15,7 @@ import stations.Station.StationID;
  */
 public class Interactions {
     /** A HashMap containing how each FoodItem's FoodID, via a station of StationID, can convert to another foodID.*/
-    private static final HashMap<String, InteractionResult> interactions = new HashMap<>();
+    public static final HashMap<String, InteractionResult> interactions = new HashMap<>();
     static {
         interactions.put(InteractionKey(FoodID.lettuce, StationID.cut), new InteractionResult(FoodID.lettuceChop,new float[] {25,50,75},-1));
         interactions.put(InteractionKey(FoodID.tomato, StationID.cut), new InteractionResult(FoodID.tomatoChop,new float[] {25,50,75},-1));
@@ -32,9 +32,9 @@ public class Interactions {
      * to change, and to specify at what percentages a user input is required.
      */
     public static class InteractionResult {
-        private FoodID result;
-        private float[] steps;
-        private float speed;
+        public FoodID result;
+        public float[] steps;
+        public float speed;
         /**
          * InteractionResult Constructor
          * @param result -
@@ -108,7 +108,7 @@ public class Interactions {
      *    or {@link #isJustPressed(InputKey.InputTypes)} to check if the user has pressed the keys.
      *    They are named in the same way as the LibGDX functions.
      * */
-    private static final HashMap<InputID, Array<InputKey>> inputs = new HashMap<>();
+    public static final HashMap<InputID, Array<InputKey>> inputs = new HashMap<>();
     static {
         inputs.put(InputID.MENU, new Array<>(new InputKey[]{
                 new InputKey(InputKey.InputTypes.INSTRUCTIONS, Input.Keys.I),
@@ -156,9 +156,7 @@ public class Interactions {
      * @param inputID {@link InputID} enum Constant
      * @return The key on the keyboard correlated to it.
      */
-    public static Array<InputKey> getInputKeys(InputID inputID) {
-        return inputs.get(inputID);
-    }
+    public static Array<InputKey> getInputKeys(InputID inputID) { return inputs.get(inputID); }
 
     /** Remove all current keyPressed info.*/
     public static void resetKeys() {
@@ -274,7 +272,7 @@ public class Interactions {
      * Creates an interaction key out of foodID and stationID.
      * @return The key made out of both arguments.
      */
-    private static String InteractionKey(FoodID foodID, StationID stationID) {
+    public static String InteractionKey(FoodID foodID, StationID stationID) {
         return String.format("%s-%s", foodID.ordinal(), stationID.ordinal());
     }
 }
