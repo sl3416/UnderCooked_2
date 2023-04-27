@@ -72,17 +72,19 @@ jobs: # what to do
           # workflow-job-context: # optional, default is ${{ toJSON(matrix) }}
           # When 'true', the action will attempt to remove any stale/unused entries from the Gradle User Home prior to saving to the GitHub Actions cache.
           # gradle-home-cache-cleanup: # optional
+
       - name: Upload JaCoCO coverage report # as a workflow artifact
         uses: actions/upload-artifact@v3.1.1
         with:
           name: jacoco-report-${{ matrix.os }}
           path: ENG1/tests/build/reports/tests/test/index.html
+
       # Add binary artifacts - Adding JAR upload to GHA workflow
       - name: Upload library JAR
         uses: actions/upload-artifact@v3.1.1
         with:
           name: lib.jar
-          path: ENG1/core/build/libs/lib.jar
+          path: ENG1/lib/build/libs/lib.jar
      # - name: Upload Checkstyle report
       #  uses: actions/upload-artifact@v3.1.1
       #  if: startsWith(matrix.os, 'ubuntu')
