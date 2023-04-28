@@ -222,7 +222,14 @@ public class GameScreen extends ScreenAdapter {
             } else {
                 // Wait longer if the recipe has more steps.
                 lastCustomerSecond = TimeUtils.millis();
-                nextCustomerSecond += (customerTimer/2 * Math.floor(9 + 5.4F * Math.log(recipeComplexity - 0.7)))/diffMultiplier;
+                if (endless) {
+
+                    nextCustomerSecond += (customerTimer/2 * Math.floor(9 + 5.4F * Math.log(recipeComplexity - 0.7)))/(customersServed*0.5+diffMultiplier);
+                }
+                else {
+                    nextCustomerSecond += (customerTimer/2 * Math.floor(9 + 5.4F * Math.log(recipeComplexity - 0.7)))/diffMultiplier;
+                }
+
             }
         }
 
