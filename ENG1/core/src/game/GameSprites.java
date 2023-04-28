@@ -52,7 +52,7 @@ public class GameSprites {
 
     /** Private constructor to allow for a Singleton. */
     public GameSprites() {
-        this.spriteMap = new HashMap<>();
+        spriteMap = new HashMap<>();
         createResources();
     }
 

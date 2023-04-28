@@ -13,14 +13,13 @@ import static org.junit.Assert.*;
 @RunWith(GdxTestRunner.class)
 public class StateOfGameTests {
     public float[] testStationProgresses = new float[6];
-    public boolean[] testPowerups = new boolean[5];
 
     @Test
     public void testStateOfGameConstructor() {
         StateOfGame game = new StateOfGame();
 
         // Check that all instance variables are initialized to their default values
-        assertArrayEquals("cooksFoodStacks was not loaded correctly", new FoodStack[3], game.cooksFoodStacks);
+        assertArrayEquals("cooksFoodStacks was not loaded correctly", new FoodStack[100], game.cooksFoodStacks);
         assertArrayEquals("stationFoods was not loaded correctly", new FoodItem.FoodID[6], game.stationFoods);
         assertArrayEquals("stationStates was not loaded correctly", new PreparationStation.StationState[6], game.stationStates);
 
