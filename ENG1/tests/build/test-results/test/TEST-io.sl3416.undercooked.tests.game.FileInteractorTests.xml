@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.sl3416.undercooked.tests.game.FileInteractorTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-27T23:20:50" hostname="LAPTOP-LI9Q8A9H" time="0.135">
+<testsuite name="io.sl3416.undercooked.tests.game.FileInteractorTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-28T13:52:46" hostname="LAPTOP-LI9Q8A9H" time="0.204">
   <properties/>
-  <testcase name="testSaveToJSON" classname="io.sl3416.undercooked.tests.game.FileInteractorTests" time="0.096"/>
-  <testcase name="testNewInstance" classname="io.sl3416.undercooked.tests.game.FileInteractorTests" time="0.003"/>
+  <testcase name="testSaveToJSON" classname="io.sl3416.undercooked.tests.game.FileInteractorTests" time="0.166"/>
+  <testcase name="testNewInstance" classname="io.sl3416.undercooked.tests.game.FileInteractorTests" time="0.004"/>
   <testcase name="testGetInstance" classname="io.sl3416.undercooked.tests.game.FileInteractorTests" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
