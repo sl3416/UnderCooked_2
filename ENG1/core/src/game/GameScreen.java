@@ -150,6 +150,8 @@ public class GameScreen extends ScreenAdapter {
         // First thing, update all inputs
         Interactions.updateKeys();
 
+        gameHud.update();
+
         if( repPoints <= 0 ){
             youLose = true;
         }

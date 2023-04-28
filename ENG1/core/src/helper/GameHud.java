@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import customers.Customer;
 import food.FoodItem;
 import food.FoodStack;
@@ -42,6 +44,9 @@ public class GameHud extends Hud {
 
     Label repLabel;
     ImageButton powerup;
+
+    private float LastScreenX;
+    private float LastScreenY;
 
     /** The {@link SpriteBatch} of the GameHud. Use for drawing {@link food.Recipe}s. */
     private SpriteBatch batch;
@@ -77,7 +82,6 @@ public class GameHud extends Hud {
 
         Gdx.input.setInputProcessor(stage);
 
-
         this.batch = batch;
     }
 
@@ -106,20 +110,21 @@ public class GameHud extends Hud {
         batch.end();
     }
 
-    /* Removed as it was confusing to look at.
-    /**
-     * Changes the order of the {@link FoodItem}s in the recipe every second
-     * to show which {@link FoodItem}s have non-specific places in the
-     * {@link Recipe}.
-     * /
+
     public void update() {
-        if (recipe != null) {
-            if (TimeUtils.timeSinceMillis(lastChange) > 1000) {
-                this.recipe = Recipe.randomRecipeOption(recipeName);
-                lastChange = TimeUtils.millis();
-            }
+        if(LastScreenX != Gdx.graphics.getWidth() || LastScreenY != Gdx.graphics.getHeight()){
+            resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            //System.out.println("UPDATED!");
         }
-    }*/
+        LastScreenX = Gdx.graphics.getWidth();
+        LastScreenY = Gdx.graphics.getHeight();
+    }
+
+    public void resize(int width, int height) {
+        // use true here to center the camera
+        // that's what you probably want in case of a UI
+        stage.getViewport().update(width, height, true);
+    }
 
     /**
      * Sets the recipe to be rendered.
