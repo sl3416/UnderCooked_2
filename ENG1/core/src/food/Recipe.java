@@ -18,11 +18,10 @@ public class Recipe {
 	/** A HashMap containing how each FoodItem's FoodID, via a station of StationID, can convert to another foodID.*/
 	private static final HashMap<String, Array<FoodStack>> recipes = new HashMap<>();
 		static {
-			//generateRecipes("Onion Tomato Salad", allCombos(FoodID.onionChop, FoodID.tomatoChop));
-
+			generateRecipes("Onion Tomato Salad", allCombos(FoodID.onionChop, FoodID.tomatoChop));
 			generateRecipes("Lettuce Tomato Salad", allCombos(FoodID.lettuceChop, FoodID.tomatoChop));
-			//generateRecipes("Lettuce Onion Salad", allCombos(FoodID.lettuceChop, FoodID.onionChop));
-
+			generateRecipes("Lettuce Onion Salad", allCombos(FoodID.lettuceChop, FoodID.onionChop));
+            generateRecipes("Lettuce Onion Tomato Salad", allCombos(FoodID.lettuceChop, FoodID.onionChop, FoodID.tomatoChop));
 
 			Array<FoodStack> plainBurger = new Array<>();
 			plainBurger.add(new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.bottomBun));
