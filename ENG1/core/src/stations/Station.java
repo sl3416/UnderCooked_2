@@ -37,7 +37,7 @@ public class Station extends CookInteractable {
     boolean locked; //True means it is locked
 
     StationID stationID;
-    boolean inUse;
+    public boolean inUse;
     GameSprites gameSprites;
 
     Sprite lockedSprite;

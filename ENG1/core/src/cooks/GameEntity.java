@@ -100,7 +100,7 @@ public abstract class GameEntity {
      * @return {@code float} : The {@link GameEntity}'s {@link #x}.
      */
     public float getX() {
-        return x;
+        return this.body.getPosition().x;
     }
 
     /**
@@ -108,7 +108,7 @@ public abstract class GameEntity {
      * @return {@code float} : The {@link GameEntity}'s {@link #y}.
      */
     public float getY() {
-        return y;
+        return this.body.getPosition().y;
     }
 
     public void setX(int newX){x = newX;}

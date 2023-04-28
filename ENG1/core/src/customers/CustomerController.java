@@ -32,6 +32,7 @@ public class CustomerController {
     private GameScreen gameScreen;
 
     private int payment;
+    private int customerID;
 
     /**
      * Constructor for the {@link CustomerController}.
@@ -44,6 +45,7 @@ public class CustomerController {
         this.customers = new Array<>();
         this.customersLeft = 0;
         this.customersServed = 0;
+        this.customerID = 0;
         this.customerSprite = GameSprites.getInstance().getSprite(GameSprites.SpriteID.CUSTOMER,"0");
         this.customerSprite.setSize(42.5F,70);
         this.servingStations = new Array<>();
@@ -108,7 +110,8 @@ public class CustomerController {
 
         Customer newCustomer = new Customer(customerSprite,
                 new Vector2(chosenStation.getCustomerX(),
-                        chosenStation.getCustomerY()));
+                        chosenStation.getCustomerY()),customerID);
+        customerID++;
         customers.add(newCustomer);
         newCustomer.randomRecipe();
         chosenStation.setCustomer(newCustomer);

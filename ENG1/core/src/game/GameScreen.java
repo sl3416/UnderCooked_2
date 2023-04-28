@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import customers.Customer;
 import static customers.CustomerController.customers;
 import static customers.CustomerController.customersServed;
+import static game.MenuScreen.loading;
 import static helper.MapHelper.*;
 
 import com.badlogic.gdx.Gdx;
@@ -616,6 +617,7 @@ public class GameScreen extends ScreenAdapter {
         for(Cook val : cooks){
             StateOfGame.getInstance().chefPositions.add(val.getX());
             StateOfGame.getInstance().chefPositions.add(val.getY());
+
         }
 
         if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
@@ -643,16 +645,25 @@ public class GameScreen extends ScreenAdapter {
         this.endless = gameState.endless;
         customersServed = gameState.customersServedState;
         startGame(gameState.customersLeft, gameState.endless);
+
+        //Chef variables
+        List<Float> chefPosSave = gameState.chefPositions;
+
         //Powerups variables
         boolean[] powerups = gameState.powerups;
         processPowerupsFromLoad(powerups);
+
         //Setting up for loading counters variables
         FoodStack[] countersSave = gameState.countersFoodStacks;
         List<CounterStation> counters = mapHelper.counterStationsList;
+
         //Setting up for preparation station variables
         FoodItem.FoodID[] stationFoodsSave = gameState.stationFoods;
         PreparationStation.StationState[] stationStatesSave = gameState.stationStates;
         float[] stationProgressesSave = gameState.stationProgresses;
+        boolean[] stationUsageSave = gameState.stationUsage;
+        float[] stationBurnsSave = gameState.stationBurns;
+        Interactions.InteractionResult[] stationInteractionSave = gameState.interactions;
         List<PreparationStation> preps = mapHelper.prepStationsList;
 
         this.secondsPassed = gameState.secondsTime;
@@ -660,16 +671,20 @@ public class GameScreen extends ScreenAdapter {
         this.hoursPassed = gameState.hoursTime;
         gameHud.updateTime(secondsPassed, minutesPassed, hoursPassed);
 
-        for(int i = 1; i < gameState.numberOfChefs; i++){
+        int cookID = 0;
+        for(int i = 0; i < gameState.numberOfChefs; i++){
             Body body = makeBody(chefRect, false);
-            this.addCook(new Cook(chefRect.getWidth(), chefRect.getHeight(), body, this, nextCookID));
-            nextCookID++;
+            int cookInd = this.addCook(new Cook(chefRect.getWidth(), chefRect.getHeight(), body, this, cookID));
+            if(cookID==0){
+                this.setCook(cookInd);
+            }
+            cookID++;
         }
 
         MapHelper.bakeLockedFlag = gameState.ovensLocked;
         MapHelper.fryLockedFlag = gameState.fryersLocked;
 
-        if(gameState.ovensLocked == false) {
+        if(!gameState.ovensLocked) {
             for (PreparationStation stationP : this.getMapHelper().prepStationsList) {
                 if (stationP.getID() == Station.StationID.oven) {
                     stationP.unlock();
@@ -677,7 +692,7 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
-        if(gameState.fryersLocked == false) {
+        if(!gameState.fryersLocked) {
             for (PreparationStation stationP: this.getMapHelper().prepStationsList) {
                 if(stationP.getID() == Station.StationID.fry){
                     stationP.unlock();
@@ -700,14 +715,21 @@ public class GameScreen extends ScreenAdapter {
             preps.get(i).foodItem = stationFoodsSave[i];
             preps.get(i).progress = stationProgressesSave[i];
             preps.get(i).state = stationStatesSave[i];
+            preps.get(i).inUse = stationUsageSave[i];
+            preps.get(i).progBurn = stationBurnsSave[i];
+            preps.get(i).interaction = stationInteractionSave[i];
         }
 
         //Cooks variables
         for(int i = 0; i < cooks.size; i++){
-            cooks.get(i).foodStack = gameState.cooksFoodStacks[i];
-            cooks.get(i).setX(i*2);
-            cooks.get(i).setY(i*2 + 1);
+            Cook cCook = cooks.get(i);
+            cCook.foodStack = gameState.cooksFoodStacks[i];
+            float xPos = gameState.chefPositions.get(i*2);
+            float yPos = gameState.chefPositions.get(i*2+1);
+            cCook.getBody().setTransform(xPos,yPos,cCook.getBody().getAngle());
         }
+
+        gameHud.updateMoney(currentMoney);
     }
 
     public MapHelper getMapHelper(){return mapHelper;}

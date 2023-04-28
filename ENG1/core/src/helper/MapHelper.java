@@ -21,6 +21,7 @@ import stations.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.MenuScreen.loading;
 import static helper.Constants.PPM;
 
 /** The {@link MapHelper} class helps by setting up the map
@@ -167,16 +168,18 @@ public class MapHelper {
 
                 if(rectangleName.equals("CookStart"))
                 {
-                    Body body = makeBody(rectangle, false);
-                    int cookInd = gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));
-                    gameScreen.setCook(cookInd);
-                    nextCookID++;
-                    continue;
+                    if(!loading) {
+                        Body body = makeBody(rectangle, false);
+                        int cookInd = gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));
+                        gameScreen.setCook(cookInd);
+                        nextCookID++;
+                        continue;
+                    }
                 }
 
                 if(rectangleName.equals("Cook"))
                 {
-                    if(nextCookID < 1) {
+                    if(nextCookID < 1 && !loading) {
                         Body body = makeBody(rectangle, false);
                         gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));
                         nextCookID++;

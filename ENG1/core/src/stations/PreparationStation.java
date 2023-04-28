@@ -14,6 +14,7 @@ import game.StateOfGame;
 import helper.MapHelper;
 import interactions.InputKey;
 import interactions.Interactions;
+import org.lwjgl.system.linux.Stat;
 
 import static game.GameScreen.currentMoney;
 
@@ -25,7 +26,7 @@ import static game.GameScreen.currentMoney;
 public class PreparationStation extends Station {
 
     public FoodItem.FoodID foodItem;
-    private Interactions.InteractionResult interaction;
+    public Interactions.InteractionResult interaction;
     public float progress;
     private int stepNum;
     public StationState state;
@@ -35,7 +36,7 @@ public class PreparationStation extends Station {
     private GameScreen gameScreen;
 
     public int saveID;
-    private float progBurn;
+    public float progBurn;
 
     /**
      * The constructor for the {@link PreparationStation}.
@@ -312,6 +313,9 @@ public class PreparationStation extends Station {
         StateOfGame.getInstance().stationFoods[saveID] = this.foodItem;
         StateOfGame.getInstance().stationStates[saveID] = this.state;
         StateOfGame.getInstance().stationProgresses[saveID] = this.progress;
+        StateOfGame.getInstance().stationBurns[saveID] = this.progBurn;
+        StateOfGame.getInstance().stationUsage[saveID] = this.inUse;
+        StateOfGame.getInstance().interactions[saveID] = this.interaction;
 
     }
 }

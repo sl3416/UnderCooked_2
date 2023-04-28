@@ -38,6 +38,7 @@ public class MenuScreen extends ScreenAdapter {
     private Label startSLabel;
     private Label startELabel;
     public static String difficulty = "Normal";
+    public static boolean loading = false;
 
     /**
      * The constructor for the {@link MenuScreen}.
@@ -160,6 +161,7 @@ public class MenuScreen extends ScreenAdapter {
         else if (Interactions.isJustPressed(InputKey.InputTypes.QUIT)) {
             Gdx.app.exit();
         } else if (Interactions.isJustPressed(InputKey.InputTypes.LOAD_GAME)){
+            loading = true;
             screenController.setScreen(ScreenID.GAME);
             ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(2, true);
             //Values in startGame() don't matter as they get overwritten in this next line

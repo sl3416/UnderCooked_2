@@ -8,10 +8,12 @@ import com.badlogic.gdx.utils.TimeUtils;
 import food.Recipe;
 import game.GameScreen;
 import game.PowerupStatic;
+import game.StateOfGame;
 import helper.Constants;
 import helper.MapHelper;
 import stations.ServingStation;
 
+import javax.swing.plaf.nimbus.State;
 import java.util.Random;
 import static game.GameScreen.customerController;
 import static game.GameScreen.diffMultiplier;
@@ -31,13 +33,14 @@ public class Customer {
     private String request;
     private long spawnTime;
     private int timeLimit;
+    public int saveID;
 
     /**
      * The constructor for the {@link Customer}.
      * <br>Randomly picks out a {@link Recipe} as a request.
      * @param sprite The {@link Sprite} of the {@link Customer}.
      */
-    public Customer(Sprite sprite)
+    public Customer(Sprite sprite, int saveID)
     {
         Random rand = new Random();
         this.sprite = sprite;
@@ -45,6 +48,7 @@ public class Customer {
         this.request = Recipe.randomRecipe();
         this.spawnTime = TimeUtils.millis();
         this.timeLimit = 120/diffMultiplier;
+        this.saveID = saveID;
     }
 
     /**
@@ -53,8 +57,8 @@ public class Customer {
      * @param sprite The {@link Sprite} of the {@link Customer}.
      * @param position A {@link Vector2} position of the {@link Customer}.
      */
-    public Customer(Sprite sprite, Vector2 position) {
-        this(sprite);
+    public Customer(Sprite sprite, Vector2 position, int saveID) {
+        this(sprite, saveID);
         this.position = position;
     }
 
@@ -119,6 +123,7 @@ public class Customer {
             customerController.removeCustomer(this.getStation());
             GameScreen.repPoints -= 1;
         }
+        this.saveVariables();
     }
 
     public ServingStation getStation(){
@@ -129,5 +134,10 @@ public class Customer {
             }
         }
         return null;
+    }
+
+    private void saveVariables(){
+        StateOfGame.getInstance().customerRequests[saveID] = this.request;
+        StateOfGame.getInstance().customerPositions[saveID] = this.position;
     }
 }

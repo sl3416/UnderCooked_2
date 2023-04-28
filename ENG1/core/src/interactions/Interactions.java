@@ -49,6 +49,7 @@ public class Interactions {
             this.steps = steps;
             this.speed = speed;
         }
+        public InteractionResult(){super();}
 
         /**
          * A getter to return the result of the interaction.

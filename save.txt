@@ -1,113 +1,34 @@
 {
 cooksFoodStacks: [
 	{}
-	{}
 	null
 	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
-	null
+]
+customerRequests: [
+	Onion Tomato Salad
+	Lettuce Tomato Salad
+	null
+	null
+]
+customerPositions: [
+	{
+		x: 416
+		y: 607.9091
+	}
+	{
+		x: 416
+		y: 607.9091
+	}
 	null
 	null
 ]
 stationFoods: [
-	tomato
+	lettuce
 	onion
 	null
 	null
 	null
-	null
+	rawJacketPotato
 ]
 stationStates: [
 	FINISHED
@@ -115,17 +36,55 @@ stationStates: [
 	null
 	null
 	null
-	null
+	FINISHED
 ]
-stationProgresses: [ 100, 100, 0, 0, 0, 0 ]
+stationProgresses: [ 100, 100, 0, 0, 0, 100 ]
+stationUsage: [
+	false
+	false
+	false
+	false
+	false
+	true
+]
+interactions: [
+	{
+		result: lettuceChop
+		steps: [ 25, 50, 75 ]
+		speed: -1
+	}
+	{
+		result: onionChop
+		steps: [ 25, 50, 75 ]
+		speed: -1
+	}
+	null
+	null
+	null
+	{
+		result: jacketPotato
+		steps: []
+		speed: 13
+	}
+]
+stationBurns: [ 49.13334, 49.59988, 0, 0, 0, 166.83371 ]
 countersFoodStacks: [
 	{}
 	{}
 ]
+money: 25
 reputation: 3
-customersLeft: 5
+powerups: [
+	false
+	false
+	true
+	false
+	true
+]
+customersLeft: 2147483647
+endless: true
 customersServedState: 1
-secondsTime: 14
-numberOfChefs: 2
-chefPositions: [ 405.72986, 373.42896, 601.25, 372 ]
+secondsTime: 34
+numberOfChefs: 1
+chefPositions: [ 17.77907, 13.336325 ]
 }
