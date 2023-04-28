@@ -1,6 +1,10 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.8 // This was 1.6 in the original example
+sourceCompatibility = 1.8
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+} // This was 1.6 in the original example
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
