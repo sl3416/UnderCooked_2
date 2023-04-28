@@ -19,6 +19,7 @@ import helper.Util;
 import interactions.InputKey;
 import interactions.Interactions;
 
+import static customers.CustomerController.customersServed;
 import static game.GameScreen.customerController;
 import static game.GameScreen.youLose;
 
@@ -33,10 +34,10 @@ public class GameOverScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Stage stage;
-    private Label customersServedtext;
     private Label timeLabel;
     private Label gameOverLabel;
 
+    private Label customersServedLabel;
     /**
      * The constructor for the {@link GameOverScreen}.
      * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
@@ -75,11 +76,9 @@ public class GameOverScreen extends ScreenAdapter {
 
         table.row();
 
-        String CustomerC = Integer.toString(customerController.getCustomersServed());
-
-        Label customersServedtext = new Label(String.format("Customers Served: %s", CustomerC), font);
-        customersServedtext.setFontScale(1);
-        table.add(customersServedtext);
+        customersServedLabel = new Label(String.format("Customers Served: %s", customersServed), font);
+        customersServedLabel.setFontScale(1);
+        table.add(customersServedLabel);
 
         table.row();
 
@@ -137,10 +136,7 @@ public class GameOverScreen extends ScreenAdapter {
     public void setWin(boolean youLose){
         if(youLose){gameOverLabel.setText("GAME OVER : YOU LOSE...");}
         else{gameOverLabel.setText("GAME OVER : YOU WIN!");}
+        customersServedLabel.setText(String.format("Customers Served: %s", customersServed));
     }
 
-    public void setCustomersServed(int C_Served)
-    {
-        customersServedtext.setText(Integer.toString(C_Served));
-    }
 }

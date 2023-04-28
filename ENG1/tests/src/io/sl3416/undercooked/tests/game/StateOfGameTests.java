@@ -2,7 +2,6 @@ package io.sl3416.undercooked.tests.game;
 
 import food.FoodItem;
 import food.FoodStack;
-import game.FileInteractor;
 import game.StateOfGame;
 import io.sl3416.undercooked.tests.GdxTestRunner;
 import org.junit.Test;
@@ -37,7 +36,7 @@ public class StateOfGameTests {
         assertEquals("money was not loaded correctly", 0, game.money);
         assertTrue("ovensLocked was not loaded correctly", game.ovensLocked);
         assertTrue("fryersLocked was not loaded correctly", game.fryersLocked);
-        assertEquals("customersServed was not loaded correctly", 0, game.customersServed);
+        assertEquals("customersServed was not loaded correctly", 0, game.customersServedState);
     }
 
     @Test

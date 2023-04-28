@@ -1,8 +1,9 @@
 package game;
 
-import com.badlogic.gdx.Input;
 import customers.Customer;
 import static customers.CustomerController.customers;
+import static customers.CustomerController.customersServed;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -277,12 +278,11 @@ public class GameScreen extends ScreenAdapter {
 
         renderGame(delta);
 
-        if(customersToServe <= customerController.getCustomersServed() || youLose == true)
+        if(customersToServe <= customersServed || youLose == true)
         {
             screenController.setScreen((ScreenController.ScreenID.GAMEOVER));
             ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setTime(hoursPassed,minutesPassed,secondsPassed);
             ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setWin(youLose);
-            ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setCustomersServed(customerController.getCustomersServed());
         }
     }
 
@@ -514,7 +514,6 @@ public class GameScreen extends ScreenAdapter {
         gameHud.setRecipe(null);
         customersToServe = customers;
         customerController.setCustomersLeft(customers);
-        customerController.setCustomersServed(0);
         customerController.addCustomer(GameScreen.endless);
         setCustomerHud(customers);
         gameHud.setCustomerCount(customers, GameScreen.endless);
@@ -585,7 +584,7 @@ public class GameScreen extends ScreenAdapter {
         StateOfGame.getInstance().reputation = repPoints;
         StateOfGame.getInstance().money = currentMoney;
         StateOfGame.getInstance().endless = endless;
-        StateOfGame.getInstance().customersServed = customerController.getCustomersServed();
+        StateOfGame.getInstance().customersServedState = customersServed;
 
         if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
             StateOfGame.getInstance().powerups[0] = true;
@@ -610,7 +609,7 @@ public class GameScreen extends ScreenAdapter {
         this.repPoints = gameState.reputation;
         this.customersToServe = gameState.customersLeft;
         this.endless = gameState.endless;
-        customerController.setCustomersServed(gameState.customersServed);
+        customersServed = gameState.customersServedState;
         startGame(gameState.customersLeft, gameState.endless);
         //Powerups variables
         boolean[] powerups = gameState.powerups;

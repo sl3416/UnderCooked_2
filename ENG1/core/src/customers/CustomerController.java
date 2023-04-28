@@ -25,9 +25,9 @@ public class CustomerController {
     /** An array of all {@link ServingStation}s to assign to the {@link Customer}s.*/
     public static Array<ServingStation> servingStations;
     /** The number of {@link Customer}s to spawn. */
-    static private int customersLeft,
+    private int customersLeft;
     /** The number of {@link Customer}s served. */
-    customersServed;
+    public static int customersServed;
     /** The {@link game.GameScreen} to send the {@link #customersServed} to. */
     private GameScreen gameScreen;
 
@@ -158,9 +158,6 @@ public class CustomerController {
      * Sets the number of {@link Customer}s needing to be served.
      * @param customersServed The number of {@link Customer}s served.
      */
-    public void setCustomersServed(int customersServed) {
-        this.customersServed = customersServed;
-    }
 
     /**
      * Gets the number of {@link Customer}s that have been served.
