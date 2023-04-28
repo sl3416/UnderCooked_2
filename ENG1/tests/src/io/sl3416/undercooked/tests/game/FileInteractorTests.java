@@ -2,10 +2,8 @@ package io.sl3416.undercooked.tests.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Json;
 import food.FoodItem.FoodID;
-import food.FoodItem;
 import food.FoodStack;
 import game.*;
 import io.sl3416.undercooked.tests.GdxTestRunner;
@@ -13,7 +11,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import stations.PreparationStation;
 
 import static org.junit.Assert.*;
 
@@ -33,7 +30,7 @@ public class FileInteractorTests {
         testGame.money = 1;
         testGame.ovensLocked = false;
         testGame.fryersLocked = true;
-        testGame.customersServed = 2;
+        testGame.customersServedState = 2;
     }
 
     @After
@@ -61,7 +58,7 @@ public class FileInteractorTests {
         testGame.money = 1;
         testGame.ovensLocked = false;
         testGame.fryersLocked = true;
-        testGame.customersServed = 2;
+        testGame.customersServedState = 2;
 
         FileInteractor fileInteractor = FileInteractor.getInstance();
         fileInteractor.saveToJSON();

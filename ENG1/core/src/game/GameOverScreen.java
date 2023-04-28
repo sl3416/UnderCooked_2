@@ -7,15 +7,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.physics.bullet.collision._btMprSimplex_t;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import customers.CustomerController;
 import helper.Constants;
 import helper.Util;
 import interactions.InputKey;
 import interactions.Interactions;
+
+import static customers.CustomerController.customersServed;
+import static game.GameScreen.customerController;
 import static game.GameScreen.youLose;
 
 /**
@@ -29,10 +34,10 @@ public class GameOverScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Stage stage;
-
     private Label timeLabel;
     private Label gameOverLabel;
 
+    private Label customersServedLabel;
     /**
      * The constructor for the {@link GameOverScreen}.
      * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
@@ -68,6 +73,12 @@ public class GameOverScreen extends ScreenAdapter {
         Label extraText = new Label(String.format("To restart, press %s.", Interactions.getKeyString(InputKey.InputTypes.RESET_GAME)), font);
         extraText.setFontScale(1);
         table.add(extraText);
+
+        table.row();
+
+        customersServedLabel = new Label(String.format("Customers Served: %s", customersServed), font);
+        customersServedLabel.setFontScale(1);
+        table.add(customersServedLabel);
 
         table.row();
 
@@ -125,5 +136,7 @@ public class GameOverScreen extends ScreenAdapter {
     public void setWin(boolean youLose){
         if(youLose){gameOverLabel.setText("GAME OVER : YOU LOSE...");}
         else{gameOverLabel.setText("GAME OVER : YOU WIN!");}
+        customersServedLabel.setText(String.format("Customers Served: %s", customersServed));
     }
+
 }

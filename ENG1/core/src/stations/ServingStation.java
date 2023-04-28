@@ -9,6 +9,8 @@ import food.Recipe;
 import game.GameScreen;
 import interactions.InputKey;
 
+import static customers.CustomerController.customersServed;
+
 /**
  * The {@link ServingStation} class, where the {@link cooks.Cook} provide
  * the {@link customers.Customer}s with their orders.
@@ -72,6 +74,8 @@ public class ServingStation extends Station {
                         gameScreen.getGameHud().setRecipe(null);
                     }
                     customerController.customerServed(this);
+                    customersServed++;
+                    System.out.println(customersServed);
                 } else {
                     // If not, then display the customer's request.
                     gameScreen.getGameHud().setRecipe(customer);

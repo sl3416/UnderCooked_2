@@ -2,12 +2,7 @@ package game;
 
 import food.FoodItem;
 import food.FoodStack;
-import helper.MapHelper;
 import stations.PreparationStation;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class StateOfGame {
     public static StateOfGame INSTANCE;
@@ -26,7 +21,7 @@ public class StateOfGame {
     public boolean[] powerups;
     public int customersLeft;
     public boolean endless;
-    public int customersServed;
+    public int customersServedState;
 
     public boolean ovensLocked;
     public boolean fryersLocked;
@@ -41,7 +36,7 @@ public class StateOfGame {
         money = 0;
         ovensLocked = true;
         fryersLocked = true;
-        customersServed = 0;
+        customersServedState = 0;
     }
 
     public static StateOfGame getInstance() {
