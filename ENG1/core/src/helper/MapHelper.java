@@ -33,13 +33,14 @@ public class MapHelper {
     private TiledMap tiledMap;
     private static MapHelper INSTANCE;
 
-    private int nextCookID = 0;
+    public static int nextCookID = 0;
     private int nextPrepStationID = 0;
     private int nextCounterStationID = 0;
 
     public List<PreparationStation> prepStationsList;
     public List<Cook> cooksList;
     public List<CounterStation> counterStationsList;
+    public static Rectangle chefRect;
 
     /**
      * The {@link MapHelper} constructor.
@@ -175,9 +176,12 @@ public class MapHelper {
 
                 if(rectangleName.equals("Cook"))
                 {
-                    Body body = makeBody(rectangle, false);
-                    gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));
-                    nextCookID++;
+                    if(nextCookID < 1) {
+                        Body body = makeBody(rectangle, false);
+                        gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));
+                        nextCookID++;
+                    }
+                    chefRect = rectangle;
                     continue;
                 }
 

@@ -55,24 +55,26 @@ public class InstructionScreen extends ScreenAdapter {
         table.row();
 
         String[] instructions = new String[] {
-                String.format("Move using the WASD keys or the arrow keys. Swap the cook you are controlling by pressing %s. Collect powerups by clicking on them! ",Interactions.getKeyString(InputKey.InputTypes.COOK_SWAP)),
+                String.format("MOVE using WASD keys/Arrow keys"),
                 "",
-                String.format("To use a station, press %s while facing it. Note that stations must be unlocked with money first.", Interactions.getKeyString(InputKey.InputTypes.USE)),
+                String.format("SWAP COOKS using %s.",Interactions.getKeyString(InputKey.InputTypes.COOK_SWAP)),
                 "",
-                String.format("Take items from the Pantries (tables with ingredients on them) or a Station by pressing %s.", Interactions.getKeyString(InputKey.InputTypes.PICK_UP)),
+                String.format("USE A STATION using %s while facing it.", Interactions.getKeyString(InputKey.InputTypes.USE)),
+                "",
+                String.format("PICKUP ITEMS using %s.", Interactions.getKeyString(InputKey.InputTypes.PICK_UP)),
                 "Pantries have an infinite number of resources, and the Cook has no carry limit.",
                 "",
-                String.format("You can put an item down on a station (table) by pressing %s.", Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),
+                String.format("PUT DOWN ITEMS using %s.", Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),
                 "Counters can do this for any item, but preparation stations require valid ingredients.",
                 "",
-                String.format("You progress ingredient preparation by using (%s) the station when the bar is yellow.", Interactions.getKeyString(InputKey.InputTypes.USE)),
+                String.format("INGREDIENT PREP requires using (%s) on the station until bar is full.", Interactions.getKeyString(InputKey.InputTypes.USE)),
                 // // I feel the below are unnecessary and the player can figure this out themselves.
                 // "",
                 // "Buns are added to the stack by giving you the opposite of the highest bun,",
                 // "This means if your highest bun is a bottom bun, then you'll get a top bun.",
                 // "",
                 "",
-                String.format("The bin allows you to dispose of items you no longer need. (%s or %s)",
+                String.format("TRASH ITEMS with the bin. (%s or %s)",
                         Interactions.getKeyString(InputKey.InputTypes.USE),
                         Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),
                 "",
@@ -87,11 +89,11 @@ public class InstructionScreen extends ScreenAdapter {
                 "",
                 "To make Jacket Potatoes and Pizza, just hold the ingredients shown in the recipe and you will create a single uncooked food from them.",
                 "",
-                "Your goal is to successfully give every customer the food they request, and the game will end once you do.",
+                "Your goal is to successfully serve all customers",
                 "",
                 "You can save your game in the pause menu and load the last saved game from the main menu. Only one saved game is supported.",
                 "",
-                String.format("You can pause the game by pressing %s.", Interactions.getKeyString(InputKey.InputTypes.PAUSE)),
+                String.format("PAUSE using %s.", Interactions.getKeyString(InputKey.InputTypes.PAUSE)),
                 ""
         };
 
@@ -101,7 +103,7 @@ public class InstructionScreen extends ScreenAdapter {
             table.row();
         }
 
-        Label extraText = new Label("To go back, press I", font);
+        Label extraText = new Label("GO BACK, PRESS I", font);
         extraText.setFontScale(1.5F);
         table.add(extraText);
 

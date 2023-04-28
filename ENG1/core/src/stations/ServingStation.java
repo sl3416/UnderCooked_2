@@ -75,7 +75,6 @@ public class ServingStation extends Station {
                     }
                     customerController.customerServed(this);
                     customersServed++;
-                    System.out.println(customersServed);
                 } else {
                     // If not, then display the customer's request.
                     gameScreen.getGameHud().setRecipe(customer);
