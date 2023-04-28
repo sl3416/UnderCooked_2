@@ -1,8 +1,12 @@
 package game;
 
+import com.badlogic.gdx.utils.Array;
 import food.FoodItem;
 import food.FoodStack;
 import stations.PreparationStation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StateOfGame {
     public static StateOfGame INSTANCE;
@@ -22,12 +26,17 @@ public class StateOfGame {
     public int customersLeft;
     public boolean endless;
     public int customersServedState;
+    public int secondsTime;
+    public int minutesTime;
+    public int hoursTime;
+    public int numberOfChefs;
+    public List<Float> chefPositions;
 
     public boolean ovensLocked;
     public boolean fryersLocked;
 
     public StateOfGame(){
-        cooksFoodStacks = new FoodStack[3];
+        cooksFoodStacks = new FoodStack[100];
         stationFoods = new FoodItem.FoodID[6];
         stationStates = new PreparationStation.StationState[6];
         stationProgresses = new float[6];
@@ -37,6 +46,7 @@ public class StateOfGame {
         ovensLocked = true;
         fryersLocked = true;
         customersServedState = 0;
+        chefPositions = new ArrayList<>();
     }
 
     public static StateOfGame getInstance() {

@@ -1,6 +1,7 @@
 package game;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import customers.Customer;
 import static customers.CustomerController.customers;
@@ -606,6 +607,17 @@ public class GameScreen extends ScreenAdapter {
         StateOfGame.getInstance().endless = endless;
         StateOfGame.getInstance().customersServedState = customersServed;
 
+        StateOfGame.getInstance().numberOfChefs = cooks.size;
+        StateOfGame.getInstance().hoursTime = hoursPassed;
+        StateOfGame.getInstance().minutesTime = minutesPassed;
+        StateOfGame.getInstance().secondsTime = secondsPassed;
+
+        StateOfGame.getInstance().chefPositions.clear();
+        for(Cook val : cooks){
+            StateOfGame.getInstance().chefPositions.add(val.getX());
+            StateOfGame.getInstance().chefPositions.add(val.getY());
+        }
+
         if(PowerupStatic.powerups.get("SpeedIncr") == Boolean.TRUE){
             StateOfGame.getInstance().powerups[0] = true;
         }
@@ -643,6 +655,16 @@ public class GameScreen extends ScreenAdapter {
         float[] stationProgressesSave = gameState.stationProgresses;
         List<PreparationStation> preps = mapHelper.prepStationsList;
 
+        this.secondsPassed = gameState.secondsTime;
+        this.minutesPassed = gameState.minutesTime;
+        this.hoursPassed = gameState.hoursTime;
+        gameHud.updateTime(secondsPassed, minutesPassed, hoursPassed);
+
+        for(int i = 1; i < gameState.numberOfChefs; i++){
+            Body body = makeBody(chefRect, false);
+            this.addCook(new Cook(chefRect.getWidth(), chefRect.getHeight(), body, this, nextCookID));
+            nextCookID++;
+        }
 
         MapHelper.bakeLockedFlag = gameState.ovensLocked;
         MapHelper.fryLockedFlag = gameState.fryersLocked;
@@ -682,15 +704,9 @@ public class GameScreen extends ScreenAdapter {
 
         //Cooks variables
         for(int i = 0; i < cooks.size; i++){
-            if(cooks.get(i).saveID == 0){
-                cooks.get(i).foodStack = gameState.cooksFoodStacks[0];
-            }
-            else if (cooks.get(i).saveID == 1) {
-                cooks.get(i).foodStack = gameState.cooksFoodStacks[1];
-            }
-            else if (cooks.get(i).saveID == 2) {
-                cooks.get(i).foodStack = gameState.cooksFoodStacks[2];
-            }
+            cooks.get(i).foodStack = gameState.cooksFoodStacks[i];
+            cooks.get(i).setX(i*2);
+            cooks.get(i).setY(i*2 + 1);
         }
     }
 

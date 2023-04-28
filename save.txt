@@ -2,11 +2,108 @@
 cooksFoodStacks: [
 	{}
 	{}
-	{}
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
+	null
 ]
 stationFoods: [
 	tomato
-	lettuce
+	onion
 	null
 	null
 	null
@@ -26,13 +123,9 @@ countersFoodStacks: [
 	{}
 ]
 reputation: 3
-powerups: [
-	true
-	false
-	false
-	true
-	false
-]
-customersLeft: 3
-fryersLocked: false
+customersLeft: 5
+customersServedState: 1
+secondsTime: 14
+numberOfChefs: 2
+chefPositions: [ 405.72986, 373.42896, 601.25, 372 ]
 }
