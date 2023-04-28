@@ -237,7 +237,7 @@ public class GameScreen extends ScreenAdapter {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.O) && nextCookID <= 2 && currentMoney >= 20){
-            currentMoney -= 20;
+            this.increaseCurrentMoney(-20);
             Body body = makeBody(chefRect, false);
             this.addCook(new Cook(chefRect.getWidth(), chefRect.getHeight(), body, this, nextCookID));
             nextCookID++;

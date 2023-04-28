@@ -49,7 +49,7 @@ public class InstructionScreen extends ScreenAdapter {
         table.setFillParent(true);
 
         Label gameOverLabel = new Label("Instructions", font);
-        gameOverLabel.setFontScale(3);
+        gameOverLabel.setFontScale(2);
         table.add(gameOverLabel).expandX();
 
         table.row();
@@ -82,14 +82,15 @@ public class InstructionScreen extends ScreenAdapter {
                 "You can give them their request by remaking the recipe shown on the right,",
                 String.format("and then using (%s) the serving counter while holding it.",Interactions.getKeyString(InputKey.InputTypes.USE)),
                 "",
-                String.format("Some of the recipes don't follow a specific order. You can see this by interacting with the serving counter. (%s, %s or %s)",
+                "Only one customer's order is shown at a time. At any time you may interact with any",
+                String.format("customer to show their order on the right. (%s, %s or %s)",
                         Interactions.getKeyString(InputKey.InputTypes.USE),
                         Interactions.getKeyString(InputKey.InputTypes.PICK_UP),
                         Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),
                 "",
-                "To make Jacket Potatoes and Pizza, just hold the ingredients shown in the recipe and you will create a single uncooked food from them.",
+                "When power-ups appear, you can click them to gain benefits",
                 "",
-                "Your goal is to successfully serve all customers",
+                "To make Jacket Potatoes and Pizza, just hold the ingredients shown in the recipe and you will create a single uncooked food from them.",
                 "",
                 "You can save your game in the pause menu and load the last saved game from the main menu. Only one saved game is supported.",
                 "",
@@ -99,6 +100,7 @@ public class InstructionScreen extends ScreenAdapter {
 
         for (String instruction : instructions) {
             Label instLabel = new Label(instruction, font);
+            instLabel.setFontScale(0.9f);
             table.add(instLabel).expandX();
             table.row();
         }
