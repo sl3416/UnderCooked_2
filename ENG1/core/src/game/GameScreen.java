@@ -1,8 +1,11 @@
 package game;
 
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.physics.box2d.Body;
 import customers.Customer;
 import static customers.CustomerController.customers;
 import static customers.CustomerController.customersServed;
+import static helper.MapHelper.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -29,6 +32,7 @@ import helper.MapHelper;
 import interactions.InputKey;
 import interactions.Interactions;
 import stations.*;
+import helper.MapHelper;
 
 import java.util.*;
 
@@ -197,9 +201,9 @@ public class GameScreen extends ScreenAdapter {
         int rand2 = rand.nextInt(100);
         if(TimeUtils.millis() >= nextCustomerSecond)
         {
-            if (minutesPassed > 1)
+            if (secondsPassed > 30)
             {
-                if (minutesPassed > 3)
+                if (minutesPassed > 2)
                 {
                     if (rand2 <= 30)
                     {
@@ -220,6 +224,13 @@ public class GameScreen extends ScreenAdapter {
                 lastCustomerSecond = TimeUtils.millis();
                 nextCustomerSecond += (customerTimer/2 * Math.floor(9 + 5.4F * Math.log(recipeComplexity - 0.7)))/diffMultiplier;
             }
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.O) && nextCookID <= 2 && currentMoney >= 20){
+            currentMoney -= 20;
+            Body body = makeBody(chefRect, false);
+            this.addCook(new Cook(chefRect.getWidth(), chefRect.getHeight(), body, this, nextCookID));
+            nextCookID++;
         }
 
         if(Interactions.isJustPressed(InputKey.InputTypes.PAUSE))
