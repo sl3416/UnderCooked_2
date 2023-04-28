@@ -3,7 +3,7 @@ ENG1 Assessment 1 game made in LibGDX, based on the game Overcooked.
 
 ## Presentation:
 Do check out our presentation: it is focussed on the ***key deciding aspects*** for ***choosing your Assessment 2 project***, as stated in the assessement brief:
-> https://github.com/undercooked-team/UnderCooked/blob/main/ENG1/SUBMITTABLES/Assessment1Presentation.pdf
+> https://docs.google.com/presentation/d/1NqWHm2E2ZyfIM41p6Bq1Ied1IFHrkFeQIG77mo2o_mg/edit#slide=id.g23b5b83aa1a_0_248
 
 Aspects focussed on:
 1) The overall quality of the software product.
@@ -22,11 +22,6 @@ If you prefer to see a visual representation of our milestones met, check out th
 
 ## Website:
 Check out our website for more info on ***Documentation***:
-> https://undercooked-team.github.io/UnderCooked/
-
----
-And finally:
-
-<img alt="Gigachad Thank You" src="https://www.meme-arsenal.com/memes/5b2a68a87e0f9de1c3a1f3e62bd994d3.jpg"  width="631" height="500">
+> https://sl3416.github.io/UnderCooked_2/
 
 Thank you for checking out our GitHub Repository! :D
