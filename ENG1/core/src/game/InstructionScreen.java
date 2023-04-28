@@ -55,9 +55,9 @@ public class InstructionScreen extends ScreenAdapter {
         table.row();
 
         String[] instructions = new String[] {
-                String.format("Move using the WASD keys or the arrow keys. Swap the cook you are controlling by pressing %s.",Interactions.getKeyString(InputKey.InputTypes.COOK_SWAP)),
+                String.format("Move using the WASD keys or the arrow keys. Swap the cook you are controlling by pressing %s. Collect powerups by clicking on them! ",Interactions.getKeyString(InputKey.InputTypes.COOK_SWAP)),
                 "",
-                String.format("To use a station, press %s while facing it.", Interactions.getKeyString(InputKey.InputTypes.USE)),
+                String.format("To use a station, press %s while facing it. Note that stations must be unlocked with money first.", Interactions.getKeyString(InputKey.InputTypes.USE)),
                 "",
                 String.format("Take items from the Pantries (tables with ingredients on them) or a Station by pressing %s.", Interactions.getKeyString(InputKey.InputTypes.PICK_UP)),
                 "Pantries have an infinite number of resources, and the Cook has no carry limit.",

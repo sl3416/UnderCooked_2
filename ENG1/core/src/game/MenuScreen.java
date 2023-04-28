@@ -66,7 +66,7 @@ public class MenuScreen extends ScreenAdapter {
         table.add(startSLabel).expandX();
         table.row();
 
-        Label scenarioLabel = new Label("use arrow keys to change customer count", font);
+        Label scenarioLabel = new Label("use up and down arrow keys to change customer count", font);
         table.add(scenarioLabel).expandX();
         table.row();
 
@@ -77,7 +77,7 @@ public class MenuScreen extends ScreenAdapter {
         table.add(startELabel).expandX();
         table.row();
 
-        Label endlessLabel = new Label("use B N or M to control difficulty", font);
+        Label endlessLabel = new Label("use B, N or M to control difficulty", font);
         table.add(endlessLabel).expandX();
         table.row();
 
