@@ -52,7 +52,7 @@ public class GameSpritesTests {
      */
     @Test
     public void testCreateResources() {
-        GameSprites gameSprites = new GameSprites();
+        GameSprites gameSprites = GameSprites.getInstance();
         assertTrue("Resources were not created", gameSprites.spriteMap.size() > 0);
 
         // Check the number of sprites created
@@ -70,7 +70,7 @@ public class GameSpritesTests {
      */
     @Test
     public void testSpriteKey() {
-        GameSprites gameSprites = new GameSprites();
+        GameSprites gameSprites = GameSprites.getInstance();
         String key = gameSprites.spriteKey(GameSprites.SpriteID.COOK, "DOWN");
         assertEquals("Did not convert into a string in format \"%s-%s\" correctly", "0-DOWN", key);
     }
@@ -80,7 +80,7 @@ public class GameSpritesTests {
      */
     @Test
     public void testGetSprite() {
-        GameSprites gameSprites = new GameSprites();
+        GameSprites gameSprites = GameSprites.getInstance();
 
         Sprite expectedBurgerSprite = gameSprites.spriteMap.get("1-burger");
         Sprite actualBurgerSprite = gameSprites.getSprite(GameSprites.SpriteID.FOOD, "burger");
@@ -97,7 +97,7 @@ public class GameSpritesTests {
 
     @Test
     public void testDispose() {
-        GameSprites gameSprites = new GameSprites();
+        GameSprites gameSprites = GameSprites.getInstance();
 
         gameSprites.dispose();
 
