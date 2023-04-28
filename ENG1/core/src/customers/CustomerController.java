@@ -210,7 +210,7 @@ public class CustomerController {
             gameScreen.increaseCurrentMoney(payment);
         }
         payment += 2; //Just makes it so this variable isn't constant
-        customersServed++;
+
         gameScreen.setCustomerHud(customersServed);
 
         // If there are any customers left, spawn a new one.

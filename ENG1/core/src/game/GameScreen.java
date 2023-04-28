@@ -282,6 +282,7 @@ public class GameScreen extends ScreenAdapter {
             screenController.setScreen((ScreenController.ScreenID.GAMEOVER));
             ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setTime(hoursPassed,minutesPassed,secondsPassed);
             ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setWin(youLose);
+            ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setCustomersServed(customerController.getCustomersServed());
         }
     }
 

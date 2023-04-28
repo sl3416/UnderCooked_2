@@ -33,7 +33,7 @@ public class GameOverScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Stage stage;
-
+    private Label customersServedtext;
     private Label timeLabel;
     private Label gameOverLabel;
 
@@ -137,5 +137,10 @@ public class GameOverScreen extends ScreenAdapter {
     public void setWin(boolean youLose){
         if(youLose){gameOverLabel.setText("GAME OVER : YOU LOSE...");}
         else{gameOverLabel.setText("GAME OVER : YOU WIN!");}
+    }
+
+    public void setCustomersServed(int C_Served)
+    {
+        customersServedtext.setText(Integer.toString(C_Served));
     }
 }
