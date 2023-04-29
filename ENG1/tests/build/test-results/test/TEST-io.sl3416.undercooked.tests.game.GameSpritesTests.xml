@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.sl3416.undercooked.tests.game.GameSpritesTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-28T21:09:35" hostname="LAPTOP-LI9Q8A9H" time="0.234">
+<testsuite name="io.sl3416.undercooked.tests.game.GameSpritesTests" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-04-29T19:37:06" hostname="LAPTOP-LI9Q8A9H" time="0.374">
   <properties/>
-  <testcase name="testGameSpritesConstructor" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.149"/>
+  <testcase name="testGameSpritesConstructor" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.288"/>
   <testcase name="testCreateResources" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.002"/>
-  <testcase name="testDispose" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.001"/>
+  <testcase name="testDispose" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.0"/>
   <testcase name="testGetSprite" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.0"/>
   <testcase name="testGetInstance" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.0"/>
   <testcase name="testSpriteKey" classname="io.sl3416.undercooked.tests.game.GameSpritesTests" time="0.0"/>

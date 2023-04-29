@@ -6,16 +6,12 @@ import game.GameSprites;
 import io.sl3416.undercooked.tests.GdxTestRunner;
 
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
 import java.util.HashMap;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 /**
  * The type Game sprites tests.

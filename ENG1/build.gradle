@@ -58,13 +58,9 @@ project(":core") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
 
-//        implementation "org.lwjgl3:lwjgl3:3.2.3"
-//        implementation "org.lwjgl3:lwjgl3-glfw:3.2.3"
-//        implementation "org.lwjgl3:lwjgl3-opengl:3.2.3"
-//        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.11.0"
-//
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.11.0"
 //        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+
         checkstyleRules(
                 "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"){
             transitive = false
@@ -91,11 +87,6 @@ project(":desktop") {
         api "com.badlogicgames.gdx-controllers:gdx-controllers-desktop:$gdxControllersVersion"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 
-//        implementation "org.lwjgl3:lwjgl3:3.2.3"
-//        implementation "org.lwjgl3:lwjgl3-glfw:3.2.3"
-//        implementation "org.lwjgl3:lwjgl3-opengl:3.2.3"
-//        implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.11.0"
-//
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:1.11.0"
 //        api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     }

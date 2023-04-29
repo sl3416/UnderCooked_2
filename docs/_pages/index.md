@@ -17,6 +17,8 @@ Welcome to our homepage for UnderCooked!
 
 All the contents for this website are on this page, the navigation bar in the header will take you to a specified heading on this page.
 
+![Game](https://github.com/sl3416/UnderCooked_2/tree/main/ENG1/SUBMITTABLES/assets/sample_game.png)
+
 ## Download UnderCooked!
 > [{{page.download}}]({{page.download}})
 
@@ -37,7 +39,8 @@ Details for all the team members can be found here:
 </ul>
 
 ## Changes:
-These are the changes we made to the original deliverables:
+These are the changes we made to the original deliverables including what we added according to Assessment 2:
+
 [Changes Google Doc](https://docs.google.com/document/d/1tb-2G8SmRJgsELj3gjigxmJpqdQ2s3wMZDtsMWteFNE/edit?usp=share_link)
 
 [Changes PDF]({{page.change_pdf}})
@@ -49,6 +52,8 @@ These are the changes we made to the original deliverables:
 [Continuous Integration PDF]({{ci_pdf}})
 
 ## Implementation:
+We have provided fully documented code with JavaDocs and are within sorted folders for organisation
+
 [Implementation Google Doc](https://docs.google.com/document/d/1jrVzdXLCUq6QwhpbevFBfKr8NP9THZcmsCrOpPQelYI/edit?usp=share_link)
 
 [Implementation PDF]({{page.impl_pdf}})
@@ -58,8 +63,13 @@ These are the changes we made to the original deliverables:
 
 [Software Testing PDF]({{page.test_pdf}})
 
-#### URLs for Testing Materials:
-URL:
+#### Testing Materials:
+- Testing Results
+- Coverage report
+- Descriptions of manual test-cases:
+
+Some of our code could not be covered by our automated tests. These include:
+- Screens
 
 ## Original Credits
 Credits to the previous team who worked on the project. Details for all the team members can be found here:
