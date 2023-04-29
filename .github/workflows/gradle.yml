@@ -35,7 +35,7 @@ jobs: # what to do
           java-version: '11'
           distribution: 'temurin'
       - name: Gradle Dist
-        dist: ./gradlew dist
+        run: ./gradlew dist
 
       - name: Gradle Build Action
         # You may pin to the exact commit or the version.
