@@ -13,7 +13,7 @@ public class AssetTests {
             "atlas/cook.atlas",
             "atlas/cook.png",
             "atlas/customer.atlas",
-            "atlas/Customer.png",
+            "atlas/customer.png",
             "atlas/food.atlas",
             "atlas/food.png",
             "atlas/powerups.atlas",

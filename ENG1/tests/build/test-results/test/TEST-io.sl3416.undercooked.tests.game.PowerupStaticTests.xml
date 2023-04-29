@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.sl3416.undercooked.tests.game.PowerupStaticTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-29T19:37:06" hostname="LAPTOP-LI9Q8A9H" time="0.002">
+<testsuite name="io.sl3416.undercooked.tests.game.PowerupStaticTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-29T19:42:25" hostname="LAPTOP-LI9Q8A9H" time="0.003">
   <properties/>
-  <testcase name="testResetPowerups" classname="io.sl3416.undercooked.tests.game.PowerupStaticTests" time="0.002"/>
+  <testcase name="testResetPowerups" classname="io.sl3416.undercooked.tests.game.PowerupStaticTests" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
