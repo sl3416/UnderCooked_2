@@ -74,6 +74,7 @@ public class CustomerController {
         return false;
     }
 
+
     /**
      * Add a {@link Customer} to a {@link ServingStation}.
      * @return {@code int} : The number of instructions in the
@@ -81,7 +82,7 @@ public class CustomerController {
      *                       <br>It is -1 if the {@link Customer} fails
      *                       to spawn.
      */
-    public int addCustomer(boolean endlesss) {
+    public int addCustomer(boolean endless, ServingStation chosenStation){
         // If there are no more customers left to serve, then don't bother
         if (GameScreen.endless == false) {
 
@@ -90,6 +91,21 @@ public class CustomerController {
             }
         }
 
+        Customer newCustomer = new Customer(customerSprite,
+                new Vector2(chosenStation.getCustomerX(),
+                        chosenStation.getCustomerY()),customerID);
+        customerID++;
+        customers.add(newCustomer);
+        newCustomer.randomRecipe();
+        chosenStation.setCustomer(newCustomer);
+        // Show the Customer's recipe
+        gameScreen.getGameHud().setRecipe(newCustomer);
+        customersLeft--;
+        return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
+
+
+    }
+    public int addCustomer(boolean endlesss) {
         // Get a deep copy of all the ServingStations.
         Array<ServingStation> emptyStations = new Array<>(servingStations);
         // Loop through and remove all the stations that have a
@@ -107,20 +123,7 @@ public class CustomerController {
         // randomly pick one and add a customer to it.
         Random random = new Random();
         ServingStation chosenStation = emptyStations.get(random.nextInt(emptyStations.size));
-
-        Customer newCustomer = new Customer(customerSprite,
-                new Vector2(chosenStation.getCustomerX(),
-                        chosenStation.getCustomerY()),customerID);
-        customerID++;
-        customers.add(newCustomer);
-        newCustomer.randomRecipe();
-        chosenStation.setCustomer(newCustomer);
-        // Show the Customer's recipe
-        gameScreen.getGameHud().setRecipe(newCustomer);
-        customersLeft--;
-        return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();
-
-
+        return addCustomer(endlesss,chosenStation);
     }
 
     /**
@@ -133,6 +136,7 @@ public class CustomerController {
         if (!station.hasCustomer()) {
             return;
         }
+        customerID = station.getCustomer().saveID;
         // Remove the customer from the customers array.
         customers.removeValue(station.getCustomer(),true);
         // Then, if it has a customer, set the customer of the station

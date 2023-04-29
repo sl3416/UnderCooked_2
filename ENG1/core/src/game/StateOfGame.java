@@ -6,6 +6,7 @@ import food.FoodItem;
 import food.FoodStack;
 import interactions.Interactions;
 import stations.PreparationStation;
+import stations.ServingStation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,8 @@ public class StateOfGame {
     public FoodStack[] cooksFoodStacks;
     //Customers
     public String[] customerRequests;
-    public Vector2[] customerPositions;
+    public int[] customerPositions;
+    public int customersWaiting;
 
     //Preparation Stations
     public FoodItem.FoodID[] stationFoods;
@@ -60,7 +62,8 @@ public class StateOfGame {
         customersServedState = 0;
         chefPositions = new ArrayList<>();
         customerRequests = new String[4];
-        customerPositions = new Vector2[4];
+        customerPositions = new int[4];
+        customersWaiting = 0;
     }
 
     public static StateOfGame getInstance() {

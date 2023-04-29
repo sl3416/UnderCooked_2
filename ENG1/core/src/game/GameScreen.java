@@ -536,7 +536,9 @@ public class GameScreen extends ScreenAdapter {
         gameHud.setRecipe(null);
         customersToServe = customers;
         customerController.setCustomersLeft(customers);
-        customerController.addCustomer(GameScreen.endless);
+        if(!loading) {
+            customerController.addCustomer(GameScreen.endless);
+        }
         setCustomerHud(customers);
         gameHud.setCustomerCount(customers, GameScreen.endless);
 
@@ -666,6 +668,8 @@ public class GameScreen extends ScreenAdapter {
         Interactions.InteractionResult[] stationInteractionSave = gameState.interactions;
         List<PreparationStation> preps = mapHelper.prepStationsList;
 
+        int customersSave = gameState.customersWaiting;
+
         this.secondsPassed = gameState.secondsTime;
         this.minutesPassed = gameState.minutesTime;
         this.hoursPassed = gameState.hoursTime;
@@ -727,6 +731,20 @@ public class GameScreen extends ScreenAdapter {
             float xPos = gameState.chefPositions.get(i*2);
             float yPos = gameState.chefPositions.get(i*2+1);
             cCook.getBody().setTransform(xPos,yPos,cCook.getBody().getAngle());
+        }
+
+        //Customers
+        customers.clear();
+        for(int i = 0; i < gameState.customersWaiting; i++){
+            Array<ServingStation> stations = new Array<>(CustomerController.servingStations);
+            ServingStation station = stations.get(gameState.customerPositions[i]);
+            customerController.addCustomer(endless, station);
+        }
+        for(int i = 0; i < customers.size; i++){
+            Customer customer = customers.get(i);
+            customer.setRequest(gameState.customerRequests[i]);
+
+            this.getGameHud().setRecipe(customer);
         }
 
         gameHud.updateMoney(currentMoney);

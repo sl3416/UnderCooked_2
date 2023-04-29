@@ -62,6 +62,10 @@ public class Customer {
         this.position = position;
     }
 
+    public void setRequest(String request){
+        this.request = request;
+    }
+
     public String randomRecipe() {
         boolean recipeValid = false;
         while(!recipeValid) {
@@ -136,8 +140,19 @@ public class Customer {
         return null;
     }
 
+    public int getStationPosition(){
+        Array<ServingStation> stations = new Array<>(CustomerController.servingStations);
+        for (int i = stations.size - 1 ; i >= 0 ; i--) {
+            if (stations.get(i).getCustomer() == this) {
+                return(i);
+            }
+        }
+        return -1;
+    }
+
     private void saveVariables(){
         StateOfGame.getInstance().customerRequests[saveID] = this.request;
-        StateOfGame.getInstance().customerPositions[saveID] = this.position;
+        StateOfGame.getInstance().customerPositions[saveID] = this.getStationPosition();
+        StateOfGame.getInstance().customersWaiting = customerController.customers.size;
     }
 }
