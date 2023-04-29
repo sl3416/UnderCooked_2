@@ -214,7 +214,7 @@ public class GameHud extends Hud {
     }
 
     public void showNewPowerup(final String powerupName, String powerupFileString){
-        powerupFileString = "ENG1/assets/powerups/" + powerupFileString + ".png";
+        powerupFileString = "powerups/" + powerupFileString + ".png";
         Texture texture = new Texture(Gdx.files.internal(powerupFileString));
         TextureRegion region = new TextureRegion(texture, 0, 0, 16, 16);
         powerup = new ImageButton(new TextureRegionDrawable(region));
