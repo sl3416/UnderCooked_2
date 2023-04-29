@@ -83,7 +83,7 @@ public class InstructionScreen extends ScreenAdapter {
                 String.format("and then using (%s) the serving counter while holding it.",Interactions.getKeyString(InputKey.InputTypes.USE)),
                 "",
                 "Only one customer's order is shown at a time. At any time you may interact with any",
-                String.format("customer to show their order on the right. (%s, %s or %s)",
+                String.format("customer to take their order, appearing on the right. (%s, %s or %s)",
                         Interactions.getKeyString(InputKey.InputTypes.USE),
                         Interactions.getKeyString(InputKey.InputTypes.PICK_UP),
                         Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),
