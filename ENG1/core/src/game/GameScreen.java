@@ -306,6 +306,7 @@ public class GameScreen extends ScreenAdapter {
             ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setTime(hoursPassed,minutesPassed,secondsPassed);
             ((GameOverScreen) screenController.getScreen(ScreenController.ScreenID.GAMEOVER)).setWin(youLose);
         }
+        gameHud.updateMoney(currentMoney);
     }
 
     /**
@@ -513,6 +514,10 @@ public class GameScreen extends ScreenAdapter {
         powerupMemory.clear();
         powerupCounter = 0;
         powerupOnScreen = false;
+        this.youLose = false;
+        repPoints = 3;
+        currentMoney = 0;
+        customersServed = 0;
     }
 
     /**
