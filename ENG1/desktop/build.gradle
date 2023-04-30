@@ -34,9 +34,9 @@ task dist(type: Jar) {
     manifest {
         attributes 'Main-Class': project.mainClassName
     }
-    dependsOn configurations.runtimeClasspath, ":core:classes"
+    dependsOn configurations.runtimeClasspath
     from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } + fileTree(dir: project(":core").projectDir.absolutePath + "/build/classes/java/main")
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     with jar
 }
