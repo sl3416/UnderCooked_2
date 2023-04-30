@@ -80,7 +80,6 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
-        compile project(":core")
 
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
