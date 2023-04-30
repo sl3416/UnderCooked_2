@@ -742,7 +742,9 @@ public class GameScreen extends ScreenAdapter {
         customers.clear();
         for(int i = 0; i < gameState.customersWaiting; i++){
             Array<ServingStation> stations = new Array<>(CustomerController.servingStations);
-            ServingStation station = stations.get(gameState.customerPositions[i]);
+            int position = gameState.customerPositions[i];
+            if(position < 0){position=0;}
+            ServingStation station = stations.get(position);
             customerController.addCustomer(endless, station);
         }
         for(int i = 0; i < customers.size; i++){
