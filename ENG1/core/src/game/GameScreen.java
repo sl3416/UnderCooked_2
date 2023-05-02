@@ -518,6 +518,7 @@ public class GameScreen extends ScreenAdapter {
         repPoints = 3;
         currentMoney = 0;
         customersServed = 0;
+        customers.clear();
     }
 
     /**

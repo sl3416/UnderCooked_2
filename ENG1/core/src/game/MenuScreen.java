@@ -166,6 +166,7 @@ public class MenuScreen extends ScreenAdapter {
             ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(2, true);
             //Values in startGame() don't matter as they get overwritten in this next line
             FileInteractor.getInstance().loadFromJSON((GameScreen) screenController.getScreen(ScreenID.GAME));
+            loading = false;
         }
     }
 
