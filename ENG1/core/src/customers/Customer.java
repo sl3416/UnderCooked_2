@@ -11,6 +11,7 @@ import game.PowerupStatic;
 import game.StateOfGame;
 import helper.Constants;
 import helper.MapHelper;
+import stations.PreparationStation;
 import stations.ServingStation;
 
 import javax.swing.plaf.nimbus.State;
@@ -33,6 +34,9 @@ public class Customer {
     private String request;
     private long spawnTime;
     private int timeLimit;
+    /**
+     * A unique identification number that is used in saving and loading
+     */
     public int saveID;
 
     /**
@@ -42,7 +46,6 @@ public class Customer {
      */
     public Customer(Sprite sprite, int saveID)
     {
-        Random rand = new Random();
         this.sprite = sprite;
         this.position = Constants.customerSpawn;
         this.request = Recipe.randomRecipe();
@@ -66,8 +69,14 @@ public class Customer {
         this.request = request;
     }
 
+    /**
+     * Picks a random recipe from the list of availible recipes,
+     * iterating continuously until a valid recipe for the unlocked
+     * {@link PreparationStation} is found
+     */
     public String randomRecipe() {
         boolean recipeValid = false;
+        //Loop until a recipe valid for unlocked stations is found
         while(!recipeValid) {
             this.request = Recipe.randomRecipe();
             recipeValid = true;
@@ -123,6 +132,7 @@ public class Customer {
         if(PowerupStatic.powerups.get("CustomerTimerIncr")){
             timeLimit = 90;
         }
+        //After a given time, a customer will leave unhappy
         if(timeElapsed >= timeLimit*1000){
             customerController.removeCustomer(this.getStation());
             GameScreen.repPoints -= 1;

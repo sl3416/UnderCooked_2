@@ -32,6 +32,7 @@ public class CustomerController {
     private GameScreen gameScreen;
 
     private int payment;
+    /** A unique id used in saving and loading to keep data organised */
     private int customerID;
 
     /**
@@ -90,12 +91,14 @@ public class CustomerController {
                 return -1;
             }
         }
+        // If customer id > 3, revert to 0.
         customerID = customerID%4;
         Customer newCustomer = new Customer(customerSprite,
                 new Vector2(chosenStation.getCustomerX(),
                         chosenStation.getCustomerY()),customerID);
         customerID++;
         customers.add(newCustomer);
+        // Choose the Customer's recipe
         newCustomer.randomRecipe();
         chosenStation.setCustomer(newCustomer);
         // Show the Customer's recipe

@@ -133,6 +133,11 @@ public class GameOverScreen extends ScreenAdapter {
         timeLabel.setText(Util.formatTime(hours,minutes,seconds));
     }
 
+    /**
+     * Sets the {@link #gameOverLabel} to one of two winstates
+     * depending on the player's victory condition.
+     * @param youLose whether or not the player lost.
+     */
     public void setWin(boolean youLose){
         if(youLose){gameOverLabel.setText("GAME OVER : YOU LOSE...");}
         else{gameOverLabel.setText("GAME OVER : YOU WIN!");}

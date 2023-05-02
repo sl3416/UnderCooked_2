@@ -142,11 +142,6 @@ public class GameScreen extends ScreenAdapter {
 
     }
 
-    public enum difficulty{
-        EASY,
-        MEDIUM,
-        HARD
-    }
 
 
     /**
@@ -164,6 +159,7 @@ public class GameScreen extends ScreenAdapter {
             youLose = true;
         }
 
+        // Time calculations
         long diffInMillis = TimeUtils.timeSinceMillis(previousSecond);
         if (diffInMillis >= 1000) {
             previousSecond += 1000;
@@ -184,13 +180,15 @@ public class GameScreen extends ScreenAdapter {
             spawnPowerup();
         }
 
-
+        // Update HUD with new information
         gameHud.updateTime(hoursPassed, minutesPassed, secondsPassed);
         gameHud.updateRep();
+        // Follow Cook with camera
         cameraUpdate();
         orthogonalTiledMapRenderer.setView(camera);
         batch.setProjectionMatrix(camera.combined);
         shape.setProjectionMatrix(camera.combined);
+        // Stop Cook drift
         for (Cook thisCook : cooks) {
             thisCook.getBody().setLinearVelocity(0F,0F);
             if (thisCook == cook) {
@@ -279,6 +277,8 @@ public class GameScreen extends ScreenAdapter {
         }
         // - - - DEBUG END - - - //
         // */
+
+        // Create savedata
         this.saveVariables();
     }
 
@@ -529,7 +529,9 @@ public class GameScreen extends ScreenAdapter {
      *
      * @param customers The number of customers that need to be
      *                  served in the game to finish.
-     *
+     * @param endless a boolean of if the game is in endless mode or not.
+     * @param difficultyMultiplier an integer multiplier scaling the difficulty
+     *                             based off of the player's choice in the {@link MenuScreen}
      */
     public void startGame(int customers, boolean endless, int difficultyMultiplier) {
         secondsPassed = 0;
@@ -552,6 +554,11 @@ public class GameScreen extends ScreenAdapter {
         gameHud.setCustomerCount(customers, GameScreen.endless);
 
     }
+
+    /**
+     * Same as {@link #startGame(int, boolean, String)} but converts the String
+     * difficulty into an int {@link #diffMultiplier}.
+     */
     public void startGame(int customers, boolean endless, String difficulty){
         int diffMultiplier = 2;
         switch (difficulty){
@@ -567,6 +574,7 @@ public class GameScreen extends ScreenAdapter {
         }
         this.startGame(customers,endless,diffMultiplier);
     }
+    /** If no difficulty is given, assume Beginner.*/
     public void startGame(int customers, boolean endless) {
         this.startGame(customers,endless,"Beginner");
     }
@@ -596,7 +604,7 @@ public class GameScreen extends ScreenAdapter {
         currentMoney += toAdd;
         gameHud.updateMoney(currentMoney);
     }
-    // spawns a random powerup
+    /** spawns a random powerup */
     public void spawnPowerup(){
         Random rand = new Random();
         int i = rand.nextInt(5);
@@ -611,7 +619,7 @@ public class GameScreen extends ScreenAdapter {
             powerupOnScreen = true;
         }
     }
-    // saves all variables and state of game
+    /** saves all variables and state of game */
     public void saveVariables(){
         StateOfGame.getInstance().customersLeft = customersToServe;
         StateOfGame.getInstance().reputation = repPoints;
@@ -762,6 +770,10 @@ public class GameScreen extends ScreenAdapter {
         gameHud.updateMoney(currentMoney);
     }
 
+    /**
+     *
+     * @return {@link #mapHelper}
+     */
     public MapHelper getMapHelper(){return mapHelper;}
 
     public void processPowerupsFromLoad(boolean[] powerups){

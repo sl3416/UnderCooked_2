@@ -60,6 +60,7 @@ public class Cook extends GameEntity {
      * @param height Pixel Height of the {@link Cook}'s {@link Body}.
      * @param body The {@link World}.{@link Body} which will become the {@link Cook}
      * @param gameScreen The {@link GameScreen} that creates the {@link Cook}.
+     * @param saveId The number that is assigned to the {@link Cook} giving it a unique index for the save file.
      */
     public Cook(float width, float height, Body body, GameScreen gameScreen, int saveId) {
         super(width, height, body);
@@ -169,15 +170,19 @@ public class Cook extends GameEntity {
         saveVariables();
     }
 
+    /**
+     * A function to test the {@link Cook}'s {@link FoodStack} for mergable {@link FoodItem}s
+     * to combine into compound food such as Pizza.
+     */
     public void testFoodStack(){
         Array<FoodID> currentFoodStack = foodStack.getStack();
         Array<FoodID> pizzaIngredients = pizzaIngred.getStack();
         Array<FoodID> jacketIngredients = jacketIngred.getStack();
         if(currentFoodStack.containsAll(pizzaIngredients, true)){
-            foodStack.clearStack();
+            foodStack.removeComponents(pizzaIngredients);
             foodStack.addStack(FoodID.uc_pizza);
         } else if (currentFoodStack.containsAll(jacketIngredients, true)){
-            foodStack.clearStack();
+            foodStack.removeComponents(jacketIngredients);
             foodStack.addStack(FoodID.rawJacketPotato);
         }
     }

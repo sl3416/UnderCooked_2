@@ -68,6 +68,18 @@ public class FoodStack {
     public void addStack(FoodID newFood) {
         foodStack.insert(0, newFood);
     }
+
+    /**
+     * Remove the items required to create
+     * a composite item from the stack.
+     */
+    public void removeComponents(Array<FoodID> ingredients){
+        for (FoodID ingredient:ingredients) {
+            this.getStack().removeValue(ingredient,true);
+        }
+    }
+
+
     /**
     * foodStack getter
     * @return foodStack

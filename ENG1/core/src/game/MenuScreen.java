@@ -127,6 +127,7 @@ public class MenuScreen extends ScreenAdapter {
             }
         }
 
+        // Sets endless mode difficulty
         if(Gdx.input.isKeyJustPressed(Input.Keys.B)){
             difficulty = "Beginner";
             startELabel.setText(String.format("PRESS %s TO START ENDLESS MODE (%s)",Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()));
