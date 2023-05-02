@@ -28,16 +28,20 @@ public class FoodStackTests {
 
     @Test
     public void testAddAndPop() {
-        FoodItem foodItem = new FoodItem();
         foodStack.addStack(FoodID.bun);
-        assertEquals(foodItem, foodStack.popStack());
+        assertEquals(FoodID.bun, foodStack.popStack());
+        assertEquals(0, foodStack.size());
+    }
+    @Test
+    public void testAdd() {
+        foodStack.addStack(FoodID.bun);
+        assertEquals(FoodID.bun, foodStack.peekStack());
     }
 
     @Test
     public void testPeek() {
-        FoodItem foodItem = new FoodItem();
         foodStack.addStack(FoodID.bun);
-        assertEquals(foodItem, foodStack.peekStack());
+        assertEquals(FoodID.bun, foodStack.peekStack());
         assertEquals(1, foodStack.size());
     }
 
