@@ -168,6 +168,7 @@ public class MapHelper {
 
                 if(rectangleName.equals("CookStart"))
                 {
+                    // if you're loading a game, it will use the Cook from that save instead.
                     if(!loading) {
                         Body body = makeBody(rectangle, false);
                         int cookInd = gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));

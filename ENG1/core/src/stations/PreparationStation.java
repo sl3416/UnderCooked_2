@@ -41,6 +41,8 @@ public class PreparationStation extends Station {
     /**
      * The constructor for the {@link PreparationStation}.
      * @param rectangle The collision and interaction area of the {@link PreparationStation}.
+     * @param saveId a unique id number for storing and retrieving related data from a savefile.
+     * @param gameScreen the {@link GameScreen} this is in.
      */
     public PreparationStation(Rectangle rectangle, int saveId, GameScreen gameScreen) {
         super(rectangle);
@@ -60,6 +62,7 @@ public class PreparationStation extends Station {
     @Override
     public void update(float delta) {
         if (inUse) {
+            // Tick up burning
             progBurn = progBurn + interaction.getSpeed() * delta;
             if (progress < 100) {
                 progress = Math.min(progress + interaction.getSpeed() * delta, 100);
@@ -273,22 +276,28 @@ public class PreparationStation extends Station {
                 }
             }
         }
+        // Trying to buy the station unlock
         else if(currentMoney >= 20){
+            // Unlocking the oven
             if(this.getID() == StationID.oven) {
+                // Pay cost dependent on powerup
                 if(PowerupStatic.powerups.get("NewStationsCostDecr") == Boolean.TRUE){
                     currentMoney -= 10;
                 } else {
                     currentMoney -= 20;
                 }
                 gameScreen.increaseCurrentMoney(0);
+                // Unlock station type
                 MapHelper.bakeLockedFlag = false;
                 StateOfGame.getInstance().ovensLocked = false;
+                // Remove lock on each individual station of this type
                 for (PreparationStation stationP : gameScreen.getMapHelper().prepStationsList) {
                     if (stationP.getID() == Station.StationID.oven) {
                         stationP.unlock();
                     }
                 }
             }
+            // As above but for the grills.
             else if(this.getID() == StationID.fry){
 
                 if(PowerupStatic.powerups.get("NewStationsCostDecr") == Boolean.TRUE){
@@ -309,6 +318,9 @@ public class PreparationStation extends Station {
         }
     }
 
+    /**
+     * Save variables to {@link StateOfGame}
+     */
     private void saveVariables(){
         StateOfGame.getInstance().stationFoods[saveID] = this.foodItem;
         StateOfGame.getInstance().stationStates[saveID] = this.state;

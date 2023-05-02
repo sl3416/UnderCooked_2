@@ -11,6 +11,9 @@ import stations.ServingStation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Contains the current state of the game, used for creating savedata.
+ */
 public class StateOfGame {
     public static StateOfGame INSTANCE;
 
