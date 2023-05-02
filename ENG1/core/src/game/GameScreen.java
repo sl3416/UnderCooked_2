@@ -45,7 +45,9 @@ public class GameScreen extends ScreenAdapter {
     public static boolean youLose;
     private long customerTimer = 10000;
     public static int diffMultiplier;
-    private long previousSecond = 0, lastCustomerSecond = 0, nextCustomerSecond = 0;
+    private long previousSecond = 0;
+    public long lastCustomerSecond = 0;
+    private long nextCustomerSecond = 0;
     private int secondsPassed = 0, minutesPassed = 0, hoursPassed = 0;
     private GameHud gameHud;
     private InstructionHud instructionHUD;
@@ -54,20 +56,20 @@ public class GameScreen extends ScreenAdapter {
     private ScreenController screenController;
     // private ShapeRenderer shapeRenderer;
     private World world;
-    private Box2DDebugRenderer box2DDebugRenderer;
+    public Box2DDebugRenderer box2DDebugRenderer;
 
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+    public OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private MapHelper mapHelper;
     private Array<CookInteractable> interactables;
-    private CollisionHelper collisionHelper;
-    private Array<GameEntity> gameEntities;
-    private DrawQueueComparator drawQueueComparator;
+    public CollisionHelper collisionHelper;
+    public Array<GameEntity> gameEntities;
+    public DrawQueueComparator drawQueueComparator;
     private Array<ServingStation> servingStations;
     private int xOffset = 480;
     private int yOffset = 320;
 
     //Objects
-    private Array<Cook> cooks;
+    public Array<Cook> cooks;
     private Cook cook;
 
     private int cookIndex;

@@ -1,15 +1,11 @@
 package io.sl3416.undercooked.tests.game;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import game.GameSprites;
 import io.sl3416.undercooked.tests.GdxTestRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-
-import java.util.HashMap;
 
 import static org.junit.Assert.*;
 

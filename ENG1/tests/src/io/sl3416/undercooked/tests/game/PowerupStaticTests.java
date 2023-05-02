@@ -2,7 +2,6 @@ package io.sl3416.undercooked.tests.game;
 
 import game.PowerupStatic;
 import io.sl3416.undercooked.tests.GdxTestRunner;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
