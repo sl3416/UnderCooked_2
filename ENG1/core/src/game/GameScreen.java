@@ -197,11 +197,12 @@ public class GameScreen extends ScreenAdapter {
                 thisCook.userInput();
             }
         }
+        // switches cook
         if(Interactions.isJustPressed(InputKey.InputTypes.COOK_SWAP)) {
             setCook((cookIndex + 1) % cooks.size);
         }
 
-        // Spawning code to spawn a customer after an amount of time.
+        // Spawning code to spawn a customer or group of customers after an amount of time.
         Random rand = new Random();
         int rand1 = rand.nextInt(100);
         int rand2 = rand.nextInt(100);
@@ -226,7 +227,7 @@ public class GameScreen extends ScreenAdapter {
                 // If customer couldn't be added, then wait 2 seconds.
                 nextCustomerSecond += 2000;
             } else {
-                // Wait longer if the recipe has more steps.
+                // Wait longer if the recipe has more steps. The difficulty multiplier makes the amount of time waited longer
                 lastCustomerSecond = TimeUtils.millis();
                 if (endless) {
 
@@ -238,14 +239,14 @@ public class GameScreen extends ScreenAdapter {
 
             }
         }
-
+        // adds new cook when purchased
         if(Gdx.input.isKeyJustPressed(Input.Keys.O) && nextCookID <= 2 && currentMoney >= 20){
             this.increaseCurrentMoney(-20);
             Body body = makeBody(chefRect, false);
             this.addCook(new Cook(chefRect.getWidth(), chefRect.getHeight(), body, this, nextCookID));
             nextCookID++;
         }
-
+        //pauses game
         if(Interactions.isJustPressed(InputKey.InputTypes.PAUSE))
         {
             screenController.pauseGameScreen();
@@ -589,12 +590,12 @@ public class GameScreen extends ScreenAdapter {
     public InstructionHud getInstructionHUD() {
         return instructionHUD;
     }
-
+    // increases money by set amount
     public void increaseCurrentMoney(int toAdd){
         currentMoney += toAdd;
         gameHud.updateMoney(currentMoney);
     }
-
+    // spawns a random powerup
     public void spawnPowerup(){
         Random rand = new Random();
         int i = rand.nextInt(5);
@@ -609,7 +610,7 @@ public class GameScreen extends ScreenAdapter {
             powerupOnScreen = true;
         }
     }
-
+    // saves all variables and state of game
     public void saveVariables(){
         StateOfGame.getInstance().customersLeft = customersToServe;
         StateOfGame.getInstance().reputation = repPoints;
@@ -645,6 +646,7 @@ public class GameScreen extends ScreenAdapter {
             StateOfGame.getInstance().powerups[4] = true;
         }
     }
+    // loads variables into the start of a new game if entered via load game setting
     public void loadVariables(StateOfGame gameState){
         reset();
         //GameScreen variables
