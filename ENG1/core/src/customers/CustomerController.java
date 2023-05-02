@@ -90,7 +90,7 @@ public class CustomerController {
                 return -1;
             }
         }
-
+        customerID = customerID%4;
         Customer newCustomer = new Customer(customerSprite,
                 new Vector2(chosenStation.getCustomerX(),
                         chosenStation.getCustomerY()),customerID);
