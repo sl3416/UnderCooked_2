@@ -1,0 +1,264 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PauseScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">game</a>
+</div>
+
+<h1>Coverage Summary for Class: PauseScreen (game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PauseScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/55)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.ScreenAdapter;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.graphics.GL20;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Stage;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Label;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Table;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;import com.badlogic.gdx.utils.viewport.Viewport;
+&nbsp;
+&nbsp;import game.ScreenController.ScreenID;
+&nbsp;import helper.Constants;
+&nbsp;import interactions.InputKey;
+&nbsp;import interactions.Interactions;
+&nbsp;
+&nbsp;/**
+&nbsp; * A {@link ScreenAdapter} that is used when the game is paused.
+&nbsp; * It renders the {@link GameScreen} behind it, so the user can still
+&nbsp; * see the game.
+&nbsp; */
+&nbsp;public class PauseScreen extends ScreenAdapter {
+&nbsp;    private ScreenController screenController;
+&nbsp;    private OrthographicCamera camera;
+&nbsp;    private SpriteBatch batch;
+&nbsp;
+&nbsp;    private Viewport viewport;
+&nbsp;    private Stage stage;
+&nbsp;    private GameScreen gameScreen;
+&nbsp;    private ShapeRenderer shape;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link PauseScreen}.
+&nbsp;     * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
+&nbsp;     * @param orthographicCamera The {@link OrthographicCamera} that the game should use.
+&nbsp;     */
+<b class="nc">&nbsp;    public PauseScreen(ScreenController screenController, OrthographicCamera orthographicCamera) {</b>
+<b class="nc">&nbsp;        this.screenController = screenController;</b>
+<b class="nc">&nbsp;        this.camera = orthographicCamera;</b>
+&nbsp;
+<b class="nc">&nbsp;        this.batch = screenController.getSpriteBatch();</b>
+<b class="nc">&nbsp;        this.gameScreen = ((GameScreen) screenController.getScreen(ScreenID.GAME));</b>
+<b class="nc">&nbsp;        this.shape = screenController.getShapeRenderer();</b>
+<b class="nc">&nbsp;        shape.setAutoShapeType(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        viewport = new FitViewport(Constants.V_Width, Constants.V_Height, camera);</b>
+<b class="nc">&nbsp;        stage = new Stage(viewport, batch);</b>
+<b class="nc">&nbsp;        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);</b>
+<b class="nc">&nbsp;        Table table = new Table();</b>
+<b class="nc">&nbsp;        table.center();</b>
+<b class="nc">&nbsp;        table.setFillParent(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        String[] strLabels = new String[] {</b>
+&nbsp;            &quot;PAUSED&quot;,
+<b class="nc">&nbsp;            String.format(&quot;Press %s to continue&quot;,Interactions.getKeyString(InputKey.InputTypes.UNPAUSE)),</b>
+<b class="nc">&nbsp;            String.format(&quot;Press %s for instructions&quot;,Interactions.getKeyString(InputKey.InputTypes.INSTRUCTIONS)),</b>
+<b class="nc">&nbsp;            String.format(&quot;Press %s for credits&quot;,Interactions.getKeyString(InputKey.InputTypes.CREDITS)),</b>
+<b class="nc">&nbsp;            String.format(&quot;Press %s to reset&quot;,Interactions.getKeyString(InputKey.InputTypes.RESET_GAME)),</b>
+<b class="nc">&nbsp;            String.format(&quot;Press %s to save&quot;,Interactions.getKeyString(InputKey.InputTypes.SAVE_GAME)),</b>
+<b class="nc">&nbsp;            String.format(&quot;Press %s to quit&quot;,Interactions.getKeyString(InputKey.InputTypes.QUIT))</b>
+&nbsp;        };
+&nbsp;        /* OLD CODE
+&nbsp;        Label pauseLabel = new Label(&quot;PAUSED&quot;, font);
+&nbsp;        table.add(pauseLabel).expandX();
+&nbsp;        table.row();
+&nbsp;
+&nbsp;        Label continueLabel = new Label(String.format(&quot;Press %s to continue&quot;,Interactions.getKeyString(InputKey.InputTypes.UNPAUSE)), font);
+&nbsp;        table.add(continueLabel).expandX();
+&nbsp;        table.row();
+&nbsp;
+&nbsp;        Label instructionsLabel = new Label(String.format(&quot;Press %s for instructions&quot;,Interactions.getKeyString(InputKey.InputTypes.INSTRUCTIONS)), font);
+&nbsp;        table.add(instructionsLabel).expandX();
+&nbsp;        table.row();
+&nbsp;
+&nbsp;        Label resetLabel = new Label(String.format(&quot;Press %s to reset&quot;,Interactions.getKeyString(InputKey.InputTypes.RESET_GAME)), font);
+&nbsp;        table.add(resetLabel).expandX();
+&nbsp;        table.row();
+&nbsp;        */
+&nbsp;
+&nbsp;        /** Contains the Labels objects for the PauseScreen */
+<b class="nc">&nbsp;        Label[] lblLabels = new Label[strLabels.length];</b>
+&nbsp;
+<b class="nc">&nbsp;        for (int j = 0; j &lt; lblLabels.length; j++) {</b>
+<b class="nc">&nbsp;            String strLabel = strLabels[j];</b>
+<b class="nc">&nbsp;            lblLabels[j] = new Label(String.format(strLabel), font);</b>
+<b class="nc">&nbsp;            table.add(lblLabels[j]).expandX();</b>
+<b class="nc">&nbsp;            table.row();</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // pauseLabel.setFontScale(4);
+<b class="nc">&nbsp;        lblLabels[0].setFontScale(4);</b>
+<b class="nc">&nbsp;        stage.addActor(table);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check for user input every frame and act on specified inputs.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    public void update(float delta) {
+<b class="nc">&nbsp;        Interactions.updateKeys();</b>
+&nbsp;        // Check if the Unpause key was pressed.
+<b class="nc">&nbsp;        if (Interactions.isJustPressed(InputKey.InputTypes.UNPAUSE)) {</b>
+<b class="nc">&nbsp;            screenController.playGameScreen();</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        if (Interactions.isJustPressed(InputKey.InputTypes.INSTRUCTIONS)) {</b>
+<b class="nc">&nbsp;            ((InstructionScreen)screenController.getScreen(ScreenID.INSTRUCTIONS)).setPrevScreenID(ScreenID.PAUSE);</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.INSTRUCTIONS);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.CREDITS)) {</b>
+<b class="nc">&nbsp;            ((CreditsScreen)screenController.getScreen(ScreenID.CREDITS)).setPrevScreenID(ScreenID.PAUSE);</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.CREDITS);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.RESET_GAME)) {</b>
+<b class="nc">&nbsp;            screenController.resetGameScreen();</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.MENU);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.QUIT)) {</b>
+<b class="nc">&nbsp;            Gdx.app.exit();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.SAVE_GAME)){</b>
+<b class="nc">&nbsp;            FileInteractor.getInstance().saveToJSON();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link PauseScreen}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;Draws the {@link GameScreen} underneath using the
+&nbsp;     * {@link GameScreen#renderGame(float)} function, and then
+&nbsp;     * renders the {@link PauseScreen} over it.
+&nbsp;     * @param delta The time in seconds since the last render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(float delta) {
+&nbsp;
+<b class="nc">&nbsp;        gameScreen.renderGame(delta);</b>
+&nbsp;
+<b class="nc">&nbsp;        shape.begin(ShapeRenderer.ShapeType.Filled);</b>
+&nbsp;
+<b class="nc">&nbsp;        Gdx.gl.glEnable(GL20.GL_BLEND);</b>
+<b class="nc">&nbsp;        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);</b>
+&nbsp;
+<b class="nc">&nbsp;        shape.setColor(0,0,0,0.5F);</b>
+<b class="nc">&nbsp;        shape.rect(0,0, Constants.V_Width,Constants.V_Height);</b>
+<b class="nc">&nbsp;        shape.setColor(Color.WHITE);</b>
+<b class="nc">&nbsp;        shape.end();</b>
+&nbsp;
+<b class="nc">&nbsp;        stage.draw();</b>
+&nbsp;
+<b class="nc">&nbsp;        Gdx.gl.glDisable(GL20.GL_BLEND);</b>
+&nbsp;
+<b class="nc">&nbsp;        this.update(delta);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

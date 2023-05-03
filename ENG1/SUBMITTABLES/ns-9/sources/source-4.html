@@ -1,0 +1,175 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > StateOfGameTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">io.sl3416.undercooked.tests.game</a>
+</div>
+
+<h1>Coverage Summary for Class: StateOfGameTests (io.sl3416.undercooked.tests.game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StateOfGameTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (29/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package io.sl3416.undercooked.tests.game;
+&nbsp;
+&nbsp;import food.FoodItem;
+&nbsp;import food.FoodStack;
+&nbsp;import game.StateOfGame;
+&nbsp;import interactions.Interactions;
+&nbsp;import io.sl3416.undercooked.tests.GdxTestRunner;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;import stations.PreparationStation;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class StateOfGameTests {</b>
+<b class="fc">&nbsp;    public float[] testStationProgresses = new float[6];</b>
+<b class="fc">&nbsp;    public float[] testStationBurns = new float[6];</b>
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testStateOfGameConstructor() {
+<b class="fc">&nbsp;        StateOfGame game = new StateOfGame();</b>
+&nbsp;
+&nbsp;        // Check that all instance variables are initialized to their default values
+<b class="fc">&nbsp;        assertArrayEquals(&quot;cooksFoodStacks was not loaded correctly&quot;, new FoodStack[3], game.cooksFoodStacks);</b>
+<b class="fc">&nbsp;        assertArrayEquals(&quot;stationFoods was not loaded correctly&quot;, new FoodItem.FoodID[6], game.stationFoods);</b>
+<b class="fc">&nbsp;        assertArrayEquals(&quot;stationStates was not loaded correctly&quot;, new PreparationStation.StationState[6], game.stationStates);</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; game.stationProgresses.length-1; i++) {</b>
+<b class="fc">&nbsp;            assertEquals(&quot;stationProgresses was not loaded correctly&quot;, testStationProgresses[i], game.stationProgresses[i], 0.001f);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; game.stationUsage.length-1; i++) {</b>
+<b class="fc">&nbsp;            assertFalse(&quot;stationUsage was not loaded correctly&quot;, game.stationUsage[i]);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; game.stationBurns.length-1; i++) {</b>
+<b class="fc">&nbsp;            assertEquals(&quot;stationBurns was not loaded correctly&quot;, testStationBurns[i], game.stationBurns[i], 0.001f);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        assertArrayEquals(&quot;interactions was not loaded correctly&quot;, new Interactions.InteractionResult[6], game.interactions);</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; game.powerups.length-1; i++) {</b>
+<b class="fc">&nbsp;            assertFalse(&quot;powerups was not loaded correctly&quot;, game.powerups[i]);</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        assertArrayEquals(&quot;countersFoodStacks was not loaded correctly&quot;, new FoodStack[2], game.countersFoodStacks);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;money was not loaded correctly&quot;, 0, game.money);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;ovensLocked was not loaded correctly&quot;, game.ovensLocked);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;fryersLocked was not loaded correctly&quot;, game.fryersLocked);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;customersServed was not loaded correctly&quot;, 0, game.customersServedState);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(&quot;chefPositions was not loaded correctly&quot;, new ArrayList&lt;&gt;(), game.chefPositions);</b>
+<b class="fc">&nbsp;        assertArrayEquals(&quot;customerRequests was not loaded correctly&quot;, new String[4], game.customerRequests);</b>
+<b class="fc">&nbsp;        assertArrayEquals(&quot;customerPositions was not loaded correctly&quot;, new int[4], game.customerPositions);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;customersWaiting was not loaded correctly&quot;, 0, game.customersWaiting);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testGetInstance() {
+&nbsp;        // checks if it returns INSTANCE of StateOfGame and not null
+<b class="fc">&nbsp;        assertNotNull(&quot;Did not return instance of StateOfGame&quot;, StateOfGame.getInstance());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testNewInstance() {
+<b class="fc">&nbsp;        StateOfGame stateOfGame1 = StateOfGame.getInstance();</b>
+<b class="fc">&nbsp;        StateOfGame stateOfGame2 = StateOfGame.newInstance();</b>
+<b class="fc">&nbsp;        assertNotEquals(&quot;New instance was not created properly&quot;, stateOfGame1, stateOfGame2);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

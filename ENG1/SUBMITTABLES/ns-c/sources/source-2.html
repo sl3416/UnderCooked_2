@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CookInteractable</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">stations</a>
+</div>
+
+<h1>Coverage Summary for Class: CookInteractable (stations)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CookInteractable</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package stations;
+&nbsp;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import cooks.Cook;
+&nbsp;import cooks.GameEntity;
+&nbsp;import interactions.InputKey;
+&nbsp;
+&nbsp;/** The CookInteractable Class. This is basically stations and pantries.*/
+&nbsp;public abstract class CookInteractable extends GameEntity {
+&nbsp;    /** The rectangle representing the collision of this interactable. */
+&nbsp;    protected Rectangle interactRect;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calls the parent function, {@link GameEntity}, and sets the
+&nbsp;     * {@link #interactRect} of the {@link CookInteractable} used for
+&nbsp;     * Checking if the {@link CookInteractable} is overlapping the {@link CookInteractable}.
+&nbsp;     * @param rect The collision and interaction area of the {@link CookInteractable}.
+&nbsp;     */
+&nbsp;    public CookInteractable(Rectangle rect) {
+<b class="nc">&nbsp;        super(rect);</b>
+<b class="nc">&nbsp;        this.interactRect = rect;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the interaction {@link Rectangle}, which is used to check
+&nbsp;     * the overlaps against another {@link CookInteractable}.
+&nbsp;     * @return The {@link Rectangle} of the {@link CookInteractable}.
+&nbsp;     */
+&nbsp;    public Rectangle getRectangle() {
+<b class="nc">&nbsp;        return this.interactRect;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Allows a {@link Cook} to interact with the {@link CookInteractable}.
+&nbsp;     * @param cook The cook that interacted with the {@link CookInteractable}.
+&nbsp;     * @param inputType The type of {@link InputKey.InputTypes} the player made with
+&nbsp;     *                  the {@link CookInteractable}.
+&nbsp;     */
+&nbsp;    public void interact(Cook cook, InputKey.InputTypes inputType) {
+&nbsp;        //System.out.println(&quot;Interaction at x=&quot; + body.getPosition().x*PPM + &quot;, y=&quot; + body.getPosition().x*PPM);
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

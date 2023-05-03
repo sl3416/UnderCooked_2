@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FoodStack</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">food</a>
+</div>
+
+<h1>Coverage Summary for Class: FoodStack (food)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FoodStack</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (8/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    52.4%
+  </span>
+  <span class="absValue">
+    (11/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package food;
+&nbsp;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;import food.FoodItem.FoodID;
+&nbsp;
+&nbsp;/**
+&nbsp; * A class to create the behaviour of a {@code Stack} for
+&nbsp; * {@link FoodItem}s to be used by the {@link cooks.Cook},
+&nbsp; * {@link stations.CounterStation} and {@link Recipe}s.
+&nbsp; */
+&nbsp;public class FoodStack {
+&nbsp;    /** The cook&#39;s stack of things, containing all the items they&#39;re holding. Index 0 = Top Item.
+&nbsp;     * Has a public getter and setter.
+&nbsp;    */
+&nbsp;    private Array&lt;FoodID&gt; foodStack;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * FoodStack Constructor. Can accept multiple FoodID parameters to
+&nbsp;     * initialize the foodStack with.
+&nbsp;     * @param foods A list of ingredients to add to the foodStack. Index 0 = Top.
+&nbsp;     */
+&nbsp;    public FoodStack(FoodID... foods) {
+<b class="fc">&nbsp;        this(new Array&lt;FoodID&gt;());</b>
+<b class="fc">&nbsp;        for (FoodID foodID : foods) {</b>
+<b class="fc">&nbsp;            foodStack.add(foodID);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /** FoodStack Constructor. Creates a blank foodStack.*/
+&nbsp;    public FoodStack() {
+<b class="fc">&nbsp;        this(new Array&lt;FoodID&gt;());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * FoodStack Constructor. Creates a foodStack out of the argument.
+&nbsp;     * @param foodStack The LibGDX Array of FoodIDs which will become a FoodStack.
+&nbsp;     */
+<b class="fc">&nbsp;    public FoodStack(Array&lt;FoodID&gt; foodStack) {</b>
+<b class="fc">&nbsp;        this.foodStack = foodStack;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;    * Get the item at the top of the stack without removing it.
+&nbsp;    * @return The item at the top of the foodStack OR `null` if there&#39;s no items in it.
+&nbsp;    */
+&nbsp;    public FoodID peekStack() {
+&nbsp;        try {
+<b class="fc">&nbsp;            return foodStack.get(0);</b>
+<b class="nc">&nbsp;        } catch (IndexOutOfBoundsException e) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;    * Get the item at the top of the stack and remove it if there is an item in the foodStack.
+&nbsp;    * @return The item at the top of the foodStack OR `null` if there&#39;s no items in it.
+&nbsp;    */
+&nbsp;    public FoodID popStack() {
+&nbsp;      try {
+<b class="fc">&nbsp;          return foodStack.removeIndex(0);</b>
+<b class="nc">&nbsp;      } catch (IndexOutOfBoundsException e) {</b>
+<b class="nc">&nbsp;          return null;</b>
+&nbsp;      }
+&nbsp;    }
+&nbsp;    /**
+&nbsp;    * Add an item to the top of the stack.
+&nbsp;    * @param newFood The item to add to the top of the foodStack.
+&nbsp;    */
+&nbsp;    public void addStack(FoodID newFood) {
+<b class="fc">&nbsp;        foodStack.insert(0, newFood);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Remove the items required to create
+&nbsp;     * a composite item from the stack.
+&nbsp;     */
+&nbsp;    public void removeComponents(Array&lt;FoodID&gt; ingredients){
+<b class="nc">&nbsp;        for (FoodID ingredient:ingredients) {</b>
+<b class="nc">&nbsp;            this.getStack().removeValue(ingredient,true);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;    * foodStack getter
+&nbsp;    * @return foodStack
+&nbsp;    */
+&nbsp;    public Array&lt;FoodID&gt; getStack() {
+<b class="nc">&nbsp;        return foodStack;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Removes all items from the stack
+&nbsp;     */
+&nbsp;    public void clearStack() {
+<b class="nc">&nbsp;        foodStack.clear();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;    * foodStack setter
+&nbsp;    * @param newStack The new foodStack
+&nbsp;    */
+&nbsp;    public void setStack(Array&lt;FoodID&gt; newStack) {
+<b class="nc">&nbsp;        foodStack = newStack;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;    * Returns the number of items on the foodStack.
+&nbsp;    * @return Size of the foodStack
+&nbsp;    */
+<b class="fc">&nbsp;    public int size() { return foodStack.size; }</b>
+&nbsp;    /**
+&nbsp;    * Get a string of the foodStack.
+&nbsp;    * @return Returns a string containing the items in the foodStack. Index 0 = Top FoodItem
+&nbsp;    */
+&nbsp;    public String toString() {
+<b class="fc">&nbsp;        return foodStack.toString();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

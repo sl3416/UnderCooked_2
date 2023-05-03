@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="io.sl3416.undercooked.tests.food.RecipeTests" tests="5" skipped="0" failures="1" errors="0" timestamp="2023-05-03T02:45:40" hostname="LAPTOP-LI9Q8A9H" time="0.086">
+<testsuite name="io.sl3416.undercooked.tests.food.RecipeTests" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-05-03T03:43:52" hostname="LAPTOP-LI9Q8A9H" time="0.089">
   <properties/>
-  <testcase name="testRandomRecipeOption" classname="io.sl3416.undercooked.tests.food.RecipeTests" time="0.016">
-    <failure message="java.lang.AssertionError: randomRecipeOption() did not output a random option for a recipe as expected expected:&lt;[c_pizza]&gt; but was:&lt;[Lfood.FoodItem$FoodID;@6cda7efb&gt;" type="java.lang.AssertionError">java.lang.AssertionError: randomRecipeOption() did not output a random option for a recipe as expected expected:&lt;[c_pizza]&gt; but was:&lt;[Lfood.FoodItem$FoodID;@6cda7efb&gt;
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.junit.Assert.failNotEquals(Assert.java:835)
-	at org.junit.Assert.assertEquals(Assert.java:120)
-	at io.sl3416.undercooked.tests.food.RecipeTests.testRandomRecipeOption(RecipeTests.java:100)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at io.sl3416.undercooked.tests.GdxTestRunner.render(GdxTestRunner.java:61)
-	at com.badlogic.gdx.backends.headless.HeadlessApplication.mainLoop(HeadlessApplication.java:128)
-	at com.badlogic.gdx.backends.headless.HeadlessApplication$1.run(HeadlessApplication.java:93)
-</failure>
-  </testcase>
-  <testcase name="testGetRecipeCombos" classname="io.sl3416.undercooked.tests.food.RecipeTests" time="0.001"/>
+  <testcase name="testGetRecipeCombos" classname="io.sl3416.undercooked.tests.food.RecipeTests" time="0.036"/>
   <testcase name="testRandomRecipe" classname="io.sl3416.undercooked.tests.food.RecipeTests" time="0.0"/>
   <testcase name="testMatchesRecipe" classname="io.sl3416.undercooked.tests.food.RecipeTests" time="0.0"/>
-  <testcase name="testGenerateRecipes" classname="io.sl3416.undercooked.tests.food.RecipeTests" time="0.0"/>
+  <testcase name="testGenerateRecipes" classname="io.sl3416.undercooked.tests.food.RecipeTests" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

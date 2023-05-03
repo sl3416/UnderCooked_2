@@ -1,0 +1,409 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MapHelper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">helper</a>
+</div>
+
+<h1>Coverage Summary for Class: MapHelper (helper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MapHelper</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/127)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package helper;
+&nbsp;
+&nbsp;import com.badlogic.gdx.maps.MapObject;
+&nbsp;import com.badlogic.gdx.maps.MapObjects;
+&nbsp;import com.badlogic.gdx.maps.objects.PolygonMapObject;
+&nbsp;import com.badlogic.gdx.maps.objects.RectangleMapObject;
+&nbsp;import com.badlogic.gdx.maps.tiled.TiledMap;
+&nbsp;import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+&nbsp;import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;import com.badlogic.gdx.physics.box2d.Body;
+&nbsp;import com.badlogic.gdx.physics.box2d.BodyDef;
+&nbsp;import com.badlogic.gdx.physics.box2d.PolygonShape;
+&nbsp;import com.badlogic.gdx.physics.box2d.Shape;
+&nbsp;import cooks.Cook;
+&nbsp;import food.FoodItem;
+&nbsp;import game.GameScreen;
+&nbsp;import stations.*;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;import static game.MenuScreen.loading;
+&nbsp;import static helper.Constants.PPM;
+&nbsp;
+&nbsp;/** The {@link MapHelper} class helps by setting up the map
+&nbsp; * of the game, and providing the {@link OrthogonalTiledMapRenderer}
+&nbsp; * which is used to draw the {@link TiledMap}.*/
+&nbsp;public class MapHelper {
+&nbsp;    public static boolean fryLockedFlag;
+&nbsp;    public static boolean bakeLockedFlag;
+&nbsp;    private GameScreen gameScreen;
+&nbsp;    private TiledMap tiledMap;
+&nbsp;    private static MapHelper INSTANCE;
+&nbsp;
+<b class="nc">&nbsp;    public static int nextCookID = 0;</b>
+<b class="nc">&nbsp;    private int nextPrepStationID = 0;</b>
+<b class="nc">&nbsp;    private int nextCounterStationID = 0;</b>
+&nbsp;
+&nbsp;    public List&lt;PreparationStation&gt; prepStationsList;
+&nbsp;    public List&lt;Cook&gt; cooksList;
+&nbsp;    public List&lt;CounterStation&gt; counterStationsList;
+&nbsp;    public static Rectangle chefRect;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The {@link MapHelper} constructor.
+&nbsp;     * It is {@code private} as it is a Singleton.
+&nbsp;     */
+<b class="nc">&nbsp;    private MapHelper() { }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The getter function to get the {@link #INSTANCE} of the {@link MapHelper}.
+&nbsp;     * @return {@link MapHelper}: The single {@link MapHelper} instance.
+&nbsp;     */
+&nbsp;    public static MapHelper getInstance() {
+<b class="nc">&nbsp;        if (INSTANCE == null) {</b>
+<b class="nc">&nbsp;            INSTANCE = new MapHelper();</b>
+&nbsp;
+&nbsp;        }
+<b class="nc">&nbsp;        return INSTANCE;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Forgets the old {@link #INSTANCE}, and creates
+&nbsp;     * a new {@link #INSTANCE} of the {@link MapHelper}.
+&nbsp;     * @return {@link #INSTANCE} : A new {@link MapHelper} instance.
+&nbsp;     */
+&nbsp;    public static MapHelper newInstance() {
+<b class="nc">&nbsp;        INSTANCE = new MapHelper();</b>
+&nbsp;
+<b class="nc">&nbsp;        return INSTANCE;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function to set the MapHelper&#39;s gameScreen so that it can access
+&nbsp;     * relevant information it may need to know.
+&nbsp;     * @param gameScreen {@link GameScreen}
+&nbsp;     */
+&nbsp;    public void setGameScreen(GameScreen gameScreen) {
+<b class="nc">&nbsp;        this.gameScreen = gameScreen;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets up the map by loading the StationsMap tilemap, and then using
+&nbsp;     * the function {@link #parseMapObjects(MapObjects)} to parse and
+&nbsp;     * load it into the game.
+&nbsp;     * @return The {@link OrthogonalTiledMapRenderer} used to render the Tilemap.
+&nbsp;     */
+&nbsp;    public OrthogonalTiledMapRenderer setupMap()
+&nbsp;    {
+<b class="nc">&nbsp;        tiledMap = new TmxMapLoader().load(&quot;Maps/StationsMap.tmx&quot;);</b>
+<b class="nc">&nbsp;        parseMapObjects(tiledMap.getLayers().get(&quot;Objects&quot;).getObjects());</b>
+<b class="nc">&nbsp;        return new OrthogonalTiledMapRenderer(tiledMap);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a Static {@link Body} added to the map that is used
+&nbsp;     * to stop the {@link Cook} from moving through certain places.
+&nbsp;     * @param polygonMapObject
+&nbsp;     */
+&nbsp;    private void createStaticBody(PolygonMapObject polygonMapObject)
+&nbsp;    {
+<b class="nc">&nbsp;        BodyDef bodyDef = new BodyDef();</b>
+<b class="nc">&nbsp;        bodyDef.type = BodyDef.BodyType.StaticBody;</b>
+<b class="nc">&nbsp;        Body body = gameScreen.getWorld().createBody(bodyDef);</b>
+<b class="nc">&nbsp;        Shape shape = createPolygonShape(polygonMapObject);</b>
+<b class="nc">&nbsp;        body.createFixture(shape, 1000);</b>
+<b class="nc">&nbsp;        shape.dispose();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates a Polygon{@link Shape} using the {@link PolygonMapObject}.
+&nbsp;     * &lt;br&gt;It is used to create the {@link Shape} for the
+&nbsp;     * {@link #createStaticBody(PolygonMapObject)} function for
+&nbsp;     * the {@link Body}&#39;s {@link com.badlogic.gdx.physics.box2d.Fixture}.
+&nbsp;     * @param polygonMapObject
+&nbsp;     * @return
+&nbsp;     */
+&nbsp;    private Shape createPolygonShape(PolygonMapObject polygonMapObject)
+&nbsp;    {
+<b class="nc">&nbsp;        float[] vertices = polygonMapObject.getPolygon().getTransformedVertices();</b>
+<b class="nc">&nbsp;        Vector2[] worldVertices = new Vector2[vertices.length / 2];</b>
+<b class="nc">&nbsp;        for(int i = 0;i&lt;vertices.length / 2;i++)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            Vector2 current = new Vector2(vertices[i * 2]/PPM, vertices[i*2+1]/PPM);</b>
+<b class="nc">&nbsp;            worldVertices[i] = current;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        PolygonShape shape = new PolygonShape();</b>
+<b class="nc">&nbsp;        shape.set(worldVertices);</b>
+<b class="nc">&nbsp;        return shape;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Makes a {@link Body} using a {@link Rectangle} as a base.
+&nbsp;     * @param rectangle The {@link Rectangle} for the {@link Body}&#39;s {@link Shape}.
+&nbsp;     * @param isStatic If true, then the {@link Body} is stationary.
+&nbsp;     *                 If false, then the {@link Body} is not stationary.
+&nbsp;     * @return {@link Body} : The {@link Body} created using {@link BodyHelper}.
+&nbsp;     */
+&nbsp;    public static Body makeBody(Rectangle rectangle, boolean isStatic) {
+<b class="nc">&nbsp;        return BodyHelper.createBody(rectangle.x + rectangle.getWidth() /2, rectangle.y +rectangle.getHeight()/2,rectangle.getWidth(), rectangle.getHeight(),isStatic, INSTANCE.gameScreen.getWorld());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Loops through all of the {@link MapObjects} and loads them
+&nbsp;     * into the {@link GameScreen}&#39;s {@code world} using the
+&nbsp;     * other {@link MapHelper} functions.
+&nbsp;     * @param mapObjects The {@link MapObjects} of the map.
+&nbsp;     */
+&nbsp;    private void parseMapObjects(MapObjects mapObjects)
+&nbsp;    {
+<b class="nc">&nbsp;        prepStationsList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        cooksList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        counterStationsList = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for(MapObject mapObject:mapObjects)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            if(mapObject instanceof PolygonMapObject)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                createStaticBody((PolygonMapObject) mapObject);</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if(mapObject instanceof RectangleMapObject)</b>
+&nbsp;            {
+<b class="nc">&nbsp;                Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();</b>
+<b class="nc">&nbsp;                String rectangleName = mapObject.getName();</b>
+&nbsp;
+<b class="nc">&nbsp;                if(rectangleName.equals(&quot;CookStart&quot;))</b>
+&nbsp;                {
+&nbsp;                    // if you&#39;re loading a game, it will use the Cook from that save instead.
+<b class="nc">&nbsp;                    if(!loading) {</b>
+<b class="nc">&nbsp;                        Body body = makeBody(rectangle, false);</b>
+<b class="nc">&nbsp;                        int cookInd = gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));</b>
+<b class="nc">&nbsp;                        gameScreen.setCook(cookInd);</b>
+<b class="nc">&nbsp;                        nextCookID++;</b>
+<b class="nc">&nbsp;                        continue;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                if(rectangleName.equals(&quot;Cook&quot;))</b>
+&nbsp;                {
+<b class="nc">&nbsp;                    if(nextCookID &lt; 1 &amp;&amp; !loading) {</b>
+<b class="nc">&nbsp;                        Body body = makeBody(rectangle, false);</b>
+<b class="nc">&nbsp;                        gameScreen.addCook(new Cook(rectangle.getWidth(), rectangle.getHeight(), body, gameScreen, nextCookID));</b>
+<b class="nc">&nbsp;                        nextCookID++;</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                    chefRect = rectangle;</b>
+<b class="nc">&nbsp;                    continue;</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                Rectangle normalRect = new Rectangle(rectangle);</b>
+<b class="nc">&nbsp;                normalRect.setX(normalRect.getX() * PPM);</b>
+<b class="nc">&nbsp;                normalRect.setY(normalRect.getY() * PPM);</b>
+&nbsp;
+<b class="nc">&nbsp;                if(rectangleName.startsWith(&quot;Station&quot;)) {</b>
+&nbsp;                    // Stations
+<b class="nc">&nbsp;                    rectangleName = rectangleName.substring(&quot;Station&quot;.length()).toLowerCase();</b>
+&nbsp;                    Station station;
+<b class="nc">&nbsp;                    switch(rectangleName) {</b>
+&nbsp;                        case &quot;cut&quot;:
+<b class="nc">&nbsp;                            PreparationStation stationP = new PreparationStation(rectangle, nextPrepStationID,gameScreen);</b>
+<b class="nc">&nbsp;                            stationP.setID(Station.StationID.cut);</b>
+<b class="nc">&nbsp;                            gameScreen.addGameEntity(stationP);</b>
+<b class="nc">&nbsp;                            nextPrepStationID++;</b>
+<b class="nc">&nbsp;                            prepStationsList.add(stationP);</b>
+<b class="nc">&nbsp;                            gameScreen.addInteractable(stationP);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;fry&quot;:
+<b class="nc">&nbsp;                            stationP = new PreparationStation(rectangle, nextPrepStationID,gameScreen);</b>
+<b class="nc">&nbsp;                            stationP.setID(Station.StationID.fry);</b>
+<b class="nc">&nbsp;                            stationP.lock();</b>
+<b class="nc">&nbsp;                            fryLockedFlag = true;</b>
+<b class="nc">&nbsp;                            gameScreen.addGameEntity(stationP);</b>
+<b class="nc">&nbsp;                            nextPrepStationID++;</b>
+<b class="nc">&nbsp;                            prepStationsList.add(stationP);</b>
+<b class="nc">&nbsp;                            gameScreen.addInteractable(stationP);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;oven&quot;:
+<b class="nc">&nbsp;                            stationP = new PreparationStation(rectangle, nextPrepStationID,gameScreen);</b>
+<b class="nc">&nbsp;                            stationP.setID(Station.StationID.oven);</b>
+<b class="nc">&nbsp;                            stationP.lock();</b>
+<b class="nc">&nbsp;                            bakeLockedFlag = true;</b>
+<b class="nc">&nbsp;                            gameScreen.addGameEntity(stationP);</b>
+<b class="nc">&nbsp;                            nextPrepStationID++;</b>
+<b class="nc">&nbsp;                            prepStationsList.add(stationP);</b>
+<b class="nc">&nbsp;                            gameScreen.addInteractable(stationP);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;counter&quot;:
+<b class="nc">&nbsp;                            CounterStation stationC = new CounterStation(rectangle, nextCounterStationID);</b>
+<b class="nc">&nbsp;                            stationC.setID(Station.StationID.counter);</b>
+<b class="nc">&nbsp;                            gameScreen.addGameEntity(stationC);</b>
+<b class="nc">&nbsp;                            nextCounterStationID++;</b>
+<b class="nc">&nbsp;                            counterStationsList.add(stationC);</b>
+<b class="nc">&nbsp;                            gameScreen.addInteractable(stationC);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;bin&quot;:
+<b class="nc">&nbsp;                            BinStation stationB = new BinStation(rectangle);</b>
+<b class="nc">&nbsp;                            stationB.setID(Station.StationID.bin);</b>
+<b class="nc">&nbsp;                            gameScreen.addInteractable(stationB);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;serving&quot;:
+<b class="nc">&nbsp;                            ServingStation stationS = new ServingStation(rectangle);</b>
+<b class="nc">&nbsp;                            stationS.setID(Station.StationID.serving);</b>
+<b class="nc">&nbsp;                            gameScreen.addGameEntity(stationS);</b>
+<b class="nc">&nbsp;                            gameScreen.addServingStation((ServingStation) stationS);</b>
+<b class="nc">&nbsp;                            ((ServingStation) stationS).setGameScreen(gameScreen);</b>
+<b class="nc">&nbsp;                            gameScreen.addInteractable(stationS);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        default:
+<b class="nc">&nbsp;                            station = new Station(rectangle);</b>
+<b class="nc">&nbsp;                            station.setID(Station.StationID.none);</b>
+<b class="nc">&nbsp;                            gameScreen.addInteractable(station);</b>
+&nbsp;                            break;
+&nbsp;
+&nbsp;                    }
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                if (rectangleName.startsWith(&quot;Pantry&quot;)) {</b>
+&nbsp;                    // Pantries
+<b class="nc">&nbsp;                    rectangleName = rectangleName.substring(&quot;Pantry&quot;.length());</b>
+<b class="nc">&nbsp;                    Pantry pantry = new Pantry(rectangle);</b>
+<b class="nc">&nbsp;                    gameScreen.addInteractable(pantry);</b>
+<b class="nc">&nbsp;                    switch(rectangleName) {</b>
+&nbsp;                        case &quot;Lettuce&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.lettuce);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;Tomato&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.tomato);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;Onion&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.onion);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;Meat&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.meat);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;Bun&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.bun);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;Dough&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.dough);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;Cheese&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.cheese);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        case &quot;RawPotato&quot;:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.rawPotato);</b>
+<b class="nc">&nbsp;                            break;</b>
+&nbsp;                        default:
+<b class="nc">&nbsp;                            pantry.setItem(FoodItem.FoodID.none);</b>
+&nbsp;                            break;
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A dispose function to dispose of information when it is
+&nbsp;     * no longer needed.
+&nbsp;     */
+&nbsp;    public void dispose() {
+<b class="nc">&nbsp;        tiledMap.dispose();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

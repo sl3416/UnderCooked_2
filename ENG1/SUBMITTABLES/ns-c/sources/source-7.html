@@ -1,0 +1,259 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Station</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">stations</a>
+</div>
+
+<h1>Coverage Summary for Class: Station (stations)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Station</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Station$StationID</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    15.4%
+  </span>
+  <span class="absValue">
+    (2/13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    34.8%
+  </span>
+  <span class="absValue">
+    (8/23)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package stations;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import cooks.Cook;
+&nbsp;import game.GameSprites;
+&nbsp;import interactions.InputKey;
+&nbsp;
+&nbsp;/**
+&nbsp; * The default {@link stations} class used as
+&nbsp; * a Parent for other {@link stations}.
+&nbsp; * */
+&nbsp;public class Station extends CookInteractable {
+&nbsp;
+&nbsp;    /** IDs of all the different possible types of stations.*/
+<b class="fc">&nbsp;    public enum StationID {</b>
+&nbsp;         /** Frying Station, uses {@link PreparationStation}. */
+<b class="fc">&nbsp;        fry,</b>
+&nbsp;        /** Cutting Station, uses {@link PreparationStation}. */
+<b class="fc">&nbsp;        cut,</b>
+&nbsp;        /** Oven Station, uses {@link PreparationStation}. */
+<b class="fc">&nbsp;        oven,</b>
+&nbsp;        /** {@link CounterStation} that can hold {@link food.FoodItem}s. */
+<b class="fc">&nbsp;        counter,</b>
+&nbsp;        /** {@link BinStation} that can dispose of {@link food.FoodItem}s.*/
+<b class="fc">&nbsp;        bin,</b>
+&nbsp;        /** {@link ServingStation} that allows {@link Cook}s to serve {@link customers.Customer}s. */
+<b class="fc">&nbsp;        serving,</b>
+&nbsp;        /** Default Station that does nothing. */
+<b class="fc">&nbsp;        none</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    boolean locked; //True means it is locked
+&nbsp;
+&nbsp;    StationID stationID;
+&nbsp;    public boolean inUse;
+&nbsp;    GameSprites gameSprites;
+&nbsp;
+&nbsp;    Sprite lockedSprite;
+&nbsp;    Texture texture;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link Station}.
+&nbsp;     * @param rectangle The collision and interaction area of the {@link Station}.
+&nbsp;     */
+&nbsp;    public Station(Rectangle rectangle) {
+<b class="nc">&nbsp;        super(rectangle);</b>
+<b class="nc">&nbsp;        inUse = false;</b>
+&nbsp;
+<b class="nc">&nbsp;        this.gameSprites = GameSprites.getInstance();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the {@link #stationID} of the {@link Station} to a
+&nbsp;     * {@link StationID}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;This is not used by all Stations, but is useful if you want
+&nbsp;     * something like that {@link PreparationStation} to function.
+&nbsp;     * @param stationID The {@link StationID} for the {@link Station}
+&nbsp;     *                  to be set to.
+&nbsp;     */
+&nbsp;    public void setID(StationID stationID) {
+<b class="nc">&nbsp;        this.stationID = stationID;</b>
+&nbsp;    }
+<b class="nc">&nbsp;    public StationID getID(){return this.stationID;}</b>
+&nbsp;
+<b class="nc">&nbsp;    public void lock(){this.locked = true;}</b>
+<b class="nc">&nbsp;    public void unlock(){this.locked = false;}</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function that allows a {@link Cook} to interact with the {@link Station}.
+&nbsp;     * &lt;br&gt;The default {@link Station} does nothing.
+&nbsp;     * @param cook The cook that interacted with the {@link CookInteractable}.
+&nbsp;     * @param inputType The type of {@link InputKey.InputTypes} the player made with
+&nbsp;     *                  the {@link CookInteractable}.
+&nbsp;     */
+<b class="nc">&nbsp;    public void interact(Cook cook, InputKey.InputTypes inputType) { }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * An update function to be used by the {@link game.GameScreen}
+&nbsp;     * if a {@link Station} needs it.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void update(float delta) { }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Station}.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(SpriteBatch batch) {
+&nbsp;        // Render the station&#39;s item on top, when inUse is false.
+<b class="nc">&nbsp;        if (!inUse) {</b>
+<b class="nc">&nbsp;            Sprite stationSprite = GameSprites.getInstance().getSprite(GameSprites.SpriteID.STATION,String.valueOf(stationID));</b>
+<b class="nc">&nbsp;            batch.draw(stationSprite,x-35F/2,y-10F,35F,35F);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Station}&#39;s
+&nbsp;     * debug visuals.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void renderDebug(SpriteBatch batch) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Station}.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to render.
+&nbsp;     */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void renderShape(ShapeRenderer shape) { }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Station}&#39;s
+&nbsp;     * debug visuals.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void renderShapeDebug(ShapeRenderer shape) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

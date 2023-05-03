@@ -1,0 +1,283 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ServingStation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">stations</a>
+</div>
+
+<h1>Coverage Summary for Class: ServingStation (stations)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ServingStation</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/31)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package stations;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import cooks.Cook;
+&nbsp;import customers.Customer;
+&nbsp;import customers.CustomerController;
+&nbsp;import food.Recipe;
+&nbsp;import game.GameScreen;
+&nbsp;import interactions.InputKey;
+&nbsp;
+&nbsp;import static customers.CustomerController.customersServed;
+&nbsp;
+&nbsp;/**
+&nbsp; * The {@link ServingStation} class, where the {@link cooks.Cook} provide
+&nbsp; * the {@link customers.Customer}s with their orders.
+&nbsp; */
+&nbsp;public class ServingStation extends Station {
+&nbsp;
+&nbsp;    private String request;
+&nbsp;    private Customer customer;
+&nbsp;    private GameScreen gameScreen;
+&nbsp;    private float customerX, customerY;
+&nbsp;    private CustomerController customerController;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link ServingStation}.
+&nbsp;     * @param rectangle The collision and interaction area of the {@link ServingStation}.
+&nbsp;     * *//*
+&nbsp;     //* @param customerController The {@link CustomerController} for the game.
+&nbsp;     */
+&nbsp;    public ServingStation(Rectangle rectangle) {
+<b class="nc">&nbsp;        super(rectangle);</b>
+<b class="nc">&nbsp;        this.customerController = null;</b>
+&nbsp;        // The below x and y can be changed wherever needed.
+<b class="nc">&nbsp;        this.customerX = rectangle.x + 32;</b>
+<b class="nc">&nbsp;        this.customerY = rectangle.y + 96;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns whether the {@link ServingStation} does
+&nbsp;     * @return {@code boolean} : Whether there is ({@code true})
+&nbsp;     *                 or isn&#39;t ({@code false}) a {@link Customer}.
+&nbsp;     */
+&nbsp;    public boolean hasCustomer() {
+<b class="nc">&nbsp;        return customer != null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /*public void setCustomer(Customer customer) {
+&nbsp;        this.customer = customer;
+&nbsp;    }*/
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The interact function for the {@link ServingStation}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;This checks that the {@link Cook} has the right {@link food.Recipe}, and then acts
+&nbsp;     * based on if the {@link Cook} does or does not.
+&nbsp;     * @param cook The cook that interacted with the {@link CookInteractable}.
+&nbsp;     * @param inputType The type of {@link InputKey.InputTypes} the player made with
+&nbsp;     *                  the {@link CookInteractable}.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void interact(Cook cook, InputKey.InputTypes inputType) {
+&nbsp;        // USE to see request, or submit request
+<b class="nc">&nbsp;        if (inputType == InputKey.InputTypes.USE) {</b>
+&nbsp;            // First make sure there is actually a request on this counter.
+<b class="nc">&nbsp;            if (hasCustomer()) {</b>
+&nbsp;                // If there is a request, then compare the two.
+<b class="nc">&nbsp;                if (Recipe.matchesRecipe(cook.foodStack,customer.getRequestName())) {</b>
+&nbsp;                    // If it&#39;s correct, then the customer will take the food and leave.
+<b class="nc">&nbsp;                    request = null;</b>
+<b class="nc">&nbsp;                    cook.foodStack.clearStack();</b>
+<b class="nc">&nbsp;                    if (gameScreen.getGameHud().getCustomer() == this.customer) {</b>
+<b class="nc">&nbsp;                        gameScreen.getGameHud().setRecipe(null);</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                    customerController.customerServed(this);</b>
+<b class="nc">&nbsp;                    customersServed++;</b>
+&nbsp;                } else {
+&nbsp;                    // If not, then display the customer&#39;s request.
+<b class="nc">&nbsp;                    gameScreen.getGameHud().setRecipe(customer);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            if (hasCustomer()) {</b>
+&nbsp;                // Display the customer&#39;s request.
+<b class="nc">&nbsp;                gameScreen.getGameHud().setRecipe(customer);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Renders the {@link Customer} that is at the
+&nbsp;     * {@link ServingStation}.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(SpriteBatch batch) {
+<b class="nc">&nbsp;        if (hasCustomer()) {</b>
+<b class="nc">&nbsp;            customer.render(batch);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the {@link GameScreen} that will be used by the
+&nbsp;     * {@link ServingStation} when interacted with.
+&nbsp;     * @param gameScreen The {@link GameScreen} to set it to.
+&nbsp;     */
+&nbsp;    public void setGameScreen(GameScreen gameScreen) {
+<b class="nc">&nbsp;        this.gameScreen = gameScreen;</b>
+<b class="nc">&nbsp;        this.customerController = gameScreen.getCustomerController();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Set the {@link #customer} of the {@link ServingStation} to
+&nbsp;     * a new {@link Customer}.
+&nbsp;     * @param customer The {@link Customer} to set the {@link ServingStation} to.
+&nbsp;     */
+&nbsp;    public void setCustomer(Customer customer)
+&nbsp;    {
+<b class="nc">&nbsp;        this.customer = customer;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the {@link Customer} that is tied to
+&nbsp;     * the {@link ServingStation}. If there is no {@link Customer},
+&nbsp;     * then {@code null} is returned.
+&nbsp;     * @return {@link Customer} : The {@link Customer} at the {@link ServingStation}.
+&nbsp;     */
+<b class="nc">&nbsp;    public Customer getCustomer() { return this.customer; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the {@link Customer}&#39;s {@code x} position at the
+&nbsp;     * {@link ServingStation}.
+&nbsp;     * @return {@code float} : The {@link Customer}&#39;s {@code x}.
+&nbsp;     */
+&nbsp;    public float getCustomerX() {
+<b class="nc">&nbsp;        return customerX;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the {@link Customer}&#39;s {@code y} position at the
+&nbsp;     * {@link ServingStation}.
+&nbsp;     * @return {@code float} : The {@link Customer}&#39;s {@code y}.
+&nbsp;     */
+&nbsp;    public float getCustomerY() {
+<b class="nc">&nbsp;        return customerY;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the {@code x} of the {@link Customer}.
+&nbsp;     * This is because the {@link Customer} is drawn by the
+&nbsp;     * {@link ServingStation}, and not the {@link ServingStation}
+&nbsp;     * itself.
+&nbsp;     * &lt;br&gt; If there is no {@link Customer} assigned, it uses the
+&nbsp;     * {@link #customerX} variable.
+&nbsp;     * @return {@code float} : The {@code x} of the {@link Customer}.
+&nbsp;     */
+&nbsp;    public float getX() {
+<b class="nc">&nbsp;        if (!hasCustomer()) {</b>
+<b class="nc">&nbsp;            return customerX;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return customer.getX();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter for the {@code y} of the {@link Customer}.
+&nbsp;     * This is because the {@link Customer} is drawn by the
+&nbsp;     * {@link ServingStation}, and not the {@link ServingStation}
+&nbsp;     * itself.
+&nbsp;     * &lt;br&gt; If there is no {@link Customer} assigned, it uses the
+&nbsp;     * {@link #customerY} variable.
+&nbsp;     * @return {@code float} : The {@code y} of the {@link Customer}.
+&nbsp;     */
+&nbsp;    public float getY() {
+<b class="nc">&nbsp;        if (!hasCustomer()) {</b>
+<b class="nc">&nbsp;            return customerY;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return customer.getY();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

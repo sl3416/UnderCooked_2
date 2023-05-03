@@ -1,0 +1,452 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > InteractionsTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">io.sl3416.undercooked.tests.interactions</a>
+</div>
+
+<h1>Coverage Summary for Class: InteractionsTests (io.sl3416.undercooked.tests.interactions)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InteractionsTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (18/18)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (91/91)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package io.sl3416.undercooked.tests.interactions;
+&nbsp;
+&nbsp;import static com.badlogic.gdx.Gdx.input;
+&nbsp;import static interactions.Interactions.*;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Input;
+&nbsp;import com.badlogic.gdx.InputAdapter;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;import food.FoodItem.FoodID;
+&nbsp;import food.FoodItem;
+&nbsp;import interactions.InputKey;
+&nbsp;import interactions.InputKey.InputTypes;
+&nbsp;import interactions.Interactions;
+&nbsp;
+&nbsp;import static org.mockito.Mockito.mock;
+&nbsp;import static org.mockito.Mockito.when;
+&nbsp;
+&nbsp;import io.sl3416.undercooked.tests.GdxTestRunner;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;import stations.Station.StationID;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;/**
+&nbsp; * Tests for all methods in the Interactions class
+&nbsp; */
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class InteractionsTests {</b>
+&nbsp;    /**
+&nbsp;     * The constant emptyArray.
+&nbsp;     */
+<b class="fc">&nbsp;    public static Array&lt;InputKey.InputTypes&gt; emptyArray = new Array&lt;&gt;();</b>
+&nbsp;    /**
+&nbsp;     * The Test.
+&nbsp;     */
+&nbsp;    public InputTypes TEST;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Tests InteractionResult() constructor constructs the interaction result correctly in InteractionResult class
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testInteractionResultConstructor() {
+<b class="fc">&nbsp;        FoodID testResult = FoodID.lettuce;</b>
+<b class="fc">&nbsp;        float[] testSteps = {25,50,75};</b>
+<b class="fc">&nbsp;        float testSpeed = -1;</b>
+&nbsp;
+<b class="fc">&nbsp;        InteractionResult interactionResult = new InteractionResult(testResult, testSteps, testSpeed);</b>
+&nbsp;
+&nbsp;        // Tests result, steps and speed of interaction result is correct
+<b class="fc">&nbsp;        assertEquals(&quot;The interaction FoodID does not equal the expected FoodID&quot;, testResult, interactionResult.result);</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; interactionResult.steps.length - 1; i++) {</b>
+<b class="fc">&nbsp;            assertEquals(&quot;The getter did not output correct Steps&quot;, testSteps[i], interactionResult.steps[i], 0.001f);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        assertEquals(&quot;The interaction speed does not equal the expected steps&quot;, testSpeed, interactionResult.speed, 0.001f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test getResults() method in InteractionResults class returns the correct FoodID
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetResults() {
+<b class="fc">&nbsp;        FoodID testResult = FoodID.rawJacketPotato;</b>
+<b class="fc">&nbsp;        float[] testSteps = {};</b>
+<b class="fc">&nbsp;        float testSpeed = 13f;</b>
+&nbsp;
+<b class="fc">&nbsp;        InteractionResult interactionResult = new InteractionResult(testResult, testSteps, testSpeed);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(&quot;The getter did not output correct FoodID&quot;, testResult, interactionResult.getResult());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test getSteps() method in InteractionResults class returns correct steps for the interaction result.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetSteps() {
+<b class="fc">&nbsp;        FoodID testResult = FoodID.onion;</b>
+<b class="fc">&nbsp;        float[] testSteps = {25, 50, 75};</b>
+<b class="fc">&nbsp;        float testSpeed = -1;</b>
+&nbsp;
+<b class="fc">&nbsp;        InteractionResult interactionResult = new InteractionResult(testResult, testSteps, testSpeed);</b>
+&nbsp;
+<b class="fc">&nbsp;        for (int i = 0; i &lt; interactionResult.steps.length - 1; i++) {</b>
+<b class="fc">&nbsp;            assertEquals(&quot;The getter did not output correct Steps&quot;, testSteps[i], interactionResult.getSteps()[i], 0.001f);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test getSpeed() method in InteractionResults class returns correct speed for the interaction result.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetSpeed() {
+<b class="fc">&nbsp;        FoodID testResult = FoodID.uc_pizza;</b>
+<b class="fc">&nbsp;        float[] testSteps = {};</b>
+<b class="fc">&nbsp;        float testSpeed = 13f;</b>
+&nbsp;
+<b class="fc">&nbsp;        InteractionResult interactionResult = new InteractionResult(testResult, testSteps, testSpeed);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(&quot;The getter did not output correct Speed&quot;, testSpeed, interactionResult.getSpeed(), 0.001f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test setSpeed() method in InteractionResults class updates speed to new speed for the interaction result.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testSetSpeed() {
+<b class="fc">&nbsp;        float newSpeed = 7f;</b>
+&nbsp;
+<b class="fc">&nbsp;        InteractionResult interactionResult = new InteractionResult(FoodID.uc_pizza, new float[] {}, 13f);</b>
+<b class="fc">&nbsp;        interactionResult.setSpeed(newSpeed);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(&quot;Speed of interaction was not updated&quot;, newSpeed, interactionResult.getSpeed(), 0.001f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test setResult() method in InteractionResults class updates FoodID to new FoodID for the interaction result.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testSetResult() {
+<b class="fc">&nbsp;        FoodID newResult = FoodID.onion;</b>
+&nbsp;
+<b class="fc">&nbsp;        InteractionResult interactionResult = new InteractionResult(FoodID.uc_pizza, new float[] {}, 13f);</b>
+<b class="fc">&nbsp;        interactionResult.setResult(newResult);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(&quot;FoodID of interaction was not updated&quot;, newResult, interactionResult.getResult());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test getInputKeys() method in Interactions class gets the correct input key assigned to the enum constant inputID
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetInputKeys() {
+&nbsp;        // Initialize input keys
+<b class="fc">&nbsp;        HashMap&lt;InputID, Array&lt;InputKey&gt;&gt; inputs = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        inputs.put(InputID.MENU, new Array&lt;&gt;(new InputKey[]{</b>
+&nbsp;                new InputKey(InputKey.InputTypes.INSTRUCTIONS, Input.Keys.I),
+&nbsp;                new InputKey(InputKey.InputTypes.RESET_GAME, Input.Keys.R),
+&nbsp;                new InputKey(InputKey.InputTypes.STARTE_GAME, Input.Keys.E),
+&nbsp;                new InputKey(InputKey.InputTypes.STARTS_GAME, Input.Keys.ENTER),
+&nbsp;                new InputKey(InputKey.InputTypes.PAUSE, Input.Keys.ESCAPE),
+&nbsp;                new InputKey(InputKey.InputTypes.UNPAUSE, Input.Keys.ESCAPE),
+&nbsp;                new InputKey(InputKey.InputTypes.CREDITS, Input.Keys.C),
+&nbsp;                new InputKey(InputKey.InputTypes.QUIT, Input.Keys.Q),
+&nbsp;                new InputKey(InputKey.InputTypes.SAVE_GAME, Input.Keys.SEMICOLON),
+&nbsp;                new InputKey(InputKey.InputTypes.LOAD_GAME, Input.Keys.APOSTROPHE)
+&nbsp;        }));
+<b class="fc">&nbsp;        inputs.put(InputID.COOK_MOVEMENT, new Array&lt;&gt;(new InputKey[] {</b>
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_UP,Input.Keys.W),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_LEFT,Input.Keys.A),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_DOWN,Input.Keys.S),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_RIGHT,Input.Keys.D),
+&nbsp;
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_UP,Input.Keys.UP),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_LEFT,Input.Keys.LEFT),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_DOWN,Input.Keys.DOWN),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_RIGHT,Input.Keys.RIGHT)
+&nbsp;        }));
+&nbsp;
+<b class="fc">&nbsp;        Array&lt;InputKey.InputTypes&gt; expectedResults = new Array&lt;&gt;(new InputKey.InputTypes[]{</b>
+&nbsp;                InputKey.InputTypes.INSTRUCTIONS,
+&nbsp;                InputKey.InputTypes.RESET_GAME,
+&nbsp;                InputKey.InputTypes.STARTE_GAME,
+&nbsp;                InputKey.InputTypes.STARTS_GAME,
+&nbsp;                InputKey.InputTypes.PAUSE,
+&nbsp;                InputKey.InputTypes.UNPAUSE,
+&nbsp;                InputKey.InputTypes.CREDITS,
+&nbsp;                InputKey.InputTypes.QUIT,
+&nbsp;                InputKey.InputTypes.SAVE_GAME,
+&nbsp;                InputKey.InputTypes.LOAD_GAME
+&nbsp;        });
+&nbsp;
+<b class="fc">&nbsp;        Array&lt;InputKey.InputTypes&gt; actualResults = new Array&lt;&gt;();</b>
+<b class="fc">&nbsp;        Array&lt;InputKey&gt; inputKeys = getInputKeys(InputID.MENU);</b>
+&nbsp;        // Checks each input key in the array
+<b class="fc">&nbsp;        for (InputKey inputKey : inputKeys) {</b>
+<b class="fc">&nbsp;            actualResults.add(inputKey.getType());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        // Returns True if inputKeys of inputID is returned correctly
+<b class="fc">&nbsp;        assertEquals(&quot;The input key does not match the expected input key&quot;, expectedResults, actualResults);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Tests resetKeys() in Interactions class clears keys pressed and keys just pressed
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testResetKeys() {
+<b class="fc">&nbsp;        Interactions interactions = new Interactions();</b>
+<b class="fc">&nbsp;        interactions.keysPressed.add(InputKey.InputTypes.USE);</b>
+<b class="fc">&nbsp;        interactions.keysPressed.add(InputKey.InputTypes.COOK_UP);</b>
+<b class="fc">&nbsp;        interactions.keysJustPressed.add(InputKey.InputTypes.USE);</b>
+<b class="fc">&nbsp;        interactions.keysPressed.add(InputKey.InputTypes.COOK_DOWN);</b>
+&nbsp;
+<b class="fc">&nbsp;        resetKeys();</b>
+&nbsp;
+&nbsp;        // Returns True if keysPressed and keysJustPressed are cleared
+<b class="fc">&nbsp;        assertEquals(&quot;keysPressed was not cleared&quot;, emptyArray, interactions.keysPressed);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;keysJustPressed was not cleared&quot;, emptyArray, interactions.keysJustPressed);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Tests updateKeys() in Interactions class updates correctly what keys were pressed
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testUpdateKeys() {
+&nbsp;        // Initialize input keys
+<b class="fc">&nbsp;        HashMap&lt;InputID, Array&lt;InputKey&gt;&gt; inputs = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        inputs.put(InputID.MENU, new Array&lt;&gt;(new InputKey[]{</b>
+&nbsp;                new InputKey(InputTypes.INSTRUCTIONS, Input.Keys.I),
+&nbsp;                new InputKey(InputTypes.RESET_GAME, Input.Keys.R),
+&nbsp;                new InputKey(InputTypes.STARTE_GAME, Input.Keys.E),
+&nbsp;                new InputKey(InputTypes.STARTS_GAME, Input.Keys.ENTER),
+&nbsp;                new InputKey(InputTypes.PAUSE, Input.Keys.ESCAPE),
+&nbsp;                new InputKey(InputTypes.UNPAUSE, Input.Keys.ESCAPE),
+&nbsp;                new InputKey(InputTypes.CREDITS, Input.Keys.C),
+&nbsp;                new InputKey(InputTypes.QUIT, Input.Keys.Q),
+&nbsp;                new InputKey(InputTypes.SAVE_GAME, Input.Keys.SEMICOLON),
+&nbsp;                new InputKey(InputTypes.LOAD_GAME, Input.Keys.APOSTROPHE)
+&nbsp;        }));
+<b class="fc">&nbsp;        inputs.put(InputID.COOK_MOVEMENT, new Array&lt;&gt;(new InputKey[]{</b>
+&nbsp;                new InputKey(InputTypes.COOK_UP, Input.Keys.W),
+&nbsp;                new InputKey(InputTypes.COOK_LEFT, Input.Keys.A),
+&nbsp;                new InputKey(InputTypes.COOK_DOWN, Input.Keys.S),
+&nbsp;                new InputKey(InputTypes.COOK_RIGHT, Input.Keys.D),
+&nbsp;
+&nbsp;                new InputKey(InputTypes.COOK_UP, Input.Keys.UP),
+&nbsp;                new InputKey(InputTypes.COOK_LEFT, Input.Keys.LEFT),
+&nbsp;                new InputKey(InputTypes.COOK_DOWN, Input.Keys.DOWN),
+&nbsp;                new InputKey(InputTypes.COOK_RIGHT, Input.Keys.RIGHT)
+&nbsp;        }));
+&nbsp;
+<b class="fc">&nbsp;        Interactions interactions = new Interactions();</b>
+&nbsp;
+&nbsp;        // create mock Gdx.input object
+<b class="fc">&nbsp;        Gdx.input = mock(Input.class);</b>
+&nbsp;
+&nbsp;        // set up mock input values for testing
+<b class="fc">&nbsp;        when(Gdx.input.isKeyPressed(Input.Keys.UP)).thenReturn(true);</b>
+<b class="fc">&nbsp;        when(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)).thenReturn(true);</b>
+&nbsp;
+<b class="fc">&nbsp;        updateKeys();</b>
+&nbsp;
+&nbsp;        // check that keysPressed and keysJustPressed contain the expected InputTypes values
+<b class="fc">&nbsp;        assertTrue(&quot;keysPressed does not contain the key pressed&quot;, keysPressed.contains(InputTypes.COOK_UP, true));</b>
+<b class="fc">&nbsp;        assertTrue(&quot;keysJustPressed does not contain the key just pressed&quot;, keysJustPressed.contains(InputTypes.COOK_SWAP, true));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test get key strings.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetKeyStrings() {
+<b class="fc">&nbsp;        Interactions interactions = new Interactions();</b>
+&nbsp;
+&nbsp;        // Call getKeyStrings with the inputType that matches the InputKey objects added to the array
+<b class="fc">&nbsp;        Array&lt;String&gt; validKeys = interactions.getKeyStrings(InputKey.InputTypes.COOK_UP);</b>
+&nbsp;        // Return True if returned array contains the expected key strings in enum constant
+<b class="fc">&nbsp;        assertTrue(&quot;Input type (assigned to the enum constant) is not valid.&quot;, validKeys.contains(&quot;W&quot;, true));</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Input type (assigned to the enum constant) is not valid.&quot;, validKeys.contains(&quot;Up&quot;, true));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test get key string input type.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetKeyStringInputType() {
+<b class="fc">&nbsp;        assertEquals(&quot;Input type (assigned to the enum constant) is not valid.&quot;, &quot;Escape&quot;, getKeyString(InputKey.InputTypes.UNPAUSE));</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Input type (assigned to the enum constant) is not valid.&quot;, &quot;undefined&quot;, getKeyString(TEST));</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Input type (assigned to the enum constant) is not valid.&quot;, &quot;[W or Up]&quot;, getKeyString(InputKey.InputTypes.COOK_UP));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test get key string input key.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetKeyStringInputKey() {
+<b class="fc">&nbsp;        InputKey key1 = new InputKey(InputKey.InputTypes.COOK_SWAP, Input.Keys.SPACE);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Input key is not valid.&quot;, &quot;Space&quot;, getKeyString(key1));</b>
+&nbsp;
+<b class="fc">&nbsp;        InputKey key2 = new InputKey(InputKey.InputTypes.CREDITS, Input.Keys.C);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Input key is not valid.&quot;, &quot;C&quot;, getKeyString(key2));</b>
+&nbsp;
+<b class="fc">&nbsp;        InputKey key3 = new InputKey(InputKey.InputTypes.SAVE_GAME, Input.Keys.SEMICOLON);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Input key is not valid.&quot;, &quot;;&quot;, getKeyString(key3));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test is pressed.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testIsPressed() {
+<b class="fc">&nbsp;        keysPressed.add(InputKey.InputTypes.PICK_UP);</b>
+&nbsp;
+&nbsp;        // Test for a key that was pressed
+<b class="fc">&nbsp;        assertTrue(isPressed(InputKey.InputTypes.PICK_UP));</b>
+&nbsp;        // Test for a key that was not pressed
+<b class="fc">&nbsp;        assertFalse(isPressed(InputKey.InputTypes.COOK_SWAP));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test is just pressed.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testIsJustPressed() {
+<b class="fc">&nbsp;        Interactions interactions = new Interactions();</b>
+&nbsp;
+<b class="fc">&nbsp;        keysJustPressed.add(InputKey.InputTypes.COOK_UP);</b>
+&nbsp;
+&nbsp;        // Test for a key that was just pressed
+<b class="fc">&nbsp;        assertTrue(isJustPressed(InputKey.InputTypes.COOK_UP));</b>
+&nbsp;        // Test for a key that was not just pressed
+<b class="fc">&nbsp;        assertFalse(isJustPressed(InputKey.InputTypes.COOK_DOWN));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test interaction.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testInteraction() {
+<b class="fc">&nbsp;        InteractionResult expectedResult = new InteractionResult(FoodID.tomatoChop, new float[] {25, 50, 75}, -1);</b>
+<b class="fc">&nbsp;        InteractionResult actualResult = interaction(FoodID.tomato, StationID.cut);</b>
+&nbsp;
+&nbsp;        // Return True if it returns expected FoodID, Steps and Speed of InteractionResult of interaction between FoodID and StationID
+<b class="fc">&nbsp;        assertEquals(&quot;Does not return expected FoodID of InteractionResult of interaction between FoodID and StationID&quot;, expectedResult.getResult(), actualResult.getResult());</b>
+<b class="fc">&nbsp;        for (int i = 0 ; i &lt; actualResult.steps.length-1 ; i++) {</b>
+<b class="fc">&nbsp;            assertEquals(&quot;Does not return expected Steps of InteractionResult of interaction between FoodID and StationID&quot;, expectedResult.getSteps()[i], actualResult.getSteps()[i], 0.001f);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        assertEquals(&quot;Does not return expected Speed of InteractionResult of interaction between FoodID and StationID&quot;, expectedResult.getSpeed(), actualResult.getSpeed(), 0.001f);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test interaction key.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testInteractionKey() {
+<b class="fc">&nbsp;        String expectedKey = &quot;0-1&quot;;</b>
+&nbsp;
+&nbsp;        // Call InteractionKey with example input values
+<b class="fc">&nbsp;        String actualKey = InteractionKey(FoodID.lettuce, StationID.cut);</b>
+&nbsp;
+&nbsp;        // Return True if it returns the ordinal of FoodID and ordinal of StationID in format &quot;%s-%s&quot;
+<b class="fc">&nbsp;        assertEquals(&quot;Does not return expected ordinal of FoodID and ordinal of StationID in format \&quot;%s-%s\&quot;&quot;, expectedKey, actualKey);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

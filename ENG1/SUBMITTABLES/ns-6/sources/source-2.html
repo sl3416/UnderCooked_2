@@ -1,0 +1,427 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Interactions</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">interactions</a>
+</div>
+
+<h1>Coverage Summary for Class: Interactions (interactions)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Interactions</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (12/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (50/50)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Interactions$InputID</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Interactions$InteractionResult</td>
+<td class="coverageStat">
+  <span class="percent">
+    85.7%
+  </span>
+  <span class="absValue">
+    (6/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    90%
+  </span>
+  <span class="absValue">
+    (9/10)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    95.2%
+  </span>
+  <span class="absValue">
+    (20/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    98.5%
+  </span>
+  <span class="absValue">
+    (64/65)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package interactions;
+&nbsp;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Input;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;import food.FoodItem.FoodID;
+&nbsp;import stations.Station.StationID;
+&nbsp;
+&nbsp;/** A static class containing all information relating to interactions, including:
+&nbsp; * - The cook and station interactions.
+&nbsp; * - Keys being pressed information.
+&nbsp; */
+<b class="fc">&nbsp;public class Interactions {</b>
+&nbsp;    /** A HashMap containing how each FoodItem&#39;s FoodID, via a station of StationID, can convert to another foodID.*/
+<b class="fc">&nbsp;    public static final HashMap&lt;String, InteractionResult&gt; interactions = new HashMap&lt;&gt;();</b>
+&nbsp;    static {
+<b class="fc">&nbsp;        interactions.put(InteractionKey(FoodID.lettuce, StationID.cut), new InteractionResult(FoodID.lettuceChop,new float[] {25,50,75},-1));</b>
+<b class="fc">&nbsp;        interactions.put(InteractionKey(FoodID.tomato, StationID.cut), new InteractionResult(FoodID.tomatoChop,new float[] {25,50,75},-1));</b>
+<b class="fc">&nbsp;        interactions.put(InteractionKey(FoodID.onion, StationID.cut), new InteractionResult(FoodID.onionChop,new float[] {25,50,75},-1));</b>
+<b class="fc">&nbsp;        interactions.put(InteractionKey(FoodID.meat, StationID.fry), new InteractionResult(FoodID.meatCook,new float[] {50},13F));</b>
+<b class="fc">&nbsp;        interactions.put(InteractionKey(FoodID.uc_pizza, StationID.oven), new InteractionResult(FoodID.c_pizza,new float[] {},13F));</b>
+<b class="fc">&nbsp;        interactions.put(InteractionKey(FoodID.rawJacketPotato, StationID.oven), new InteractionResult(FoodID.jacketPotato,new float[] {},13F));</b>
+&nbsp;        // TEST interactions.put(InteractionKey(FoodID.dough, StationID.cut), new InteractionResult(FoodID.cheese,new float[] {50},13F));
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A subclass used to more easily define what interaction must be made to get
+&nbsp;     * a desired change in an ingredient, as well as the speed at which it progresses
+&nbsp;     * to change, and to specify at what percentages a user input is required.
+&nbsp;     */
+&nbsp;    public static class InteractionResult {
+&nbsp;        public FoodID result;
+&nbsp;        public float[] steps;
+&nbsp;        public float speed;
+&nbsp;        /**
+&nbsp;         * InteractionResult Constructor
+&nbsp;         * @param result -
+&nbsp;         *               The resulting FoodID
+&nbsp;         * @param steps -
+&nbsp;         *              The steps in a range of 0 - 100 of the process where input is required
+&nbsp;         * @param speed -
+&nbsp;         *              The speed of which the progress bar fills up for a station per second. -1 is instant.
+&nbsp;         */
+<b class="fc">&nbsp;        public InteractionResult(FoodID result, float[] steps, float speed) {</b>
+<b class="fc">&nbsp;            this.result = result;</b>
+<b class="fc">&nbsp;            this.steps = steps;</b>
+<b class="fc">&nbsp;            this.speed = speed;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        public InteractionResult(){super();}</b>
+&nbsp;
+&nbsp;        /**
+&nbsp;         * A getter to return the result of the interaction.
+&nbsp;         * @return FoodID result.
+&nbsp;         */
+<b class="fc">&nbsp;        public FoodID getResult() { return result; }</b>
+&nbsp;
+&nbsp;        /**
+&nbsp;         * A getter to return the steps of the interaction.
+&nbsp;         * @return An array of floats, each indicating a percentage that user input is
+&nbsp;         *          required during the process.
+&nbsp;         */
+<b class="fc">&nbsp;        public float[] getSteps() { return steps; }</b>
+&nbsp;
+&nbsp;        /**
+&nbsp;         * A getter to return the speed of the interaction.
+&nbsp;         * @return A float that defines the percentage increase in a second.
+&nbsp;         */
+<b class="fc">&nbsp;        public float getSpeed() { return speed; }</b>
+&nbsp;
+&nbsp;        public void setSpeed(float newSpeed) {
+<b class="fc">&nbsp;            this.speed = newSpeed;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        /**
+&nbsp;         * A setter to change the result of the interaction.
+&nbsp;         */
+&nbsp;        public void setResult(FoodID newResult){
+<b class="fc">&nbsp;            this.result = newResult;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /** The different IDs of interaction. Used to get the Arrays. */
+<b class="fc">&nbsp;    public enum InputID {</b>
+&nbsp;        /** Key maps for Cook Interactions controls. */
+<b class="fc">&nbsp;        COOK_INTERACT,</b>
+&nbsp;        /** Key maps for Menu controls. */
+<b class="fc">&nbsp;        MENU,</b>
+&nbsp;        /** Key maps for Menu controls. */
+<b class="fc">&nbsp;        COOK_MOVEMENT,</b>
+&nbsp;        /** Key maps for Miscellaneous Cook controls. */
+<b class="fc">&nbsp;        COOK_MISC</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** A HashMap containing all different forms of user inputs. These can easily
+&nbsp;     * be changed / modified as needed from here, instead of searching through the
+&nbsp;     * code.
+&nbsp;     *
+&nbsp;     * There is two ways to read through these.
+&nbsp;     * 1: Call the function {@link #getInputKeys(InputID)} on the ID you want, and then
+&nbsp;     *    loop through the Array, calling the Gdx.input.isKeyPressed function you require.
+&nbsp;     *
+&nbsp;     * 2: At the start of the current update of the game, use the function {@link #updateKeys()}.
+&nbsp;     *    This will automatically check the keys, and then store the {@link InputKey.InputTypes}
+&nbsp;     *    that have been pressed down.
+&nbsp;     *    You can then use the functions {@link #isPressed(InputKey.InputTypes)}
+&nbsp;     *    or {@link #isJustPressed(InputKey.InputTypes)} to check if the user has pressed the keys.
+&nbsp;     *    They are named in the same way as the LibGDX functions.
+&nbsp;     * */
+<b class="fc">&nbsp;    public static final HashMap&lt;InputID, Array&lt;InputKey&gt;&gt; inputs = new HashMap&lt;&gt;();</b>
+&nbsp;    static {
+<b class="fc">&nbsp;        inputs.put(InputID.MENU, new Array&lt;&gt;(new InputKey[]{</b>
+&nbsp;                new InputKey(InputKey.InputTypes.INSTRUCTIONS, Input.Keys.I),
+&nbsp;                new InputKey(InputKey.InputTypes.RESET_GAME, Input.Keys.R),
+&nbsp;                new InputKey(InputKey.InputTypes.STARTE_GAME, Input.Keys.E),
+&nbsp;                new InputKey(InputKey.InputTypes.STARTS_GAME, Input.Keys.ENTER),
+&nbsp;                new InputKey(InputKey.InputTypes.PAUSE, Input.Keys.ESCAPE),
+&nbsp;                new InputKey(InputKey.InputTypes.UNPAUSE, Input.Keys.ESCAPE),
+&nbsp;                new InputKey(InputKey.InputTypes.CREDITS, Input.Keys.C),
+&nbsp;                new InputKey(InputKey.InputTypes.QUIT, Input.Keys.Q),
+&nbsp;                new InputKey(InputKey.InputTypes.SAVE_GAME, Input.Keys.SEMICOLON),
+&nbsp;                new InputKey(InputKey.InputTypes.LOAD_GAME, Input.Keys.APOSTROPHE)
+&nbsp;        }));
+<b class="fc">&nbsp;        inputs.put(InputID.COOK_MOVEMENT, new Array&lt;&gt;(new InputKey[] {</b>
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_UP,Input.Keys.W),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_LEFT,Input.Keys.A),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_DOWN,Input.Keys.S),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_RIGHT,Input.Keys.D),
+&nbsp;
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_UP,Input.Keys.UP),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_LEFT,Input.Keys.LEFT),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_DOWN,Input.Keys.DOWN),
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_RIGHT,Input.Keys.RIGHT)
+&nbsp;        }));
+<b class="fc">&nbsp;        inputs.put(InputID.COOK_INTERACT, new Array&lt;&gt;(new InputKey[]{</b>
+&nbsp;                new InputKey(InputKey.InputTypes.USE, Input.Keys.I),
+&nbsp;                new InputKey(InputKey.InputTypes.PICK_UP, Input.Keys.O),
+&nbsp;                new InputKey(InputKey.InputTypes.PUT_DOWN, Input.Keys.J),
+&nbsp;                new InputKey(InputKey.InputTypes.USE, Input.Keys.R),
+&nbsp;                new InputKey(InputKey.InputTypes.PICK_UP, Input.Keys.E),
+&nbsp;                new InputKey(InputKey.InputTypes.PUT_DOWN, Input.Keys.G)
+&nbsp;        }));
+<b class="fc">&nbsp;        inputs.put(InputID.COOK_MISC, new Array&lt;&gt;(new InputKey[] {</b>
+&nbsp;                new InputKey(InputKey.InputTypes.COOK_SWAP, Input.Keys.SPACE)
+&nbsp;        }));
+&nbsp;    }
+&nbsp;
+&nbsp;    /** A list of all keys that were being pressed when {@link #updateKeys()} was called.*/
+<b class="fc">&nbsp;    public static Array&lt;InputKey.InputTypes&gt; keysPressed = new Array&lt;&gt;();</b>
+&nbsp;    /** A list of all keys that were pressed the same frame that {@link #updateKeys()} was called.*/
+<b class="fc">&nbsp;    public static Array&lt;InputKey.InputTypes&gt; keysJustPressed = new Array&lt;&gt;();</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the input key assigned to the enum constant inputID
+&nbsp;     * @param inputID {@link InputID} enum Constant
+&nbsp;     * @return The key on the keyboard correlated to it.
+&nbsp;     */
+<b class="fc">&nbsp;    public static Array&lt;InputKey&gt; getInputKeys(InputID inputID) { return inputs.get(inputID); }</b>
+&nbsp;
+&nbsp;    /** Remove all current keyPressed info.*/
+&nbsp;    public static void resetKeys() {
+<b class="fc">&nbsp;        keysPressed.clear();</b>
+<b class="fc">&nbsp;        keysJustPressed.clear();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This function updates the internal arrays in Interactions for the
+&nbsp;     *  array variables that record what {@link InputKey.InputTypes} are pressed,
+&nbsp;     *  based on the {@link Interactions#inputs} HashMap, such as {@link Interactions#keysPressed}.
+&nbsp;     */
+&nbsp;    public static void updateKeys() {
+<b class="fc">&nbsp;        resetKeys();</b>
+<b class="fc">&nbsp;        for (InputID inputID : InputID.values()) {</b>
+<b class="fc">&nbsp;            for (InputKey inputKey : inputs.get(inputID)) {</b>
+<b class="fc">&nbsp;                if (Gdx.input.isKeyPressed(inputKey.getKey())) {</b>
+<b class="fc">&nbsp;                    keysPressed.add(inputKey.getType());</b>
+&nbsp;                }
+<b class="fc">&nbsp;                if (Gdx.input.isKeyJustPressed(inputKey.getKey())) {</b>
+<b class="fc">&nbsp;                    keysJustPressed.add(inputKey.getType());</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the Keys assigned to the enum constant {@link InputKey.InputTypes} as an array of strings.
+&nbsp;     * @param inputType {@link InputKey.InputTypes} enum constant
+&nbsp;     * @return A LibGDX Array of the string names for the keys assigned to {@link InputKey.InputTypes}
+&nbsp;     */
+&nbsp;    public static Array&lt;String&gt; getKeyStrings(InputKey.InputTypes inputType) {
+<b class="fc">&nbsp;        Array&lt;String&gt; validKeys = new Array&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (Array&lt;InputKey&gt; inputKeys : inputs.values()) {</b>
+<b class="fc">&nbsp;            for (InputKey inputKey : inputKeys) {</b>
+<b class="fc">&nbsp;                if (inputKey.getType() == inputType) {</b>
+<b class="fc">&nbsp;                    validKeys.add(getKeyString(inputKey));</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return validKeys;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns the Keys assigned to the enum constant {@link InputKey.InputTypes} as a string.
+&nbsp;     * Uses {@link #getKeyStrings(InputKey.InputTypes) getKeyStrings}
+&nbsp;     * @param inputType {@link InputKey.InputTypes} enum constant
+&nbsp;     * @return A string of all valid keys for the {@link InputKey.InputTypes} key.
+&nbsp;     */
+&nbsp;    public static String getKeyString(InputKey.InputTypes inputType) {
+<b class="fc">&nbsp;        Array&lt;String&gt; validKeys = getKeyStrings(inputType);</b>
+&nbsp;        // If there are no results, return &quot;undefined&quot;
+<b class="fc">&nbsp;        if (validKeys.size == 0) {</b>
+<b class="fc">&nbsp;            return &quot;undefined&quot;;</b>
+&nbsp;        // If there is 1 result, output that result alone
+<b class="fc">&nbsp;        } else if (validKeys.size == 1) {</b>
+<b class="fc">&nbsp;            return validKeys.first();</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // Otherwise, return them in an array format.
+<b class="fc">&nbsp;        String output = &quot;[&quot;;</b>
+<b class="fc">&nbsp;        for (int i = 0 ; i &lt; validKeys.size-1 ; i++) {</b>
+<b class="fc">&nbsp;            output += validKeys.get(i) + (i == validKeys.size-2 ? &quot;&quot; : &quot;,&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        output += &quot; or &quot; + validKeys.get(validKeys.size-1);</b>
+<b class="fc">&nbsp;        return output + &quot;]&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Turn an {@link InputKey} into string format.
+&nbsp;     * @param inputKey Desired InputKey
+&nbsp;     * @return String version of the input key.
+&nbsp;     */
+&nbsp;    public static String getKeyString(InputKey inputKey) {
+<b class="fc">&nbsp;        return Input.Keys.toString(inputKey.getKey());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks to see if a inputType is being pressed.
+&nbsp;     * Eg. Is COOK_RIGHT being pressed?
+&nbsp;     * This is equivalent to LibGDX&#39;s Gdx.input.isKeyPressed()
+&nbsp;     * @param inputType The inputType to check for.
+&nbsp;     * @return boolean : true if inputType is being pressed.
+&nbsp;     */
+&nbsp;    public static boolean isPressed(InputKey.InputTypes inputType) {
+<b class="fc">&nbsp;        return keysPressed.contains(inputType, true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks to see if a inputType has just been pressed.
+&nbsp;     * Eg. Has COOK_RIGHT JUST been pressed?
+&nbsp;     * This is equivalent to LibGDX&#39;s Gdx.input.isKeyJustPressed()
+&nbsp;     * @param inputType The inputType to check for.
+&nbsp;     * @return boolean : true if inputType has been pressed.
+&nbsp;     */
+&nbsp;    public static boolean isJustPressed(InputKey.InputTypes inputType) {
+<b class="fc">&nbsp;        return keysJustPressed.contains(inputType, true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;    * Convert a FoodItem&#39;s foodID into another foodID using station of stationID.
+&nbsp;    * @param foodID : The FoodID of the input ingredient.
+&nbsp;    * @param stationID : The StationID of the station being used.
+&nbsp;    * @return FoodID of the new ingredient, OR null if the station cannot interact with this foodID.
+&nbsp;    */
+&nbsp;    public static InteractionResult interaction(FoodID foodID, StationID stationID) {
+<b class="fc">&nbsp;        InteractionResult newResult = interactions.get(InteractionKey(foodID, stationID));</b>
+<b class="fc">&nbsp;        return newResult;</b>
+&nbsp;    };
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Creates an interaction key out of foodID and stationID.
+&nbsp;     * @return The key made out of both arguments.
+&nbsp;     */
+&nbsp;    public static String InteractionKey(FoodID foodID, StationID stationID) {
+<b class="fc">&nbsp;        return String.format(&quot;%s-%s&quot;, foodID.ordinal(), stationID.ordinal());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

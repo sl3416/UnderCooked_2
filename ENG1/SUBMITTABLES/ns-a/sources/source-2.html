@@ -1,0 +1,133 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > HudTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">io.sl3416.undercooked.tests.helper</a>
+</div>
+
+<h1>Coverage Summary for Class: HudTests (io.sl3416.undercooked.tests.helper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">HudTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package io.sl3416.undercooked.tests.helper;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Table;
+&nbsp;import helper.Constants;
+&nbsp;import helper.Hud;
+&nbsp;import io.sl3416.undercooked.tests.GdxTestRunner;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;import static org.mockito.Mockito.mock;
+&nbsp;
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class HudTests {</b>
+&nbsp;    @Test
+&nbsp;    public void testConstructor() {
+<b class="fc">&nbsp;        SpriteBatch batch = mock(SpriteBatch.class);</b>
+<b class="fc">&nbsp;        Hud hud = new Hud(batch);</b>
+&nbsp;
+<b class="fc">&nbsp;        Table[] actor = new Table[] {hud.table};</b>
+&nbsp;
+<b class="fc">&nbsp;        assertEquals(&quot;Viewport&#39;s width was not set correctly&quot;, Constants.V_Width, hud.viewport.getWorldWidth(), 0.1f);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Viewport&#39;s height was not set correctly&quot;, Constants.V_Height, hud.viewport.getWorldHeight(), 0.1f);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;The batch object in the stage is not as expected&quot;, batch, hud.stage.getBatch());</b>
+<b class="fc">&nbsp;        assertArrayEquals(&quot;Actor(s) do not exist in the stage&quot;, actor, hud.stage.getActors().toArray());</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Table is not the first actor in stage&quot;, hud.table, hud.stage.getActors().get(0));</b>
+<b class="fc">&nbsp;        assertNotNull(&quot;The top of the table is null&quot;, hud.table.getTop());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

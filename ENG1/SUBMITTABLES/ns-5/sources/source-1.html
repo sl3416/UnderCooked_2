@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BodyHelper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">helper</a>
+</div>
+
+<h1>Coverage Summary for Class: BodyHelper (helper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BodyHelper</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33.3%
+  </span>
+  <span class="absValue">
+    (1/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    7.1%
+  </span>
+  <span class="absValue">
+    (1/14)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package helper;
+&nbsp;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import com.badlogic.gdx.physics.box2d.*;
+&nbsp;
+&nbsp;import static helper.Constants.PPM;
+&nbsp;
+&nbsp;/** The class to help with body collision. Also contains static methods for creating rectangles and checking rectangle collision. */
+<b class="nc">&nbsp;public class BodyHelper {</b>
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link BodyHelper}.
+&nbsp;     * @param x The x coordinate of the {@link Body}.
+&nbsp;     * @param y The y coordinate of the {@link Body}.
+&nbsp;     * @param width The width of the {@link Body}.
+&nbsp;     * @param height The height of the {@link Body}.
+&nbsp;     * @param isStatic Whether the {@link Body} is stationary (true) or not (false).
+&nbsp;     * @param world The World that the {@link Body} is within.
+&nbsp;     * @return {@link Body} : The {@link Body} created by the function.
+&nbsp;     */
+&nbsp;    public static Body createBody(float x, float y, float width, float height, boolean isStatic, World world)
+&nbsp;    {
+<b class="nc">&nbsp;        BodyDef bodyDef = new BodyDef();</b>
+<b class="nc">&nbsp;        bodyDef.type = isStatic? BodyDef.BodyType.StaticBody: BodyDef.BodyType.DynamicBody;</b>
+<b class="nc">&nbsp;        bodyDef.position.set(x/PPM,y/PPM);</b>
+<b class="nc">&nbsp;        bodyDef.fixedRotation = true;</b>
+<b class="nc">&nbsp;        Body body = world.createBody(bodyDef);</b>
+&nbsp;
+<b class="nc">&nbsp;        PolygonShape shape = new PolygonShape();</b>
+<b class="nc">&nbsp;        shape.setAsBox(width / 2 / PPM, height / 2/ PPM);</b>
+<b class="nc">&nbsp;        FixtureDef fixtureDef = new FixtureDef();</b>
+<b class="nc">&nbsp;        fixtureDef.shape = shape;</b>
+<b class="nc">&nbsp;        body.createFixture(fixtureDef);</b>
+<b class="nc">&nbsp;        shape.dispose();</b>
+<b class="nc">&nbsp;        return body;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Is rect1 overlapping with rect2?
+&nbsp;     * @param rect1 Rectangle 1.
+&nbsp;     * @param rect2 Rectangle 2.
+&nbsp;     * @return Boolean, stating whether the rectangles overlap (true) or not (false).
+&nbsp;     */
+&nbsp;    public static boolean checkCollision(Rectangle rect1, Rectangle rect2) {
+<b class="fc">&nbsp;        return rect1.overlaps(rect2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,248 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ScreenController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">game</a>
+</div>
+
+<h1>Coverage Summary for Class: ScreenController (game)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ScreenController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/27)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ScreenController$ScreenID</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/34)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.ScreenAdapter;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.utils.TimeUtils;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;/**
+&nbsp; * A class to control the different {@link ScreenAdapter} that the game
+&nbsp; * switches between.
+&nbsp; */
+&nbsp;public class ScreenController {
+&nbsp;
+&nbsp;    private Boot boot;
+&nbsp;    private GameScreen gameScreen;
+&nbsp;    private MenuScreen menuScreen;
+&nbsp;    private GameOverScreen gameOverScreen;
+&nbsp;    private CreditsScreen creditsScreen;
+&nbsp;    private InstructionScreen instructionScreen;
+&nbsp;    private PauseScreen pauseScreen;
+&nbsp;    private HashMap&lt;ScreenID, ScreenAdapter&gt; screens;
+&nbsp;    private long playTimeDiff;
+&nbsp;    private long customerTimeDiff;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Screen Controller Constructor
+&nbsp;     * @param boot The class responsible for initializing the first game elements
+&nbsp;     * @param camera A camera instance (The one that the boot class creates is fine)
+&nbsp;     */
+<b class="nc">&nbsp;    public ScreenController(Boot boot, OrthographicCamera camera) {</b>
+<b class="nc">&nbsp;        this.boot = boot;</b>
+<b class="nc">&nbsp;        this.gameScreen = new GameScreen(this,camera);</b>
+<b class="nc">&nbsp;        this.menuScreen = new MenuScreen(this,camera);</b>
+<b class="nc">&nbsp;        this.gameOverScreen = new GameOverScreen(this,camera);</b>
+<b class="nc">&nbsp;        this.instructionScreen = new InstructionScreen(this,camera);</b>
+<b class="nc">&nbsp;        this.creditsScreen = new CreditsScreen(this,camera);</b>
+&nbsp;
+<b class="nc">&nbsp;        this.screens = new HashMap&lt;&gt;();</b>
+<b class="nc">&nbsp;        this.screens.put(ScreenID.MENU,menuScreen);</b>
+<b class="nc">&nbsp;        this.screens.put(ScreenID.GAME,gameScreen);</b>
+<b class="nc">&nbsp;        this.screens.put(ScreenID.GAMEOVER, gameOverScreen);</b>
+<b class="nc">&nbsp;        this.screens.put(ScreenID.INSTRUCTIONS,instructionScreen);</b>
+<b class="nc">&nbsp;        this.screens.put(ScreenID.CREDITS,creditsScreen);</b>
+&nbsp;
+<b class="nc">&nbsp;        this.pauseScreen = new PauseScreen(this,camera);</b>
+<b class="nc">&nbsp;        this.screens.put(ScreenID.PAUSE,pauseScreen);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Change the screen of the game to screenID
+&nbsp;     * @param screenID The ID of the new screen you want
+&nbsp;     */
+&nbsp;    public void setScreen(ScreenID screenID) {
+<b class="nc">&nbsp;        this.boot.setScreen(this.screens.get(screenID));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * An intermediate function to get the SpriteBatch from the {@link Boot}.
+&nbsp;     * @return {@link SpriteBatch} : {@link SpriteBatch} for the game.
+&nbsp;     */
+<b class="nc">&nbsp;    public SpriteBatch getSpriteBatch() { return boot.getSpriteBatch(); }</b>
+&nbsp;    /**
+&nbsp;     * An intermediate function to get the {@link ShapeRenderer} from the {@link Boot}.
+&nbsp;     * @return {@link ShapeRenderer} : {@link ShapeRenderer} for the game.
+&nbsp;     */
+<b class="nc">&nbsp;    public ShapeRenderer getShapeRenderer() { return boot.getShapeRenderer(); }</b>
+&nbsp;
+&nbsp;    /** The different states that the game can be in.*/
+<b class="nc">&nbsp;    public enum ScreenID {</b>
+&nbsp;        /** The {@link MenuScreen}, where the program opens to. */
+<b class="nc">&nbsp;        MENU,</b>
+&nbsp;        /** The {@link GameScreen}, where the game is played. */
+<b class="nc">&nbsp;        GAME,</b>
+&nbsp;        /** The {@link PauseScreen}, where the game is paused, and the player can
+&nbsp;         *  rest, look at instructions and credits, reset or quit. */
+<b class="nc">&nbsp;        PAUSE,</b>
+&nbsp;        /** The {@link GameOverScreen}, which is opened once the game has finished. */
+<b class="nc">&nbsp;        GAMEOVER,</b>
+&nbsp;        /** The {@link InstructionScreen}, where the instructions for the game are displayed. */
+<b class="nc">&nbsp;        INSTRUCTIONS,</b>
+&nbsp;        /** The {@link CreditsScreen}, where the game shows credit for the assets we used
+&nbsp;         *  within the game. */
+<b class="nc">&nbsp;        CREDITS</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get the desired screen from the {@link ScreenController}.
+&nbsp;     * @param screenID The {@link ScreenID} of the screen you want.
+&nbsp;     * @return {@link ScreenAdapter} : The requested {@link ScreenAdapter}.
+&nbsp;     */
+&nbsp;    public ScreenAdapter getScreen(ScreenID screenID) {
+<b class="nc">&nbsp;        return this.screens.get(screenID);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Reset the game to the initial state. */
+&nbsp;    public void resetGameScreen() {
+<b class="nc">&nbsp;        gameScreen.reset();</b>
+<b class="nc">&nbsp;        instructionScreen.setPrevScreenID(ScreenID.MENU);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Pause the game. */
+&nbsp;    public void pauseGameScreen() {
+<b class="nc">&nbsp;        playTimeDiff = TimeUtils.millis() - gameScreen.getPreviousSecond();</b>
+<b class="nc">&nbsp;        customerTimeDiff = gameScreen.getNextCustomerSecond() - TimeUtils.millis();</b>
+<b class="nc">&nbsp;        setScreen(ScreenID.PAUSE);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Resume the game from pause.
+&nbsp;     * Only call this AFTER {@link #pauseGameScreen()}. */
+&nbsp;    public void playGameScreen() {
+<b class="nc">&nbsp;        gameScreen.setPreviousSecond(TimeUtils.millis()- playTimeDiff);</b>
+<b class="nc">&nbsp;        gameScreen.setNextCustomerSecond(TimeUtils.millis() - customerTimeDiff);</b>
+<b class="nc">&nbsp;        setScreen(ScreenID.GAME);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

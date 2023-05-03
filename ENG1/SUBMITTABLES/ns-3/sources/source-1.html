@@ -1,0 +1,218 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > FoodItem</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">food</a>
+</div>
+
+<h1>Coverage Summary for Class: FoodItem (food)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FoodItem</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (1/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.2%
+  </span>
+  <span class="absValue">
+    (20/21)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">FoodItem$FoodID</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (3/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    97.6%
+  </span>
+  <span class="absValue">
+    (41/42)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package food;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;/**
+&nbsp; * A class that controls how {@link FoodID}s are
+&nbsp; * used and handled.
+&nbsp; */
+<b class="nc">&nbsp;public class FoodItem {</b>
+&nbsp;
+&nbsp;    /** IDs of all the different possible types of food ingredients.*/
+<b class="fc">&nbsp;    public enum FoodID {</b>
+&nbsp;        /** Lettuce */
+<b class="fc">&nbsp;        lettuce,</b>
+&nbsp;        /** Lettuce -&amp;gt; {@link stations.PreparationStation}
+&nbsp;         * with type {@link stations.Station.StationID#cut} */
+<b class="fc">&nbsp;        lettuceChop,</b>
+&nbsp;        /** Tomato */
+<b class="fc">&nbsp;        tomato,</b>
+&nbsp;        /** Tomato -&amp;gt; {@link stations.PreparationStation}
+&nbsp;         * with type {@link stations.Station.StationID#cut} */
+<b class="fc">&nbsp;        tomatoChop,</b>
+&nbsp;        /** Onion */
+<b class="fc">&nbsp;        onion,</b>
+&nbsp;        /** Onion -&amp;gt; {@link stations.PreparationStation}
+&nbsp;         * with type {@link stations.Station.StationID#cut} */
+<b class="fc">&nbsp;        onionChop,</b>
+&nbsp;        /** Meat */
+<b class="fc">&nbsp;        meat,</b>
+&nbsp;        /** Meat -&amp;gt; {@link stations.PreparationStation}
+&nbsp;         * with type {@link stations.Station.StationID#fry} */
+<b class="fc">&nbsp;        meatCook,</b>
+&nbsp;        /** Bun — Used only to specify that the {@link stations.Pantry} gives
+&nbsp;         * either a {@link #bottomBun} or {@link #topBun}. */
+<b class="fc">&nbsp;        bun,</b>
+&nbsp;        /** Bottom Bun -&amp;gt; Highest bun on {@link FoodStack} is {@code null} or {@link #topBun} */
+<b class="fc">&nbsp;        bottomBun,</b>
+&nbsp;        /** Top Bun -&amp;gt; Highest bun on {@link FoodStack} is {@link #bottomBun} */
+<b class="fc">&nbsp;        topBun,</b>
+&nbsp;        /** Dough */
+<b class="fc">&nbsp;        dough,</b>
+&nbsp;        /** uc_pizza */
+<b class="fc">&nbsp;        uc_pizza,</b>
+&nbsp;        /** C_pizza -&amp;gt; {@link stations.PreparationStation}
+&nbsp;         * with type {@link stations.Station.StationID#oven} */
+<b class="fc">&nbsp;        c_pizza,</b>
+&nbsp;        /** Cheese */
+<b class="fc">&nbsp;        cheese,</b>
+&nbsp;        /** Raw Potato */
+<b class="fc">&nbsp;        rawPotato,</b>
+&nbsp;        /** Jacket Potato */
+<b class="fc">&nbsp;        jacketPotato,</b>
+&nbsp;        /** Raw Jacket Potato */
+<b class="fc">&nbsp;        rawJacketPotato,</b>
+&nbsp;        /** Burnt Patty, not used in recipes */
+<b class="fc">&nbsp;        burntPatty,</b>
+&nbsp;        /** Default */
+<b class="fc">&nbsp;        none</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** A dict of the pixel height for each food. Used when rendering the FoodStack.*/
+<b class="fc">&nbsp;    public static final HashMap&lt;FoodID, Float&gt; foodHeights = new HashMap&lt;&gt;();</b>
+&nbsp;
+&nbsp;    static {
+<b class="fc">&nbsp;        foodHeights.put(FoodID.lettuce, 20F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.lettuceChop, 4F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.tomato, 20F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.tomatoChop, 5.8F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.onion, 20F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.onionChop, 5.8F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.meat, 8F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.meatCook, 8F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.bun, 20F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.bottomBun, 10F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.topBun, 12F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.dough, 5F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.cheese, 5F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.uc_pizza, 5F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.c_pizza, 5F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.rawPotato, 5F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.jacketPotato, 5F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.rawJacketPotato, 5F);</b>
+<b class="fc">&nbsp;        foodHeights.put(FoodID.burntPatty, 5F);</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,188 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Boot</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">game</a>
+</div>
+
+<h1>Coverage Summary for Class: Boot (game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Boot</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package game;
+&nbsp;
+&nbsp;// import com.badlogic.gdx.ApplicationAdapter;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Game;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;import com.badlogic.gdx.utils.viewport.Viewport;
+&nbsp;
+&nbsp;import helper.Constants;
+&nbsp;
+&nbsp;/** Responsible for starting the game.
+&nbsp; * The singleton used to initialize all game elements.*/
+&nbsp;public class Boot extends Game {
+&nbsp;
+&nbsp;    /** The Boot Singleton Instance. */
+&nbsp;    public static Boot INSTANCE;
+&nbsp;    /** The screen width and height. */
+&nbsp;    // private int widthScreen, heightScreen;
+&nbsp;    /** The camera for the game. */
+&nbsp;    private OrthographicCamera orthographicCamera;
+&nbsp;    /** Boot Singleton Constructor */
+&nbsp;    public Boot()
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        INSTANCE = this;</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * Returns the Singleton Boot instance
+&nbsp;     * @return The Boot INSTANCE
+&nbsp;     */
+&nbsp;    public static Boot getInstance() {
+<b class="nc">&nbsp;        if (INSTANCE == null) {</b>
+<b class="nc">&nbsp;            INSTANCE = new Boot();</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return INSTANCE;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** The Viewport for the game. */
+&nbsp;    private Viewport gamePort;
+&nbsp;    /** The spriteBatch for the game. */
+&nbsp;    private SpriteBatch spriteBatch;
+&nbsp;    /** The shapeRenderer for the game. */
+&nbsp;    private ShapeRenderer shapeRenderer;
+&nbsp;    /** The screenController used by the game. */
+&nbsp;    private ScreenController screenController;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void create()
+&nbsp;    {
+&nbsp;        // this.widthScreen = Gdx.graphics.getWidth();
+&nbsp;        // this.heightScreen = Gdx.graphics.getHeight();
+<b class="nc">&nbsp;        this.orthographicCamera = new OrthographicCamera();</b>
+<b class="nc">&nbsp;        this.spriteBatch = new SpriteBatch();</b>
+<b class="nc">&nbsp;        this.shapeRenderer = new ShapeRenderer();</b>
+<b class="nc">&nbsp;        this.shapeRenderer.setAutoShapeType(true);</b>
+<b class="nc">&nbsp;        gamePort = new FitViewport(Constants.V_Width, Constants.V_Height, orthographicCamera);</b>
+<b class="nc">&nbsp;        this.screenController = new ScreenController(this, orthographicCamera);</b>
+<b class="nc">&nbsp;        setScreen(new MenuScreen(screenController, orthographicCamera));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void resize(int width, int height)
+&nbsp;    {
+<b class="nc">&nbsp;        gamePort.update(width, height);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The {@link SpriteBatch} getter
+&nbsp;     * @return {@link SpriteBatch} : The {@link SpriteBatch} for the game.
+&nbsp;     */
+<b class="nc">&nbsp;    public SpriteBatch getSpriteBatch() { return spriteBatch; }</b>
+&nbsp;    /**
+&nbsp;     * The {@link ShapeRenderer} getter.
+&nbsp;     * @return {@link ShapeRenderer} : The {@link ShapeRenderer} for the game.
+&nbsp;     */
+<b class="nc">&nbsp;    public ShapeRenderer getShapeRenderer() { return shapeRenderer; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The {@link ScreenController} getter.
+&nbsp;     * @return {@link ScreenController} : The {@link ScreenController} for the game.
+&nbsp;     */
+<b class="nc">&nbsp;    public ScreenController getScreenController() { return screenController; }</b>
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,350 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CustomerController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">customers</a>
+</div>
+
+<h1>Coverage Summary for Class: CustomerController (customers)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CustomerController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/58)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package customers;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import com.badlogic.gdx.math.Vector2;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;import food.Recipe;
+&nbsp;import game.GameScreen;
+&nbsp;import game.GameSprites;
+&nbsp;import game.PowerupStatic;
+&nbsp;import stations.ServingStation;
+&nbsp;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;/**
+&nbsp; * The class that controls how the {@link Customer}s are
+&nbsp; * added to the stations, what {@link food.Recipe}s they are
+&nbsp; * given and so on.
+&nbsp; */
+&nbsp;public class CustomerController {
+&nbsp;
+&nbsp;    /** An {@link Array} of {@link Customer}s currently waiting. */
+&nbsp;    public static Array&lt;Customer&gt; customers;
+&nbsp;    /** The {@link Sprite} of the {@link Customer}. */
+&nbsp;    private static Sprite customerSprite;
+&nbsp;    /** An array of all {@link ServingStation}s to assign to the {@link Customer}s.*/
+&nbsp;    public static Array&lt;ServingStation&gt; servingStations;
+&nbsp;    /** The number of {@link Customer}s to spawn. */
+&nbsp;    private int customersLeft;
+&nbsp;    /** The number of {@link Customer}s served. */
+&nbsp;    public static int customersServed;
+&nbsp;    /** The {@link game.GameScreen} to send the {@link #customersServed} to. */
+&nbsp;    private GameScreen gameScreen;
+&nbsp;
+&nbsp;    private int payment;
+&nbsp;    /** A unique id used in saving and loading to keep data organised */
+&nbsp;    private int customerID;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for the {@link CustomerController}.
+&nbsp;     * &lt;br&gt;It sets up the array that the {@link Customer}s
+&nbsp;     * will be stored in.
+&nbsp;     * @param gameScreen The {@link GameScreen} that the {@link CustomerController}
+&nbsp;     *                   was created by.
+&nbsp;     */
+<b class="nc">&nbsp;    public CustomerController(GameScreen gameScreen) {</b>
+<b class="nc">&nbsp;        this.customers = new Array&lt;&gt;();</b>
+<b class="nc">&nbsp;        this.customersLeft = 0;</b>
+<b class="nc">&nbsp;        this.customersServed = 0;</b>
+<b class="nc">&nbsp;        this.customerID = 0;</b>
+<b class="nc">&nbsp;        this.customerSprite = GameSprites.getInstance().getSprite(GameSprites.SpriteID.CUSTOMER,&quot;0&quot;);</b>
+<b class="nc">&nbsp;        this.customerSprite.setSize(42.5F,70);</b>
+<b class="nc">&nbsp;        this.servingStations = new Array&lt;&gt;();</b>
+<b class="nc">&nbsp;        this.gameScreen = gameScreen;</b>
+<b class="nc">&nbsp;        this.payment = 20;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A function with no input that returns whether a
+&nbsp;     * {@link Customer} can (true) or not (false) be
+&nbsp;     * added to a {@link ServingStation} on the map.
+&nbsp;     * a {@link Customer} can be added to a {@link ServingStation}
+&nbsp;     * on the {@link game.GameScreen}&#39;s map or not.
+&nbsp;     * or not.
+&nbsp;     * @return A {@code boolean} that is true when a
+&nbsp;     *         {@link Customer} can be added, and false when
+&nbsp;     *         they cannot.
+&nbsp;     */
+&nbsp;    public boolean canAddCustomer() {
+<b class="nc">&nbsp;        Array&lt;ServingStation&gt; stations = servingStations;</b>
+<b class="nc">&nbsp;        for (ServingStation station : stations) {</b>
+<b class="nc">&nbsp;            if (station.getCustomer() != null) {</b>
+<b class="nc">&nbsp;                return true;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Add a {@link Customer} to a {@link ServingStation}.
+&nbsp;     * @return {@code int} : The number of instructions in the
+&nbsp;     *                       {@link Customer}&#39;s recipe.
+&nbsp;     *                       &lt;br&gt;It is -1 if the {@link Customer} fails
+&nbsp;     *                       to spawn.
+&nbsp;     */
+&nbsp;    public int addCustomer(boolean endless, ServingStation chosenStation){
+&nbsp;        // If there are no more customers left to serve, then don&#39;t bother
+<b class="nc">&nbsp;        if (GameScreen.endless == false) {</b>
+&nbsp;
+<b class="nc">&nbsp;            if (customersLeft &lt;= 0) {</b>
+<b class="nc">&nbsp;                return -1;</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        // If customer id &gt; 3, revert to 0.
+<b class="nc">&nbsp;        customerID = customerID%4;</b>
+<b class="nc">&nbsp;        Customer newCustomer = new Customer(customerSprite,</b>
+<b class="nc">&nbsp;                new Vector2(chosenStation.getCustomerX(),</b>
+<b class="nc">&nbsp;                        chosenStation.getCustomerY()),customerID);</b>
+<b class="nc">&nbsp;        customerID++;</b>
+<b class="nc">&nbsp;        customers.add(newCustomer);</b>
+&nbsp;        // Choose the Customer&#39;s recipe
+<b class="nc">&nbsp;        newCustomer.randomRecipe();</b>
+<b class="nc">&nbsp;        chosenStation.setCustomer(newCustomer);</b>
+&nbsp;        // Show the Customer&#39;s recipe
+<b class="nc">&nbsp;        gameScreen.getGameHud().setRecipe(newCustomer);</b>
+<b class="nc">&nbsp;        customersLeft--;</b>
+<b class="nc">&nbsp;        return Recipe.firstRecipeOption(newCustomer.getRequestName()).size();</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;    public int addCustomer(boolean endlesss) {
+&nbsp;        // Get a deep copy of all the ServingStations.
+<b class="nc">&nbsp;        Array&lt;ServingStation&gt; emptyStations = new Array&lt;&gt;(servingStations);</b>
+&nbsp;        // Loop through and remove all the stations that have a
+&nbsp;        // Customer already.
+<b class="nc">&nbsp;        for (int i = emptyStations.size - 1 ; i &gt;= 0 ; i--) {</b>
+<b class="nc">&nbsp;            if (emptyStations.get(i).hasCustomer()) {</b>
+<b class="nc">&nbsp;                emptyStations.removeIndex(i);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;        // If there are no Stations left, return false.
+<b class="nc">&nbsp;        if (emptyStations.size == 0) {</b>
+<b class="nc">&nbsp;            return -1;</b>
+&nbsp;        }
+&nbsp;        // Now that the only stations left are the ones without Customers,
+&nbsp;        // randomly pick one and add a customer to it.
+<b class="nc">&nbsp;        Random random = new Random();</b>
+<b class="nc">&nbsp;        ServingStation chosenStation = emptyStations.get(random.nextInt(emptyStations.size));</b>
+<b class="nc">&nbsp;        return addCustomer(endlesss,chosenStation);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Removes a customer from a {@link ServingStation}.
+&nbsp;     * @param station The {@link ServingStation} to remove
+&nbsp;     *                the {@link Customer} from.
+&nbsp;     */
+&nbsp;    public void removeCustomer(ServingStation station) {
+&nbsp;        // First make sure the station has a Customer
+<b class="nc">&nbsp;        if (!station.hasCustomer()) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        customerID = station.getCustomer().saveID;</b>
+&nbsp;        // Remove the customer from the customers array.
+<b class="nc">&nbsp;        customers.removeValue(station.getCustomer(),true);</b>
+&nbsp;        // Then, if it has a customer, set the customer of the station
+&nbsp;        // to null.
+<b class="nc">&nbsp;        station.setCustomer(null);</b>
+<b class="nc">&nbsp;        gameScreen.spawnPowerup();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the number of {@link Customer}s needing to be served.
+&nbsp;     * @param customersLeft The number of {@link Customer}s left.
+&nbsp;     */
+&nbsp;    public void setCustomersLeft(int customersLeft) {
+<b class="nc">&nbsp;        this.customersLeft = customersLeft;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the number of {@link Customer}s needing to be served.
+&nbsp;     * @return {@code int} : The number of {@link Customer}s left.
+&nbsp;     */
+&nbsp;    public int getCustomersLeft() {
+<b class="nc">&nbsp;        return customersLeft;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the number of {@link Customer}s needing to be served.
+&nbsp;     * @param customersServed The number of {@link Customer}s served.
+&nbsp;     */
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Gets the number of {@link Customer}s that have been served.
+&nbsp;     * @return {@code int} : The number of {@link Customer}s served.
+&nbsp;     */
+&nbsp;    public int getCustomersServed() {
+<b class="nc">&nbsp;        return customersServed;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Adds a {@link ServingStation} to the {@link Array} of
+&nbsp;     * {@link ServingStation}s so that {@link Customer}s can
+&nbsp;     * be assigned to them.
+&nbsp;     * @param station The {@link ServingStation} to add as
+&nbsp;     *                an option for {@link Customer}&#39;s to
+&nbsp;     *                be assigned to.
+&nbsp;     */
+&nbsp;    public void addServingStation(ServingStation station) {
+<b class="nc">&nbsp;        servingStations.add(station);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * An {@link Array} of all of the {@link ServingStation}s
+&nbsp;     * within the game.
+&nbsp;     * @return {@link Array}&amp;lt;{@link ServingStation}&amp;gt; :
+&nbsp;     *                  The {@link Array} of {@link ServingStation}s.
+&nbsp;     */
+&nbsp;    public Array&lt;ServingStation&gt; getServingStations() {
+<b class="nc">&nbsp;        return servingStations;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Called when a {@link Customer} has been sucessfully served at
+&nbsp;     * a {@link ServingStation} by a {@link cooks.Cook}.
+&nbsp;     * @param station The {@link ServingStation} that the {@link Customer}
+&nbsp;     *                was served at.
+&nbsp;     */
+&nbsp;    public void customerServed(ServingStation station) {
+<b class="nc">&nbsp;        int customerInd = customers.indexOf(station.getCustomer(),true);</b>
+<b class="nc">&nbsp;        if (customerInd &lt; 0) {</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        removeCustomer(station);</b>
+<b class="nc">&nbsp;        if(PowerupStatic.powerups.get(&quot;MoneyIncr&quot;) == Boolean.TRUE){</b>
+<b class="nc">&nbsp;            gameScreen.increaseCurrentMoney(payment + 15);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            gameScreen.increaseCurrentMoney(payment);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        payment += 2; //Just makes it so this variable isn&#39;t constant</b>
+&nbsp;
+<b class="nc">&nbsp;        gameScreen.setCustomerHud(customersServed);</b>
+&nbsp;
+&nbsp;        // If there are any customers left, spawn a new one.
+&nbsp;        //if (customersLeft &gt; 0) {
+&nbsp;        //    addCustomer(GameScreen.endless);
+&nbsp;        //}
+&nbsp;
+&nbsp;        // BELOW IS CODE FOR CUSTOMER SPAWNING.
+&nbsp;
+&nbsp;        // If there is no more customers on the stations, and
+&nbsp;        // the time for the next customer to arrive is above 2 seconds,
+&nbsp;        // lower the time until the next customer to 2.
+&nbsp;        /*if (customers.size == 0) {
+&nbsp;            if (TimeUtils.timeSinceMillis(gameScreen.getNextCustomerSecond()) &gt; 2000) {
+&nbsp;                gameScreen.setNextCustomerSecond(TimeUtils.millis() + 2000);
+&nbsp;            }
+&nbsp;        }*/
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Clears the {@link Array} of {@link ServingStation}. Should
+&nbsp;     * be called when the game is reset.
+&nbsp;     */
+&nbsp;    public void clearServingStations() {
+<b class="nc">&nbsp;        servingStations.clear();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

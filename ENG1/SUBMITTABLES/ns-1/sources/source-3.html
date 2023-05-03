@@ -1,0 +1,220 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GameEntity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cooks</a>
+</div>
+
+<h1>Coverage Summary for Class: GameEntity (cooks)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameEntity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cooks;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import com.badlogic.gdx.physics.box2d.Body;
+&nbsp;import helper.MapHelper;
+&nbsp;
+&nbsp;import static helper.Constants.PPM;
+&nbsp;
+&nbsp;/** The class for any object that can exist in the game world. */
+&nbsp;public abstract class GameEntity {
+&nbsp;
+&nbsp;    /** X and Y position coordinates.*/
+&nbsp;    protected float x,y;
+&nbsp;    /** X and Y velocity of this GameEntity.*/
+&nbsp;    protected float velX,velY;
+&nbsp;    /** Speed of this GameEntity. */
+&nbsp;    protected float speed;
+&nbsp;    /** The width and height in pixels of this GameEntity.*/
+&nbsp;    protected  float width,height;
+&nbsp;    /** The body of this GameEntity. */
+&nbsp;    protected Body body;/**
+&nbsp;     * The constructor for the {@link GameEntity}, using a {@link Rectangle}.
+&nbsp;     * This is to make it easier to create a {@link GameEntity} that may not
+&nbsp;     * need a {@link Body} created elsewhere, and also allows the {@link Rectangle}
+&nbsp;     * to be passed up to functions that need it, as a {@link Rectangle} can make a
+&nbsp;     * {@link Body}, but not the other way around.
+&nbsp;     * @param width The width of the {@link GameEntity} as a float.
+&nbsp;     * @param height The height of the {@link GameEntity} as a float.
+&nbsp;     * @param body The {@link Body} of the {@link GameEntity}.
+&nbsp;     */
+&nbsp;    public GameEntity(float width, float height, Body body)
+<b class="nc">&nbsp;    {</b>
+<b class="nc">&nbsp;        this.x = body.getPosition().x * PPM;</b>
+<b class="nc">&nbsp;        this.y = body.getPosition().y * PPM;</b>
+<b class="nc">&nbsp;        this.width = width;</b>
+<b class="nc">&nbsp;        this.height = height;</b>
+<b class="nc">&nbsp;        this.velX = 0;</b>
+<b class="nc">&nbsp;        this.velY = 0;</b>
+<b class="nc">&nbsp;        this.speed = 0;</b>
+<b class="nc">&nbsp;        this.body = body;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link GameEntity}, using a {@link Rectangle}.
+&nbsp;     * This is to make it easier to create a {@link GameEntity} that may not
+&nbsp;     * need a {@link Body} created elsewhere, and also allows the {@link Rectangle}
+&nbsp;     * to be passed up to functions that need it, as a {@link Rectangle} can make a
+&nbsp;     * {@link Body}, but not the other way around.
+&nbsp;     * @param rectangle The {@link Rectangle} of the {@link GameEntity}.
+&nbsp;     */
+&nbsp;    public GameEntity(Rectangle rectangle) {
+<b class="nc">&nbsp;        this(rectangle.getWidth(),rectangle.getHeight(),MapHelper.makeBody(rectangle,true));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The update function, used to update the {@link GameEntity}.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    public abstract void update(float delta);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The render function, used to render the {@link GameEntity}.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    public abstract void render(SpriteBatch batch);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The debug render function, used to render the {@link GameEntity}&#39;s
+&nbsp;     * debug visuals.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    public abstract void renderDebug(SpriteBatch batch);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The render function, used to render the {@link GameEntity}.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to render.
+&nbsp;     */
+&nbsp;    public abstract void renderShape(ShapeRenderer shape);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The debug render function, used to render the {@link GameEntity}&#39;s
+&nbsp;     * debug visuals.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to render.
+&nbsp;     */
+&nbsp;    public abstract void renderShapeDebug(ShapeRenderer shape);
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A getter to get the {@link GameEntity}&#39;s {@link Body}.
+&nbsp;     * @return {@link Body} : The {@link GameEntity}&#39;s {@link Body}.
+&nbsp;     */
+&nbsp;    public Body getBody()
+&nbsp;    {
+<b class="nc">&nbsp;        return body;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A getter to get the {@link GameEntity}&#39;s {@link #x} coordinate.
+&nbsp;     * @return {@code float} : The {@link GameEntity}&#39;s {@link #x}.
+&nbsp;     */
+&nbsp;    public float getX() {
+<b class="nc">&nbsp;        return this.body.getPosition().x;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A getter to get the {@link GameEntity}&#39;s {@link #y} coordinate.
+&nbsp;     * @return {@code float} : The {@link GameEntity}&#39;s {@link #y}.
+&nbsp;     */
+&nbsp;    public float getY() {
+<b class="nc">&nbsp;        return this.body.getPosition().y;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public void setX(int newX){x = newX;}</b>
+<b class="nc">&nbsp;    public void setY(int newY){y = newY;}</b>
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

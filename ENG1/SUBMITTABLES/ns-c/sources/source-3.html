@@ -1,0 +1,221 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CounterStation</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">stations</a>
+</div>
+
+<h1>Coverage Summary for Class: CounterStation (stations)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CounterStation</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/26)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package stations;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;import cooks.Cook;
+&nbsp;import food.FoodItem;
+&nbsp;import food.FoodStack;
+&nbsp;import game.GameScreen;
+&nbsp;import game.GameSprites;
+&nbsp;import game.StateOfGame;
+&nbsp;import interactions.InputKey;
+&nbsp;
+&nbsp;/**
+&nbsp; * The {@link CounterStation} class, where the {@link cooks.Cook}
+&nbsp; * can place down the {@link FoodItem}s that they are holding.
+&nbsp; */
+&nbsp;public class CounterStation extends Station {
+&nbsp;
+&nbsp;    public FoodStack foodStack;
+&nbsp;
+&nbsp;    public int saveID;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link CounterStation}. It sets up the
+&nbsp;     * {@link FoodStack} for the {@link CounterStation}.
+&nbsp;     * @param rectangle The collision and interaction area of the {@link PreparationStation}.
+&nbsp;     */
+&nbsp;    public CounterStation(Rectangle rectangle, int saveId) {
+<b class="nc">&nbsp;        super(rectangle);</b>
+<b class="nc">&nbsp;        foodStack = new FoodStack();</b>
+<b class="nc">&nbsp;        this.saveID = saveId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void update(float delta) {
+<b class="nc">&nbsp;        saveVariables();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function that allows a {@link Cook} to interact with the {@link CounterStation}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;&lt;br&gt;If the {@link Cook} interacts using {@link InputKey.InputTypes#USE},
+&nbsp;     * they will swap stacks with the {@link CounterStation}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;&lt;br&gt;If the {@link Cook} interacts using {@link InputKey.InputTypes#PICK_UP},
+&nbsp;     * they will take the top {@link FoodItem} of the {@link FoodStack}
+&nbsp;     * from {@link CounterStation} and put it on their own {@link FoodStack}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;&lt;br&gt;If the {@link Cook} interacts using {@link InputKey.InputTypes#PUT_DOWN},
+&nbsp;     * they will take the top {@link FoodItem} of their {@link FoodStack}
+&nbsp;     * put it on the {@link CounterStation}&#39;s {@link FoodStack}.
+&nbsp;     * @param cook The cook that interacted with the {@link CookInteractable}.
+&nbsp;     * @param inputType The type of {@link InputKey.InputTypes} the player made with
+&nbsp;     *                  the {@link CookInteractable}.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void interact(Cook cook, InputKey.InputTypes inputType) {
+&nbsp;        // If Cook is using the put down input, put down the item in the top of their stack
+<b class="nc">&nbsp;        if (cook.foodStack.size() &gt; 0 &amp;&amp; inputType == InputKey.InputTypes.PUT_DOWN) {</b>
+&nbsp;            // Take it from the cook, and add it to this counter&#39;s stack.
+<b class="nc">&nbsp;            foodStack.addStack(cook.foodStack.popStack());</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;        // If Cook is using the pick up input, pick up the item on the top of this stack
+<b class="nc">&nbsp;        if (foodStack.size() &gt; 0 &amp;&amp; inputType == InputKey.InputTypes.PICK_UP) {</b>
+&nbsp;            // Take it from the cook, and add it to this counter&#39;s stack.
+<b class="nc">&nbsp;            cook.foodStack.addStack(foodStack.popStack());</b>
+&nbsp;            return;
+&nbsp;        }
+&nbsp;        // Otherwise swap the items on the use input
+<b class="nc">&nbsp;        if (inputType == InputKey.InputTypes.USE) {</b>
+<b class="nc">&nbsp;            FoodStack tempStack = foodStack;</b>
+&nbsp;            // If the above doesn&#39;t apply, then just swap the stacks.
+<b class="nc">&nbsp;            foodStack = cook.foodStack;</b>
+<b class="nc">&nbsp;            cook.foodStack = tempStack;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link PreparationStation}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;This function renders the {@link FoodStack} in a similar way
+&nbsp;     * as the {@link Cook} renders their own.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(SpriteBatch batch) {
+&nbsp;        // Render using the same method as the Cook does.
+&nbsp;        // Loop through the items in the food stack.
+&nbsp;        // It is done from the end of the stack to the start because the stack&#39;s top is
+&nbsp;        // at 0, and the bottom at the end.
+<b class="nc">&nbsp;        Array&lt;FoodItem.FoodID&gt; foodList = foodStack.getStack();</b>
+<b class="nc">&nbsp;        float xOffset = 0F, yOffset = 0F;</b>
+&nbsp;        // Get offset based on direction.
+&nbsp;
+<b class="nc">&nbsp;        float drawX = x, drawY = y;</b>
+&nbsp;        /*if (foodStack.size() &gt; 0) {
+&nbsp;            foodStack.popStack();
+&nbsp;        }*/
+<b class="nc">&nbsp;        for (int i = foodList.size-1 ; i &gt;= 0 ; i--) {</b>
+<b class="nc">&nbsp;            Sprite foodSprite = gameSprites.getSprite(GameSprites.SpriteID.FOOD, String.valueOf(foodList.get(i)));</b>
+<b class="nc">&nbsp;            Float drawInc = FoodItem.foodHeights.get(foodList.get(i));</b>
+<b class="nc">&nbsp;            if (drawInc == null) {</b>
+<b class="nc">&nbsp;                drawY += 5F;</b>
+<b class="nc">&nbsp;                continue;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            foodSprite.setScale(2F);</b>
+<b class="nc">&nbsp;            foodSprite.setPosition(drawX-foodSprite.getWidth()/2+xOffset,drawY+foodSprite.getHeight()/2F+yOffset);</b>
+<b class="nc">&nbsp;            foodSprite.draw(batch);</b>
+<b class="nc">&nbsp;            drawY += drawInc;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void saveVariables(){
+<b class="nc">&nbsp;        StateOfGame.getInstance().countersFoodStacks[saveID] = this.foodStack;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

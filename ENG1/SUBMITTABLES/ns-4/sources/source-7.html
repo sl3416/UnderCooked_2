@@ -1,0 +1,244 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GameSprites</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">game</a>
+</div>
+
+<h1>Coverage Summary for Class: GameSprites (game)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameSprites</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (21/21)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">GameSprites$SpriteID</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (27/27)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;
+&nbsp;/** A class which allows for easier controlling of how TextureAtlases are
+&nbsp; * loaded for the game, and so that they can easily be accessed.
+&nbsp; * Allows for avoiding using {@link TextureAtlas#createSprite(String)}
+&nbsp; * everywhere, which may result in problems if the Sprite isn&#39;t disposed. */
+&nbsp;public class GameSprites {
+&nbsp;
+&nbsp;    /**
+&nbsp;     * An enum of the different Sprite IDs for each {@link TextureAtlas}.
+&nbsp;     */
+<b class="fc">&nbsp;    public enum SpriteID {</b>
+&nbsp;        /** The {@link cooks.Cook}&#39;s {@link TextureAtlas}.*/
+<b class="fc">&nbsp;        COOK,</b>
+&nbsp;        /** The {@link food.FoodItem}&#39;s {@link TextureAtlas}.*/
+<b class="fc">&nbsp;        FOOD,</b>
+&nbsp;        /** The {@link stations.Station}&#39;s and {@link stations.Pantry}&#39;s {@link TextureAtlas}.*/
+<b class="fc">&nbsp;        STATION,</b>
+&nbsp;        /** The {@link customers.Customer}&#39;s {@link TextureAtlas}.*/
+<b class="fc">&nbsp;        CUSTOMER,</b>
+&nbsp;
+<b class="fc">&nbsp;        POWERUPS</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A {@link HashMap} containing all of the {@link TextureAtlas}es for each of the
+&nbsp;     * {@link SpriteID} IDs.
+&nbsp;     */
+<b class="fc">&nbsp;    public static final HashMap&lt;SpriteID, TextureAtlas&gt; textureAtlases = new HashMap&lt;&gt;();</b>
+&nbsp;    static {
+<b class="fc">&nbsp;        textureAtlases.put(SpriteID.COOK, new TextureAtlas(&quot;atlas/cook.atlas&quot;));</b>
+<b class="fc">&nbsp;        textureAtlases.put(SpriteID.FOOD, new TextureAtlas(&quot;atlas/food.atlas&quot;));</b>
+<b class="fc">&nbsp;        textureAtlases.put(SpriteID.STATION, new TextureAtlas(&quot;atlas/station.atlas&quot;));</b>
+<b class="fc">&nbsp;        textureAtlases.put(SpriteID.CUSTOMER, new TextureAtlas(&quot;atlas/customer.atlas&quot;));</b>
+<b class="fc">&nbsp;        textureAtlases.put(SpriteID.POWERUPS, new TextureAtlas(&quot;atlas/powerups.atlas&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A {@link HashMap} of the {@link Sprite}s within the {@link TextureAtlas}es, allowing
+&nbsp;     * each {@link Sprite} to be accessed via a simple {@link String}.
+&nbsp;     * This is not static, or final, as it can be modified as needed during the game.
+&nbsp;     */
+&nbsp;    public HashMap&lt;String, Sprite&gt; spriteMap;
+&nbsp;
+&nbsp;    private static GameSprites INSTANCE;
+&nbsp;
+&nbsp;    /** Private constructor to allow for a Singleton. */
+<b class="fc">&nbsp;    public GameSprites() {</b>
+<b class="fc">&nbsp;        this.spriteMap = new HashMap&lt;&gt;();</b>
+<b class="fc">&nbsp;        createResources();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The getter function to get the {@link #INSTANCE} of the {@link GameSprites}.
+&nbsp;     * @return {@link GameSprites}: The single {@link GameSprites} instance.
+&nbsp;     */
+&nbsp;    public static GameSprites getInstance() {
+<b class="fc">&nbsp;        if (INSTANCE == null) {</b>
+<b class="fc">&nbsp;            INSTANCE = new GameSprites();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return INSTANCE;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Puts together the {@link #spriteMap} using the {@link TextureAtlas}es
+&nbsp;     * provided in the {@link #textureAtlases} {@link HashMap}.
+&nbsp;     *
+&nbsp;     * It creates the {@link Sprite}s here, so they
+&nbsp;     * only ever have to be created once.
+&nbsp;     */
+&nbsp;    public void createResources() {
+<b class="fc">&nbsp;        for (SpriteID spriteID : SpriteID.values()) {</b>
+<b class="fc">&nbsp;            TextureAtlas thisAtlas = textureAtlases.get(spriteID);</b>
+<b class="fc">&nbsp;            for (TextureAtlas.AtlasRegion spriteRegion : thisAtlas.getRegions()) {</b>
+<b class="fc">&nbsp;                spriteMap.put(spriteKey(spriteID,spriteRegion.name),thisAtlas.createSprite(spriteRegion.name));</b>
+<b class="fc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A function to convert a {@link SpriteID} and {@link Sprite} name
+&nbsp;     * into a {@link String} key for the {@link #spriteMap}.
+&nbsp;     * @param spriteID The {@link SpriteID} of the {@link Sprite}.
+&nbsp;     * @param spriteName The name of the {@link Sprite} as a {@link String}.
+&nbsp;     * @return  {@link String}: The key to use for the {@link #spriteMap}.
+&nbsp;     */
+&nbsp;    public String spriteKey(SpriteID spriteID, String spriteName) {
+<b class="fc">&nbsp;        return String.format(&quot;%s-%s&quot;, spriteID.ordinal(), spriteName);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Get a {@link Sprite} from the {@link #spriteMap}.
+&nbsp;     * @param spriteID The {@link SpriteID} of the {@link Sprite}.
+&nbsp;     * @param spriteName The name of the {@link Sprite} as a {@link String}.
+&nbsp;     * @return  {@link Sprite}: The retrieved from the {@link #spriteMap}.
+&nbsp;     */
+&nbsp;    public Sprite getSprite(SpriteID spriteID, String spriteName) {
+<b class="fc">&nbsp;        Sprite returnSprite = spriteMap.get(spriteKey(spriteID,spriteName));</b>
+<b class="fc">&nbsp;        return returnSprite;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A function to dispose of unneeded resources to free up space.
+&nbsp;     */
+&nbsp;    public void dispose() {
+<b class="fc">&nbsp;        spriteMap.clear();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

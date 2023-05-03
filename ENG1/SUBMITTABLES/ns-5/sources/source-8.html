@@ -1,0 +1,139 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Util</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">helper</a>
+</div>
+
+<h1>Coverage Summary for Class: Util (helper)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Util</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66.7%
+  </span>
+  <span class="absValue">
+    (2/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (8/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package helper;
+&nbsp;
+&nbsp;/** A Utilities Static Class. Contains many helpful functions.*/
+<b class="nc">&nbsp;public class Util {</b>
+&nbsp;    /**
+&nbsp;     * Calculates the distance between 2 points.
+&nbsp;     * @param x1 The x coordinate of the first point
+&nbsp;     * @param y1 The y coordinate of the first point
+&nbsp;     * @param x2 The x coordinate of the second point
+&nbsp;     * @param y2 The y coordinate of the second point
+&nbsp;     * @return {@code float}: The distance between the 2 points.
+&nbsp;     */
+&nbsp;    public static float distancePoints(float x1, float y1, float x2, float y2) {
+<b class="fc">&nbsp;        return (float) Math.sqrt(Math.pow(x1-x2,2)+Math.pow(y1-y2,2));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Returns a string containing the given time elapsed in the parameters.
+&nbsp;     * @param hours The time&#39;s in hours.
+&nbsp;     * @param minutes The time&#39;s minutes.
+&nbsp;     * @param seconds The time&#39;s seconds.
+&nbsp;     * @return {@link String} : The time in mins:secs if hrs == 0, or hrs:mins:secs if hrs &amp;gt; 0.
+&nbsp;     */
+&nbsp;    public static String formatTime(int hours, int minutes, int seconds) {
+<b class="fc">&nbsp;        String timeString = &quot;&quot;;</b>
+<b class="fc">&nbsp;        if (hours &gt; 0) {</b>
+<b class="fc">&nbsp;            timeString += hours + &quot;:&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        timeString += minutes + &quot;:&quot;;</b>
+<b class="fc">&nbsp;        if (seconds &lt; 10) {</b>
+<b class="nc">&nbsp;            timeString += &quot;0&quot;;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        timeString += seconds;</b>
+<b class="fc">&nbsp;        return timeString;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

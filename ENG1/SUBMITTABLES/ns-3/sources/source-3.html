@@ -1,0 +1,372 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Recipe</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">food</a>
+</div>
+
+<h1>Coverage Summary for Class: Recipe (food)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Recipe</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    81.8%
+  </span>
+  <span class="absValue">
+    (9/11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.3%
+  </span>
+  <span class="absValue">
+    (55/66)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package food;
+&nbsp;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.Random;
+&nbsp;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;
+&nbsp;import food.FoodStack;
+&nbsp;import food.FoodItem.FoodID;
+&nbsp;
+&nbsp;/** Contains all the Recipes.
+&nbsp; * Each recipe can be represented by a FoodStack.
+&nbsp; * Many FoodStacks map to the same recipe.
+&nbsp; * Also contains many helper functions useful in generating recipes.
+&nbsp; */
+<b class="fc">&nbsp;public class Recipe {</b>
+<b class="fc">&nbsp;    public static Array&lt;String&gt; recipeNames = new Array&lt;&gt;();</b>
+&nbsp;	/** A HashMap containing how each FoodItem&#39;s FoodID, via a station of StationID, can convert to another foodID.*/
+<b class="fc">&nbsp;	private static final HashMap&lt;String, Array&lt;FoodStack&gt;&gt; recipes = new HashMap&lt;&gt;();</b>
+&nbsp;		static {
+<b class="fc">&nbsp;			generateRecipes(&quot;Onion Tomato Salad&quot;, allCombos(FoodID.onionChop, FoodID.tomatoChop));</b>
+<b class="fc">&nbsp;			generateRecipes(&quot;Lettuce Tomato Salad&quot;, allCombos(FoodID.lettuceChop, FoodID.tomatoChop));</b>
+<b class="fc">&nbsp;			generateRecipes(&quot;Lettuce Onion Salad&quot;, allCombos(FoodID.lettuceChop, FoodID.onionChop));</b>
+<b class="fc">&nbsp;            generateRecipes(&quot;Lettuce Onion Tomato Salad&quot;, allCombos(FoodID.lettuceChop, FoodID.onionChop, FoodID.tomatoChop));</b>
+&nbsp;
+<b class="fc">&nbsp;			Array&lt;FoodStack&gt; plainBurger = new Array&lt;&gt;();</b>
+<b class="fc">&nbsp;			plainBurger.add(new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.bottomBun));</b>
+<b class="fc">&nbsp;			recipes.put(&quot;Plain Burger&quot;, plainBurger);</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;			Array&lt;FoodID&gt; topBunArray = new Array&lt;FoodID&gt;();</b>
+<b class="fc">&nbsp;			topBunArray.add(FoodID.topBun);</b>
+<b class="fc">&nbsp;			Array&lt;FoodID&gt; bottomBunArray = new Array&lt;FoodID&gt;();</b>
+<b class="fc">&nbsp;			bottomBunArray.add(FoodID.bottomBun);</b>
+&nbsp;            /*
+&nbsp;			generateRecipes(&quot;Lettuce Burger&quot;, allCombos(
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.lettuceChop)
+&nbsp;			);
+&nbsp;			generateRecipes(&quot;Onion Burger&quot;, allCombos(
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.onionChop)
+&nbsp;			);
+&nbsp;			generateRecipes(&quot;Tomato Burger&quot;, allCombos(
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.tomatoChop)
+&nbsp;			);
+&nbsp;			generateRecipes(&quot;Lettuce Burger&quot;, allCombos(
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.lettuceChop)
+&nbsp;			);
+&nbsp;			generateRecipes(&quot;Lettuce Tomato Burger&quot;, allCombos(
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.lettuceChop, FoodID.tomatoChop)
+&nbsp;			);
+&nbsp;			generateRecipes(&quot;Lettuce Onion Burger&quot;, allCombos(
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.lettuceChop, FoodID.onionChop)
+&nbsp;			);
+&nbsp;			generateRecipes(&quot;Tomato Onion Burger&quot;, allCombos(
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.tomatoChop, FoodID.onionChop)
+&nbsp;			);
+&nbsp;
+&nbsp;            */
+<b class="fc">&nbsp;			generateRecipes(&quot;Lettuce Tomato Onion Burger&quot;, allCombos(</b>
+&nbsp;				topBunArray,
+&nbsp;				bottomBunArray,
+&nbsp;				FoodID.meatCook, FoodID.lettuceChop, FoodID.tomatoChop, FoodID.onionChop)
+&nbsp;			);
+&nbsp;
+<b class="fc">&nbsp;            generateRecipes(&quot;Margherita Pizza&quot;, allCombos(FoodID.c_pizza));</b>
+<b class="fc">&nbsp;            generateRecipes(&quot;Jacket Potato&quot;, allCombos(FoodID.jacketPotato));</b>
+&nbsp;			/*
+&nbsp;			recipes.put(&quot;Onion Tomato Salad&quot;,
+&nbsp;				new String[] {
+&nbsp;					new FoodStack(FoodID.onionChop, FoodID.tomatoChop).toString(),
+&nbsp;					new FoodStack(FoodID.tomatoChop, FoodID.onionChop).toString()
+&nbsp;				}
+&nbsp;			);
+&nbsp;			recipes.put(&quot;Lettuce Tomato Salad&quot;,
+&nbsp;				new String[] {
+&nbsp;					new FoodStack(FoodID.lettuceChop, FoodID.tomatoChop).toString(),
+&nbsp;					new FoodStack(FoodID.tomatoChop, FoodID.lettuceChop).toString()
+&nbsp;				}
+&nbsp;			);
+&nbsp;			recipes.put(&quot;Lettuce Onion Salad&quot;,
+&nbsp;				new String[] {
+&nbsp;					new FoodStack(FoodID.lettuceChop, FoodID.onionChop).toString(),
+&nbsp;					new FoodStack(FoodID.onionChop, FoodID.lettuceChop).toString()
+&nbsp;				}
+&nbsp;			);
+&nbsp;			recipes.put(&quot;Lettuce Burger&quot;,
+&nbsp;				new String[] {
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.lettuceChop, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.lettuceChop, FoodID.meatCook, FoodID.bottomBun).toString()
+&nbsp;				}
+&nbsp;			);
+&nbsp;			recipes.put(&quot;Onion Burger&quot;,
+&nbsp;				new String[] {
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.onionChop, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.onionChop, FoodID.meatCook, FoodID.bottomBun).toString()
+&nbsp;				}
+&nbsp;			);
+&nbsp;			recipes.put(&quot;Tomato Burger&quot;,
+&nbsp;				new String[] {
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.tomatoChop, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.tomatoChop, FoodID.meatCook, FoodID.bottomBun).toString()
+&nbsp;				}
+&nbsp;			);
+&nbsp;			recipes.put(&quot;Lettuce Onion Burger&quot;,
+&nbsp;				new String[] {
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.lettuceChop, FoodID.onionChop, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.meatCook, FoodID.onionChop, FoodID.lettuceChop, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.lettuceChop, FoodID.meatCook, FoodID.onionChop, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.onionChop, FoodID.meatCook, FoodID.lettuceChop, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.onionChop, FoodID.lettuceChop, FoodID.meatCook, FoodID.bottomBun).toString(),
+&nbsp;					new FoodStack(FoodID.topBun, FoodID.lettuceChop, FoodID.onionChop, FoodID.meatCook, FoodID.bottomBun).toString()
+&nbsp;				}
+&nbsp;			);
+&nbsp;			*/
+&nbsp;	}
+&nbsp;
+&nbsp;	/**
+&nbsp;	 * Creates an entry in {@link #recipes} of recipeName:(listOfFoodStacks as a string)
+&nbsp;	 * @param recipeName The name of the recipe
+&nbsp;	 * @param listOfFoodStacks All FoodStacks which equal this recipe.
+&nbsp;	 */
+&nbsp;	public static void generateRecipes(String recipeName, Array&lt;Array&lt;FoodID&gt;&gt; listOfFoodStacks) {
+<b class="fc">&nbsp;		Array&lt;FoodStack&gt; allValidRecipes = new Array&lt;&gt;();</b>
+<b class="fc">&nbsp;		for (int i = 0; i &lt; listOfFoodStacks.size; i++) {</b>
+<b class="fc">&nbsp;			Array&lt;FoodID&gt; recipe = listOfFoodStacks.get(i);</b>
+<b class="fc">&nbsp;			allValidRecipes.add(new FoodStack(recipe));</b>
+&nbsp;		}
+<b class="fc">&nbsp;		recipes.put(recipeName, allValidRecipes);</b>
+<b class="fc">&nbsp;        recipeNames.add(recipeName);</b>
+&nbsp;	}
+&nbsp;	/**
+&nbsp;	 * Generates all the combinations (think THE1 :D) of the stuff.length for the stuff specified
+&nbsp;	 * @param &lt;T&gt; Works for any type.
+&nbsp;	 * @param stuff The items you want all combos out of
+&nbsp;	 * @return An array of arrays, containing all combos
+&nbsp;	 */
+&nbsp;	public static &lt;T&gt; Array&lt;Array&lt;T&gt;&gt; allCombos(T... stuff) {
+<b class="fc">&nbsp;		return allCombosR(new Array&lt;T&gt;(), new Array&lt;T&gt;(Array.with(stuff)));</b>
+&nbsp;	}
+&nbsp;	/**
+&nbsp;	 * Very similar to {@link #allCombos(Array, Array, Object[])}, except every combo is prepended and appended stuff.
+&nbsp;	 * E.g. Every Burger has a topBun and bottomBun, so topBun is in prepend, and bottomBun is in append,
+&nbsp;	 * while the filling is in T... stuff.
+&nbsp;	 * @param &lt;T&gt; Any type.
+&nbsp;	 * @param prepend The stuff which will appear before all combos.
+&nbsp;	 * @param append The stuff which will appear after all combos.
+&nbsp;	 * @param stuff The stuff to generate all combos of stuff.length of
+&nbsp;	 * @return An array of arrays containing all combinations with the prepend and append.
+&nbsp;	 */
+&nbsp;	private static &lt;T&gt; Array&lt;Array&lt;T&gt;&gt; allCombos(Array&lt;T&gt; prepend, Array&lt;T&gt; append, T... stuff) {
+<b class="fc">&nbsp;		Array&lt;Array&lt;T&gt;&gt; combos = allCombosR(new Array&lt;T&gt;(), new Array&lt;T&gt;(Array.with(stuff)));</b>
+<b class="fc">&nbsp;		Array&lt;Array&lt;T&gt;&gt; newCombos = new Array&lt;Array&lt;T&gt;&gt;();</b>
+<b class="fc">&nbsp;		for (Array&lt;T&gt; combo : combos) {</b>
+<b class="fc">&nbsp;			Array&lt;T&gt; newCombo = new Array&lt;T&gt;();</b>
+<b class="fc">&nbsp;			newCombo.addAll(prepend);</b>
+<b class="fc">&nbsp;			newCombo.addAll(combo);</b>
+<b class="fc">&nbsp;			newCombo.addAll(append);</b>
+<b class="fc">&nbsp;			newCombos.add(newCombo);</b>
+<b class="fc">&nbsp;		}</b>
+<b class="fc">&nbsp;		return newCombos;</b>
+&nbsp;	}
+&nbsp;	/**
+&nbsp;	 * The recursive helper function responsible for creating all combos.
+&nbsp;	 * Used exclusively by allCombos atm.
+&nbsp;	 * @param &lt;T&gt; Any type.
+&nbsp;	 * @param myList The combo being generated.
+&nbsp;	 * @param remaining The remaining elements to add to the combo.
+&nbsp;	 * @return An array containing all combos (each combo is in an array too).
+&nbsp;	 */
+&nbsp;	 private static &lt;T&gt; Array&lt;Array&lt;T&gt;&gt; allCombosR(Array&lt;T&gt; myList, Array&lt;T&gt; remaining) {
+&nbsp;		// If there&#39;s no remaining, add myList to storage by returning it in storage form
+<b class="fc">&nbsp;		if (remaining.size == 0) {</b>
+<b class="fc">&nbsp;			return new Array&lt;Array&lt;T&gt;&gt;(Array.with(myList));</b>
+&nbsp;		}
+&nbsp;		// We want to create a new branch for every single remaining item
+&nbsp;		// The newList and newRemaining is carried into each branch
+<b class="fc">&nbsp;		Array&lt;Array&lt;T&gt;&gt; storage = new Array&lt;Array&lt;T&gt;&gt;();</b>
+<b class="fc">&nbsp;		for (int i = 0; i &lt; remaining.size; i++) {</b>
+&nbsp;			// Create the newList for branch i
+<b class="fc">&nbsp;			Array&lt;T&gt; newList = new Array&lt;T&gt;();</b>
+<b class="fc">&nbsp;			newList.addAll(myList);</b>
+<b class="fc">&nbsp;			newList.add(remaining.get(i));</b>
+&nbsp;			// Create the newRemaining for branch i
+<b class="fc">&nbsp;			Array&lt;T&gt; newRemaining = new Array&lt;T&gt;();</b>
+<b class="fc">&nbsp;			newRemaining.addAll(remaining);</b>
+<b class="fc">&nbsp;			newRemaining.removeIndex(i);</b>
+&nbsp;			// Create branch i and add its storage onto our storage
+<b class="fc">&nbsp;			storage.addAll(allCombosR(newList, newRemaining));</b>
+&nbsp;		}
+<b class="fc">&nbsp;		return storage;</b>
+&nbsp;	}
+&nbsp;
+&nbsp;    public static boolean matchesRecipe(FoodStack foodStack, String recipeName) {
+&nbsp;         // First get the recipe
+<b class="fc">&nbsp;        Array&lt;FoodStack&gt; validStacks = recipes.get(recipeName);</b>
+&nbsp;        // If it doesn&#39;t exist, return false
+<b class="fc">&nbsp;        if (validStacks == null) { return false; }</b>
+&nbsp;
+&nbsp;        // For each validStack, check if the foodStack matches.
+<b class="fc">&nbsp;        for (FoodStack validStack : validStacks) {</b>
+<b class="fc">&nbsp;            if (validStack.toString().equals(foodStack.toString())) {</b>
+<b class="fc">&nbsp;                return true;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static Array&lt;FoodStack&gt; getRecipeCombos(String recipeName) {
+<b class="fc">&nbsp;        Array&lt;FoodStack&gt; recipeCombos = recipes.get(recipeName);</b>
+<b class="fc">&nbsp;        return recipeCombos;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String randomRecipe() {
+<b class="fc">&nbsp;         Random random = new Random();</b>
+<b class="fc">&nbsp;         return recipeNames.get(random.nextInt(recipeNames.size));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Outputs a random option from the {@link #recipes} of the
+&nbsp;     * recipe for {@link #recipeNames}.
+&nbsp;     * @param recipeName The name of the {@link Recipe#recipes}.
+&nbsp;     * @return {@link FoodStack} : A random {@link FoodStack} from the
+&nbsp;     *                      different ways of making the recipe for
+&nbsp;     *                      {@code recipeName}.
+&nbsp;     *                      &lt;br&gt; Returns {@code null} if nothing is found.
+&nbsp;     * */
+&nbsp;    public static FoodStack randomRecipeOption(String recipeName) {
+<b class="nc">&nbsp;        Array&lt;FoodStack&gt; options = recipes.get(recipeName);</b>
+&nbsp;        // If null, return null
+<b class="nc">&nbsp;        if (options == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;        // If not null, then return a random option.
+<b class="nc">&nbsp;        Random random = new Random();</b>
+<b class="nc">&nbsp;        return options.get(random.nextInt(options.size));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Outputs the first option added to the {@link #recipes} for
+&nbsp;     * the recipe name input.
+&nbsp;     * @param recipeName The name of the {@link Recipe} to get the first option of.
+&nbsp;     * @return {@link FoodStack} : The first {@link FoodStack} available
+&nbsp;     *                      for the recipe named {@code requestName}.
+&nbsp;     *                      &lt;br&gt; Returns {@code null} if nothing is found.
+&nbsp;     */
+&nbsp;    public static FoodStack firstRecipeOption(String recipeName) {
+<b class="nc">&nbsp;        Array&lt;FoodStack&gt; options = recipes.get(recipeName);</b>
+&nbsp;        // If null, return null
+<b class="nc">&nbsp;        if (options == null) {</b>
+<b class="nc">&nbsp;            return null;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return options.get(0);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

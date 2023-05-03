@@ -1,0 +1,202 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > GameSpritesTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">io.sl3416.undercooked.tests.game</a>
+</div>
+
+<h1>Coverage Summary for Class: GameSpritesTests (io.sl3416.undercooked.tests.game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">GameSpritesTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (29/29)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package io.sl3416.undercooked.tests.game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import game.GameSprites;
+&nbsp;import io.sl3416.undercooked.tests.GdxTestRunner;
+&nbsp;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * The type Game sprites tests.
+&nbsp; */
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class GameSpritesTests {</b>
+&nbsp;    /**
+&nbsp;     * Test GameSprites constructor for GameSprites class.
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGameSpritesConstructor() {
+<b class="fc">&nbsp;        GameSprites gameSprites = new GameSprites();</b>
+&nbsp;
+<b class="fc">&nbsp;        assertNotNull(gameSprites);</b>
+&nbsp;        // Check that resources are created
+<b class="fc">&nbsp;        assertNotNull(gameSprites.getSprite(GameSprites.SpriteID.COOK, &quot;RIGHT&quot;));</b>
+<b class="fc">&nbsp;        assertNotNull(gameSprites.getSprite(GameSprites.SpriteID.FOOD, &quot;burger&quot;));</b>
+<b class="fc">&nbsp;        assertNotNull(gameSprites.getSprite(GameSprites.SpriteID.STATION, &quot;cut&quot;));</b>
+<b class="fc">&nbsp;        assertNotNull(gameSprites.getSprite(GameSprites.SpriteID.CUSTOMER, &quot;1&quot;));</b>
+<b class="fc">&nbsp;        assertNotNull(gameSprites.getSprite(GameSprites.SpriteID.POWERUPS, &quot;speed&quot;));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test getInstance method to get an instance of the game sprites
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetInstance() {
+&nbsp;        // checks if it returns INSTANCE of GameSprite and not null
+<b class="fc">&nbsp;        assertNotNull(&quot;Did not return instance of GameSprite&quot;, GameSprites.getInstance());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test createResources method in GameSprites creates resources
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testCreateResources() {
+<b class="fc">&nbsp;        GameSprites gameSprites = GameSprites.getInstance();</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Resources were not created&quot;, gameSprites.spriteMap.size() &gt; 0);</b>
+&nbsp;
+&nbsp;        // Check the number of sprites created
+<b class="fc">&nbsp;        int expectedSpritesCount = 41;</b>
+<b class="fc">&nbsp;        int actualSpritesCount = gameSprites.spriteMap.size();</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Resources were not created&quot;, expectedSpritesCount, actualSpritesCount);</b>
+&nbsp;
+&nbsp;        // Check if a specific sprite is created
+<b class="fc">&nbsp;        Sprite sprite = gameSprites.getSprite(GameSprites.SpriteID.POWERUPS, &quot;stations&quot;);</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Resources were not created&quot;, gameSprites.spriteMap.containsValue(sprite));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test spriteKey() method in GameSprites class returns a string in the format &quot;%s-%s&quot; for the ordinal of spriteID and spriteName of gamesprite
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testSpriteKey() {
+<b class="fc">&nbsp;        GameSprites gameSprites = GameSprites.getInstance();</b>
+<b class="fc">&nbsp;        String key = gameSprites.spriteKey(GameSprites.SpriteID.COOK, &quot;DOWN&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Did not convert into a string in format \&quot;%s-%s\&quot; correctly&quot;, &quot;0-DOWN&quot;, key);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test getSprite() method in GameSprites class
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetSprite() {
+<b class="fc">&nbsp;        GameSprites gameSprites = GameSprites.getInstance();</b>
+&nbsp;
+<b class="fc">&nbsp;        Sprite expectedBurgerSprite = gameSprites.spriteMap.get(&quot;1-burger&quot;);</b>
+<b class="fc">&nbsp;        Sprite actualBurgerSprite = gameSprites.getSprite(GameSprites.SpriteID.FOOD, &quot;burger&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Sprite was not retrieved correctly&quot;, expectedBurgerSprite, actualBurgerSprite);</b>
+&nbsp;
+<b class="fc">&nbsp;        Sprite expectedCutSprite = gameSprites.spriteMap.get(&quot;2-cut&quot;);</b>
+<b class="fc">&nbsp;        Sprite actualCutSprite = gameSprites.getSprite(GameSprites.SpriteID.STATION, &quot;cut&quot;);</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Sprite was not retrieved correctly&quot;, expectedCutSprite, actualCutSprite);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Test dispose() method in GameSprites class
+&nbsp;     */
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testDispose() {
+<b class="fc">&nbsp;        GameSprites gameSprites = GameSprites.getInstance();</b>
+&nbsp;
+<b class="fc">&nbsp;        gameSprites.dispose();</b>
+&nbsp;
+&nbsp;        // Return True if spriteMap is empty after calling dispose()
+<b class="fc">&nbsp;        assertTrue(&quot;Game sprites was not cleared&quot;, gameSprites.spriteMap.isEmpty());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,223 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CreditsScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">game</a>
+</div>
+
+<h1>Coverage Summary for Class: CreditsScreen (game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CreditsScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.ScreenAdapter;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.graphics.GL20;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Stage;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Label;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Table;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;
+&nbsp;import game.ScreenController.ScreenID;
+&nbsp;import helper.Constants;
+&nbsp;import interactions.InputKey;
+&nbsp;import interactions.Interactions;
+&nbsp;
+&nbsp;/**
+&nbsp; * A {@link CreditsScreen} to give credit
+&nbsp; * to the source of the assets used.
+&nbsp; */
+&nbsp;public class CreditsScreen extends ScreenAdapter {
+&nbsp;
+<b class="nc">&nbsp;    private ScreenID prevScreenID = ScreenID.MENU;</b>
+&nbsp;    private OrthographicCamera camera;
+&nbsp;    private ScreenController screenController;
+&nbsp;    private FitViewport viewport;
+&nbsp;    private Stage stage;
+&nbsp;    private SpriteBatch batch;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link CreditsScreen}.]
+&nbsp;     * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
+&nbsp;     * @param orthographicCamera The {@link OrthographicCamera} that the game should use.
+&nbsp;     */
+<b class="nc">&nbsp;    public CreditsScreen(ScreenController screenController, OrthographicCamera orthographicCamera) {</b>
+<b class="nc">&nbsp;        this.screenController = screenController;</b>
+<b class="nc">&nbsp;        this.camera = orthographicCamera;</b>
+<b class="nc">&nbsp;        this.batch = screenController.getSpriteBatch();</b>
+&nbsp;
+<b class="nc">&nbsp;        viewport = new FitViewport(Constants.V_Width, Constants.V_Height, camera);</b>
+<b class="nc">&nbsp;        stage = new Stage(viewport, batch);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);</b>
+<b class="nc">&nbsp;        Table table = new Table();</b>
+<b class="nc">&nbsp;        table.center();</b>
+<b class="nc">&nbsp;        table.setFillParent(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label creditsLabel = new Label(&quot;Credits&quot;, font);</b>
+<b class="nc">&nbsp;        creditsLabel.setFontScale(3);</b>
+<b class="nc">&nbsp;        table.add(creditsLabel).expandX();</b>
+&nbsp;
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        String[] instructions = new String[] {</b>
+&nbsp;            &quot;Credits for the sprites: (We generally edited them a little)&quot;,
+&nbsp;            &quot;Creator: poloviiinkin&quot;,
+&nbsp;            &quot;Link to food_graphics: https://poloviiinkin.itch.io/food&quot;,
+&nbsp;            &quot;Link to other_sprites: https://poloviiinkin.itch.io/mega-pixel-art-32x32-px-icons-sprite-sheet&quot;,
+&nbsp;            &quot;Link to license: https://creativecommons.org/licenses/by-sa/4.0/deed.en&quot;,
+&nbsp;            &quot;&quot;,
+&nbsp;            &quot;Cook forward facing: http://pixelartmaker.com/art/77e4b71a43c348d&quot;,
+&nbsp;            &quot;&quot;,
+&nbsp;            &quot;Program to create the texture atlases: https://github.com/crashinvaders/gdx-texture-packer-gui/releases&quot;,
+&nbsp;            &quot;Program to create the map: https://www.mapeditor.org/&quot;
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        for (String instruction : instructions) {</b>
+<b class="nc">&nbsp;            Label instLabel = new Label(instruction, font);</b>
+<b class="nc">&nbsp;            table.add(instLabel).expandX();</b>
+<b class="nc">&nbsp;            table.row();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Label extraText = new Label(String.format(&quot;To go back, press %s&quot;, Interactions.getKeyString(InputKey.InputTypes.CREDITS)), font);</b>
+<b class="nc">&nbsp;        extraText.setFontScale(1.5F);</b>
+<b class="nc">&nbsp;        table.add(extraText);</b>
+&nbsp;
+<b class="nc">&nbsp;        stage.addActor(table);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check for user input every frame and act on specified inputs.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    public void update(float delta) {
+&nbsp;        // Check for input.
+<b class="nc">&nbsp;        Interactions.updateKeys();</b>
+<b class="nc">&nbsp;        if (Interactions.isJustPressed(InputKey.InputTypes.CREDITS)) {</b>
+<b class="nc">&nbsp;            screenController.setScreen(prevScreenID);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link CreditsScreen}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;Draws the {@link #stage} of the {@link CreditsScreen},
+&nbsp;     * which contains all the text as {@link Label}s.
+&nbsp;     * @param delta The time in seconds since the last render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(float delta) {
+<b class="nc">&nbsp;        Gdx.gl.glClearColor(0,0,0,1);</b>
+<b class="nc">&nbsp;        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</b>
+<b class="nc">&nbsp;        stage.draw();</b>
+<b class="nc">&nbsp;        this.update(delta);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the variable {@link #prevScreenID} to the input,
+&nbsp;     * which allows the {@link CreditsScreen} to return the
+&nbsp;     * player to the screen they opened it from.
+&nbsp;     * @param scID The {@link ScreenController.ScreenID} of the previous {@link ScreenAdapter}.
+&nbsp;     */
+&nbsp;    public void setPrevScreenID(ScreenID scID) {
+<b class="nc">&nbsp;        prevScreenID = scID;</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

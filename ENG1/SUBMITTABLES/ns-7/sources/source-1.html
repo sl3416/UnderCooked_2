@@ -1,0 +1,203 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AssetTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">io.sl3416.undercooked.tests</a>
+</div>
+
+<h1>Coverage Summary for Class: AssetTests (io.sl3416.undercooked.tests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AssetTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (2/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package io.sl3416.undercooked.tests;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import static org.junit.Assert.assertTrue;
+&nbsp;
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class AssetTests {</b>
+&nbsp;
+<b class="fc">&nbsp;    String[] filePaths = {</b>
+&nbsp;            &quot;atlas/cook.atlas&quot;,
+&nbsp;            &quot;atlas/cook.png&quot;,
+&nbsp;            &quot;atlas/customer.atlas&quot;,
+&nbsp;            &quot;atlas/customer.png&quot;,
+&nbsp;            &quot;atlas/food.atlas&quot;,
+&nbsp;            &quot;atlas/food.png&quot;,
+&nbsp;            &quot;atlas/powerups.atlas&quot;,
+&nbsp;            &quot;atlas/powerups.png&quot;,
+&nbsp;            &quot;atlas/station.atlas&quot;,
+&nbsp;            &quot;atlas/station.png&quot;,
+&nbsp;
+&nbsp;            &quot;cooks/control.png&quot;,
+&nbsp;            &quot;cooks/cook atlas.tpproj&quot;,
+&nbsp;            &quot;cooks/hold up.png&quot;,
+&nbsp;            &quot;cooks/hold right.png&quot;,
+&nbsp;            &quot;cooks/hold left.png&quot;,
+&nbsp;            &quot;cooks/hold down.png&quot;,
+&nbsp;            &quot;cooks/normal up.png&quot;,
+&nbsp;            &quot;cooks/normal right.png&quot;,
+&nbsp;            &quot;cooks/normal left.png&quot;,
+&nbsp;            &quot;cooks/normal down.png&quot;,
+&nbsp;
+&nbsp;            &quot;customers/Customer.png&quot;,
+&nbsp;            &quot;customers/customer.tpproj&quot;,
+&nbsp;            &quot;customers/CustomerAngry1.png&quot;,
+&nbsp;            &quot;customers/CustomerAngry2.png&quot;,
+&nbsp;
+&nbsp;            &quot;foods/Burger_BunsUpscaled.png&quot;,
+&nbsp;            &quot;foods/BottomBun.png&quot;,
+&nbsp;            &quot;foods/Burger_Buns.png&quot;,
+&nbsp;            &quot;foods/Burger.png&quot;,
+&nbsp;            &quot;foods/foods atlas.tpproj&quot;,
+&nbsp;            &quot;foods/Lettuce.png&quot;,
+&nbsp;            &quot;foods/LettuceChop.png&quot;,
+&nbsp;            &quot;foods/LettuceUpscaled.png&quot;,
+&nbsp;            &quot;foods/MargheritaPizza.png&quot;,
+&nbsp;            &quot;foods/Meat.png&quot;,
+&nbsp;            &quot;foods/MeatFried.png&quot;,
+&nbsp;            &quot;foods/Onion.png&quot;,
+&nbsp;            &quot;foods/OnionChop.png&quot;,
+&nbsp;            &quot;foods/OnionUpscaled.png&quot;,
+&nbsp;            &quot;foods/Tomato.png&quot;,
+&nbsp;            &quot;foods/TomatoChop.png&quot;,
+&nbsp;            &quot;foods/TomatoUpscaled.png&quot;,
+&nbsp;            &quot;foods/TopBun.png&quot;,
+&nbsp;
+&nbsp;            &quot;Individual_Stations/Bin.png&quot;,
+&nbsp;            &quot;Individual_Stations/Cutting_Station.png&quot;,
+&nbsp;            &quot;Individual_Stations/Fryer.png&quot;,
+&nbsp;            &quot;Individual_Stations/Lock.png&quot;,
+&nbsp;            &quot;Individual_Stations/stations.tpproj&quot;,
+&nbsp;            &quot;Individual_Stations/Table.png&quot;,
+&nbsp;            &quot;Individual_Stations/TableWithChairs.png&quot;,
+&nbsp;
+&nbsp;            &quot;Maps/StartMenuBackground.png&quot;,
+&nbsp;            &quot;Maps/Stations.png&quot;,
+&nbsp;            &quot;Maps/Stations.tsx&quot;,
+&nbsp;            &quot;Maps/Stations.xcf&quot;,
+&nbsp;            &quot;Maps/StationsMap.png&quot;,
+&nbsp;            &quot;Maps/StationsMap.tmx&quot;,
+&nbsp;            &quot;Maps/StationsMap1.tmx&quot;,
+&nbsp;            &quot;Maps/StationsMap2.tmx&quot;,
+&nbsp;
+&nbsp;            &quot;powerups/cookingSpeed.png&quot;,
+&nbsp;            &quot;powerups/money.png&quot;,
+&nbsp;            &quot;powerups/speed.png&quot;,
+&nbsp;            &quot;powerups/stations.png&quot;,
+&nbsp;            &quot;powerups/time.png&quot;,
+&nbsp;
+&nbsp;            &quot;Sprites/xcfs/Burger.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Burger_Buns.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Cutting_Station.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Fryer.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Lettuce.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/MargheritaPizza.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Meat.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Onion.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Table.xcf&quot;,
+&nbsp;            &quot;Sprites/xcfs/Tomato.xcf&quot;
+&nbsp;    };
+&nbsp;
+&nbsp;    @Test
+&nbsp;    public void testAssetExists() {
+<b class="fc">&nbsp;        for (String filePath : filePaths) {</b>
+<b class="fc">&nbsp;            assertTrue(&quot;The asset file path &quot; + filePath + &quot; does not exist&quot;, Gdx.files.internal(filePath).exists());</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

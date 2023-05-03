@@ -1,0 +1,544 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Cook</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cooks</a>
+</div>
+
+<h1>Coverage Summary for Class: Cook (cooks)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Cook</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/129)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Cook$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Cook$Facing</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/136)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cooks;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.physics.box2d.Body;
+&nbsp;import com.badlogic.gdx.physics.box2d.World;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;import food.FoodItem;
+&nbsp;import game.GameScreen;
+&nbsp;import game.GameSprites;
+&nbsp;import static helper.Constants.PPM;
+&nbsp;
+&nbsp;import food.FoodStack;
+&nbsp;import food.FoodItem.FoodID;
+&nbsp;import game.PowerupStatic;
+&nbsp;import game.StateOfGame;
+&nbsp;import interactions.InputKey;
+&nbsp;import interactions.Interactions;
+&nbsp;
+&nbsp;/** A {@link GameEntity} that the player controls to interact with the game. */
+&nbsp;public class Cook extends GameEntity {
+&nbsp;
+&nbsp;    /** The cook&#39;s current sprite. */
+&nbsp;    /**test */
+&nbsp;    private Sprite sprite;
+&nbsp;    /** The control arrow sprite. */
+&nbsp;    private Sprite controlSprite;
+&nbsp;    private GameSprites gameSprites;
+&nbsp;    private CookInteractor cookInteractor;
+&nbsp;    private GameScreen gameScreen;
+&nbsp;    /** The direction this cook is facing. */
+&nbsp;    private Facing dir;
+&nbsp;    /** The cook&#39;s stack of things, containing all the items they&#39;re holding. Index 0 = Top Item */
+&nbsp;    public FoodStack foodStack;
+&nbsp;    /** The WASD/movement inputs currently being made.
+&nbsp;     * Note that if S and D are being input at the same time, then
+&nbsp;     * inputs = { Facing.RIGHT, Facing.DOWN }
+&nbsp;     */
+&nbsp;    private Array&lt;Facing&gt; inputs;
+&nbsp;
+&nbsp;    public FoodStack pizzaIngred;
+&nbsp;    public FoodStack jacketIngred;
+&nbsp;
+&nbsp;    public int saveID;
+&nbsp;
+&nbsp;    /** All possible directions the cook can be facing. */
+<b class="nc">&nbsp;    enum Facing {</b>
+<b class="nc">&nbsp;        RIGHT,</b>
+<b class="nc">&nbsp;        LEFT,</b>
+<b class="nc">&nbsp;        UP,</b>
+<b class="nc">&nbsp;        DOWN,</b>
+<b class="nc">&nbsp;        NONE</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Cook Constructor.
+&nbsp;     * @param width Pixel Width of the {@link Cook}&#39;s {@link Body}.
+&nbsp;     * @param height Pixel Height of the {@link Cook}&#39;s {@link Body}.
+&nbsp;     * @param body The {@link World}.{@link Body} which will become the {@link Cook}
+&nbsp;     * @param gameScreen The {@link GameScreen} that creates the {@link Cook}.
+&nbsp;     * @param saveId The number that is assigned to the {@link Cook} giving it a unique index for the save file.
+&nbsp;     */
+&nbsp;    public Cook(float width, float height, Body body, GameScreen gameScreen, int saveId) {
+<b class="nc">&nbsp;        super(width, height, body);</b>
+<b class="nc">&nbsp;        this.dir = Facing.DOWN;</b>
+<b class="nc">&nbsp;        this.speed = 10f;</b>
+&nbsp;        // this.gameScreen = gameScreen;
+<b class="nc">&nbsp;        this.gameSprites = GameSprites.getInstance();</b>
+<b class="nc">&nbsp;        this.controlSprite = gameSprites.getSprite(GameSprites.SpriteID.COOK,&quot;control&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        this.saveID = saveId;</b>
+<b class="nc">&nbsp;        this.gameScreen = gameScreen;</b>
+&nbsp;
+&nbsp;        // Initialize FoodStack
+<b class="nc">&nbsp;        this.foodStack = new FoodStack();</b>
+&nbsp;
+<b class="nc">&nbsp;        this.pizzaIngred = new FoodStack();</b>
+<b class="nc">&nbsp;        pizzaIngred.addStack(FoodID.cheese);</b>
+<b class="nc">&nbsp;        pizzaIngred.addStack(FoodID.dough);</b>
+<b class="nc">&nbsp;        pizzaIngred.addStack(FoodID.tomatoChop);</b>
+&nbsp;
+<b class="nc">&nbsp;        this.jacketIngred = new FoodStack();</b>
+<b class="nc">&nbsp;        jacketIngred.addStack(FoodID.rawPotato);</b>
+<b class="nc">&nbsp;        jacketIngred.addStack(FoodID.cheese);</b>
+&nbsp;
+&nbsp;        // Input array, with the order of inputs the user has in what direction.
+&nbsp;        // The oldest button pressed is the one used. Pressing the opposite key removes them.
+<b class="nc">&nbsp;        this.inputs = new Array&lt;&gt;();</b>
+&nbsp;
+&nbsp;        // Set the sprite
+<b class="nc">&nbsp;        this.setSprite();</b>
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        float cookInteractorSize = 32;</b>
+&nbsp;
+<b class="nc">&nbsp;        this.cookInteractor = new CookInteractor(x,y,cookInteractorSize);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /** Responsible for processing user input information into {@link #inputs}, {@link #velX} and {@link #velY}. */
+&nbsp;    public void userInput() {
+<b class="nc">&nbsp;        velX = 0F;</b>
+<b class="nc">&nbsp;        velY = 0F;</b>
+<b class="nc">&nbsp;        if(Interactions.isPressed(InputKey.InputTypes.COOK_RIGHT))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            velX += 1;</b>
+<b class="nc">&nbsp;            if (!inputs.contains(Facing.RIGHT, true)) {</b>
+<b class="nc">&nbsp;                inputs.add(Facing.RIGHT);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            inputs.removeValue(Facing.RIGHT,true);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(Interactions.isPressed(InputKey.InputTypes.COOK_LEFT))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            velX += -1;</b>
+<b class="nc">&nbsp;            if (!inputs.contains(Facing.LEFT, true)) {</b>
+<b class="nc">&nbsp;                inputs.add(Facing.LEFT);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            inputs.removeValue(Facing.LEFT,true);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(Interactions.isPressed(InputKey.InputTypes.COOK_UP))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            velY += 1;</b>
+<b class="nc">&nbsp;            if (!inputs.contains(Facing.UP, true)) {</b>
+<b class="nc">&nbsp;                inputs.add(Facing.UP);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            inputs.removeValue(Facing.UP,true);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(Interactions.isPressed(InputKey.InputTypes.COOK_DOWN))</b>
+&nbsp;        {
+<b class="nc">&nbsp;            velY += -1;</b>
+<b class="nc">&nbsp;            if (!inputs.contains(Facing.DOWN, true)) {</b>
+<b class="nc">&nbsp;                inputs.add(Facing.DOWN);</b>
+&nbsp;            }
+&nbsp;        } else {
+<b class="nc">&nbsp;            inputs.removeValue(Facing.DOWN,true);</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        setDir();</b>
+&nbsp;
+<b class="nc">&nbsp;        for (InputKey inputKey : Interactions.getInputKeys(Interactions.InputID.COOK_INTERACT)) {</b>
+<b class="nc">&nbsp;            if (Gdx.input.isKeyJustPressed(inputKey.getKey())) {</b>
+<b class="nc">&nbsp;                cookInteractor.checkCollisions(this, inputKey.getType());</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        if(PowerupStatic.powerups.get(&quot;SpeedIncr&quot;) == Boolean.TRUE){</b>
+<b class="nc">&nbsp;            this.speed = 15F;</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        body.setLinearVelocity(velX * speed,velY * speed);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The update function for the {@link Cook}, which updates the {@link Cook}&#39;s
+&nbsp;     * {@link #x} and {@link #y} values, and updates the position of the
+&nbsp;     * {@link Cook}&#39;s {@link CookInteractor}.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void update(float delta) {
+<b class="nc">&nbsp;        x = body.getPosition().x*PPM;</b>
+<b class="nc">&nbsp;        y = body.getPosition().y*PPM;</b>
+<b class="nc">&nbsp;        this.cookInteractor.updatePosition(x,y,dir);</b>
+<b class="nc">&nbsp;        testFoodStack();</b>
+<b class="nc">&nbsp;        saveVariables();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A function to test the {@link Cook}&#39;s {@link FoodStack} for mergable {@link FoodItem}s
+&nbsp;     * to combine into compound food such as Pizza.
+&nbsp;     */
+&nbsp;    public void testFoodStack(){
+<b class="nc">&nbsp;        Array&lt;FoodID&gt; currentFoodStack = foodStack.getStack();</b>
+<b class="nc">&nbsp;        Array&lt;FoodID&gt; pizzaIngredients = pizzaIngred.getStack();</b>
+<b class="nc">&nbsp;        Array&lt;FoodID&gt; jacketIngredients = jacketIngred.getStack();</b>
+<b class="nc">&nbsp;        if(currentFoodStack.containsAll(pizzaIngredients, true)){</b>
+<b class="nc">&nbsp;            foodStack.removeComponents(pizzaIngredients);</b>
+<b class="nc">&nbsp;            foodStack.addStack(FoodID.uc_pizza);</b>
+<b class="nc">&nbsp;        } else if (currentFoodStack.containsAll(jacketIngredients, true)){</b>
+<b class="nc">&nbsp;            foodStack.removeComponents(jacketIngredients);</b>
+<b class="nc">&nbsp;            foodStack.addStack(FoodID.rawJacketPotato);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Update the current {@link Sprite} of the {@link Cook}.
+&nbsp;     */
+&nbsp;    private void setSprite() {
+&nbsp;        // Set up sprite string
+<b class="nc">&nbsp;        String spriteName = &quot;&quot;;</b>
+&nbsp;        // If holding something, add &quot;h&quot; to the start of the sprite name.
+<b class="nc">&nbsp;        if (foodStack.size() &gt; 0) {</b>
+<b class="nc">&nbsp;            spriteName += &quot;h&quot;;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        sprite = gameSprites.getSprite(GameSprites.SpriteID.COOK, spriteName + dir);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Render the {@link Cook} and their {@link FoodStack}.
+&nbsp;     * @param batch The {@link SpriteBatch} that the {@link Cook} will render using.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(SpriteBatch batch) {
+<b class="nc">&nbsp;        setSprite();</b>
+<b class="nc">&nbsp;        sprite.setPosition(x-width/2-2.5F,y-height/2); // -2.5 for a similar reason to the below one</b>
+<b class="nc">&nbsp;        this.sprite.setSize(47.5F,70);</b>
+&nbsp;
+&nbsp;        // If the cook is looking anywhere but down, draw the food first
+<b class="nc">&nbsp;        if (dir != Facing.DOWN) {</b>
+<b class="nc">&nbsp;            renderFood(batch);</b>
+<b class="nc">&nbsp;            sprite.draw(batch);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            sprite.draw(batch);</b>
+<b class="nc">&nbsp;            renderFood(batch);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void renderControlArrow(SpriteBatch batch) {
+<b class="nc">&nbsp;        controlSprite.setSize(32,22F);</b>
+<b class="nc">&nbsp;        controlSprite.setPosition(x-controlSprite.getWidth()/2,</b>
+<b class="nc">&nbsp;                y-controlSprite.getHeight()/4 + sprite.getHeight());</b>
+<b class="nc">&nbsp;        controlSprite.draw(batch);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Debug rendering using the {@link SpriteBatch}. Unused.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void renderDebug(SpriteBatch batch) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Rendering using the {@link ShapeRenderer}. Unused.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to draw.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void renderShape(ShapeRenderer shape) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Debug rendering using the {@link ShapeRenderer}. Unused.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to draw.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void renderShapeDebug(ShapeRenderer shape) {
+<b class="nc">&nbsp;        cookInteractor.renderDebug(shape);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Return the X pixel offset from the cook&#39;s position that the cook&#39;s FoodStack requires for rendering.*/
+&nbsp;    private float foodRelativeX(Cook.Facing dir) {
+<b class="nc">&nbsp;        switch (dir) {</b>
+&nbsp;            case RIGHT:
+<b class="nc">&nbsp;                return 30F;</b>
+&nbsp;            case LEFT:
+<b class="nc">&nbsp;                return -30F;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;                return 0F;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /** Return the Y pixel offset from the cook&#39;s position that the cook&#39;s FoodStack requires for rendering.*/
+&nbsp;    private float foodRelativeY(Cook.Facing dir) {
+<b class="nc">&nbsp;        switch (dir) {</b>
+&nbsp;            case UP:
+<b class="nc">&nbsp;                return -14F;</b>
+&nbsp;            case DOWN:
+<b class="nc">&nbsp;                return -25F;</b>
+&nbsp;            case LEFT:
+&nbsp;            case RIGHT:
+<b class="nc">&nbsp;                return -24F;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;                return 0F;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Renders the {@link FoodStack} of the {@link Cook} visually.
+&nbsp;     * @param batch The {@link SpriteBatch} that the {@link Cook} will render using.
+&nbsp;     */
+&nbsp;    private void renderFood(SpriteBatch batch) {
+&nbsp;        // Loop through the items in the food stack.
+&nbsp;        // It is done from the end of the stack to the start because the stack&#39;s top is
+&nbsp;        // at 0, and the bottom at the end.
+<b class="nc">&nbsp;        Array&lt;FoodID&gt; foodList = foodStack.getStack();</b>
+<b class="nc">&nbsp;        float xOffset = foodRelativeX(dir), yOffset = foodRelativeY(dir);</b>
+&nbsp;        // Get offset based on direction.
+&nbsp;
+<b class="nc">&nbsp;        float drawX = x, drawY = y + 27F;</b>
+&nbsp;        /*if (foodStack.size() &gt; 0) {
+&nbsp;            foodStack.popStack();
+&nbsp;        }*/
+<b class="nc">&nbsp;        for (int i = foodList.size-1 ; i &gt;= 0 ; i--) {</b>
+<b class="nc">&nbsp;            Sprite foodSprite = gameSprites.getSprite(GameSprites.SpriteID.FOOD, String.valueOf(foodList.get(i)));</b>
+<b class="nc">&nbsp;            Float drawInc = FoodItem.foodHeights.get(foodList.get(i));</b>
+<b class="nc">&nbsp;            if (drawInc == null) {</b>
+<b class="nc">&nbsp;                drawY += 5F;</b>
+<b class="nc">&nbsp;                continue;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            foodSprite.setScale(2F);</b>
+<b class="nc">&nbsp;            foodSprite.setPosition(drawX-foodSprite.getWidth()/2+xOffset,drawY+foodSprite.getHeight()/2F+yOffset);</b>
+<b class="nc">&nbsp;            foodSprite.draw(batch);</b>
+<b class="nc">&nbsp;            drawY += drawInc;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Return the opposite direction to the input direction.
+&nbsp;     * @param direction The input direction you want an opposite for.
+&nbsp;     * @return The opposite direction to the input.
+&nbsp;     */
+&nbsp;    private Facing opposite(Facing direction) {
+<b class="nc">&nbsp;        switch(direction) {</b>
+&nbsp;            case UP:
+<b class="nc">&nbsp;                return Facing.DOWN;</b>
+&nbsp;            case DOWN:
+<b class="nc">&nbsp;                return Facing.UP;</b>
+&nbsp;            case RIGHT:
+<b class="nc">&nbsp;                return Facing.LEFT;</b>
+&nbsp;            case LEFT:
+<b class="nc">&nbsp;                return Facing.RIGHT;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;                return Facing.NONE;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Return the direction 90 degrees clockwise to the input direction.
+&nbsp;     * @param direction The input direction you want a 90c rotation for.
+&nbsp;     * @return The 90c rotation direction to the input.
+&nbsp;     */
+&nbsp;    private Facing rotate90c(Facing direction) {
+<b class="nc">&nbsp;        switch(direction) {</b>
+&nbsp;            case UP:
+<b class="nc">&nbsp;                return Facing.RIGHT;</b>
+&nbsp;            case DOWN:
+<b class="nc">&nbsp;                return Facing.LEFT;</b>
+&nbsp;            case RIGHT:
+<b class="nc">&nbsp;                return Facing.DOWN;</b>
+&nbsp;            case LEFT:
+<b class="nc">&nbsp;                return Facing.UP;</b>
+&nbsp;            default:
+<b class="nc">&nbsp;                return Facing.NONE;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * A function to find where the {@link Cook} should be
+&nbsp;     * facing depending on the order of inputs, the latest
+&nbsp;     * being prioritized, and ignoring any inputs that are
+&nbsp;     * input with their opposite.
+&nbsp;     *
+&nbsp;     * For example, pressing {Left, Up, Right} in the same
+&nbsp;     * order. Right is prioritized as it is the newest input,
+&nbsp;     * but the opposite Left was pressed, so Up is the
+&nbsp;     * final choice of direction.
+&nbsp;     */
+&nbsp;    private void setDir() {
+&nbsp;        // If the size of inputs is 0, just return and change nothing.
+<b class="nc">&nbsp;        if (inputs.size == 0) { return; }</b>
+&nbsp;
+&nbsp;        // Possible next direction is the direction that was just input
+<b class="nc">&nbsp;        Facing possibleNext = inputs.get(inputs.size-1);</b>
+<b class="nc">&nbsp;        Facing possibleOpp = opposite(possibleNext);</b>
+&nbsp;        // If there is the opposite input...
+<b class="nc">&nbsp;        if (inputs.contains(possibleOpp, true)) {</b>
+&nbsp;            // Now check that the same does not apply to the other directions.
+<b class="nc">&nbsp;            boolean hasPossibleRotated = inputs.contains(rotate90c(possibleNext), true),</b>
+<b class="nc">&nbsp;                    hasOppRotated = inputs.contains(rotate90c(possibleOpp),true);</b>
+<b class="nc">&nbsp;            if (hasPossibleRotated ^ hasOppRotated) {</b>
+&nbsp;                // If it doesn&#39;t, set the direction to the one that is there.
+<b class="nc">&nbsp;                if (hasPossibleRotated) {</b>
+<b class="nc">&nbsp;                    dir = rotate90c(possibleNext);</b>
+&nbsp;                } else {
+<b class="nc">&nbsp;                    dir = rotate90c(possibleOpp);</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;            // If both or neither of them are there, then change nothing.
+<b class="nc">&nbsp;        } else {</b>
+&nbsp;            // If the opposite isn&#39;t there, it&#39;s fine to switch.
+<b class="nc">&nbsp;            dir = possibleNext;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    private void saveVariables(){
+<b class="nc">&nbsp;        StateOfGame.getInstance().cooksFoodStacks[saveID] = this.foodStack;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,224 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Pantry</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">stations</a>
+</div>
+
+<h1>Coverage Summary for Class: Pantry (stations)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Pantry</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package stations;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+&nbsp;import com.badlogic.gdx.math.Rectangle;
+&nbsp;import com.badlogic.gdx.utils.Array;
+&nbsp;import cooks.Cook;
+&nbsp;import food.FoodItem;
+&nbsp;import interactions.InputKey;
+&nbsp;
+&nbsp;/**
+&nbsp; * A {@link Pantry} class used to create Pantries that allow
+&nbsp; * {@link Cook}s to take the {@link FoodItem} that is assigned
+&nbsp; * to the {@link Pantry}.
+&nbsp; */
+&nbsp;public class Pantry extends CookInteractable {
+&nbsp;
+&nbsp;    FoodItem.FoodID foodID;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link Pantry}.
+&nbsp;     * @param rectangle The collision and interaction area of the {@link Pantry}.
+&nbsp;     */
+&nbsp;    public Pantry(Rectangle rectangle) {
+<b class="nc">&nbsp;        super(rectangle);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Assigns a {@link FoodItem} to the {@link Pantry} that the
+&nbsp;     * {@link Cook} will take from it.
+&nbsp;     * @param foodID The {@link FoodItem} to assign to the {@link Pantry}.
+&nbsp;     */
+&nbsp;    public void setItem(FoodItem.FoodID foodID) {
+<b class="nc">&nbsp;        this.foodID = foodID;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function that allows a {@link Cook} to interact with the {@link Pantry}.
+&nbsp;     * &lt;br&gt;If the {@link Cook} uses either the {@link InputKey.InputTypes#USE} or
+&nbsp;     * {@link InputKey.InputTypes#PICK_UP}, then they will pick up the
+&nbsp;     * {@link FoodItem} from it.
+&nbsp;     * @param cook The cook that interacted with the {@link CookInteractable}.
+&nbsp;     * @param inputType The type of {@link InputKey.InputTypes} the player made with
+&nbsp;     *                  the {@link CookInteractable}.
+&nbsp;     */
+&nbsp;    public void interact(Cook cook, InputKey.InputTypes inputType) {
+&nbsp;        // If the input is to pick up:
+<b class="nc">&nbsp;        if (inputType == InputKey.InputTypes.PICK_UP || inputType == InputKey.InputTypes.USE) {</b>
+&nbsp;            // Add the new FoodItem onto the stack.
+<b class="nc">&nbsp;            FoodItem.FoodID addedFood = foodID;</b>
+&nbsp;            // If the foodID is &quot;bun&quot;, check which bun it should add.
+<b class="nc">&nbsp;            if (foodID == FoodItem.FoodID.bun) {</b>
+<b class="nc">&nbsp;                boolean bottom = true;</b>
+&nbsp;                // Look through the stack, and alternate between top bun or bottom bun.
+<b class="nc">&nbsp;                Array&lt;FoodItem.FoodID&gt; foodItems = cook.foodStack.getStack();</b>
+<b class="nc">&nbsp;                for (FoodItem.FoodID foodItem : foodItems) {</b>
+<b class="nc">&nbsp;                    if (foodItem == FoodItem.FoodID.bottomBun) {</b>
+<b class="nc">&nbsp;                        bottom = false;</b>
+<b class="nc">&nbsp;                        break;</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                    if (foodItem == FoodItem.FoodID.topBun) {</b>
+<b class="nc">&nbsp;                        bottom = true;</b>
+<b class="nc">&nbsp;                        break;</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;                addedFood = bottom ? FoodItem.FoodID.bottomBun : FoodItem.FoodID.topBun;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            cook.foodStack.addStack(addedFood);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to update the {@link Pantry}.
+&nbsp;     * It is unused.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void update(float delta) { }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Pantry}.
+&nbsp;     * It is unused.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void render(SpriteBatch batch) { }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Pantry}&#39;s
+&nbsp;     * debug visuals.
+&nbsp;     * It is unused.
+&nbsp;     * @param batch The {@link SpriteBatch} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void renderDebug(SpriteBatch batch) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Pantry}.
+&nbsp;     * It is unused.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to render.
+&nbsp;     */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public void renderShape(ShapeRenderer shape) { }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link Pantry}&#39;s
+&nbsp;     * debug visuals.
+&nbsp;     * It is unused.
+&nbsp;     * @param shape The {@link ShapeRenderer} used to render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void renderShapeDebug(ShapeRenderer shape) {
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

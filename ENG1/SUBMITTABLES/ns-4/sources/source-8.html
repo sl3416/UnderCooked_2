@@ -1,0 +1,254 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > InstructionScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">game</a>
+</div>
+
+<h1>Coverage Summary for Class: InstructionScreen (game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InstructionScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.ScreenAdapter;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.graphics.GL20;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Stage;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Label;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Table;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;
+&nbsp;import game.ScreenController.ScreenID;
+&nbsp;import helper.Constants;
+&nbsp;import interactions.InputKey;
+&nbsp;import interactions.Interactions;
+&nbsp;
+&nbsp;/**
+&nbsp; * The {@link InstructionScreen}, which provides the
+&nbsp; * player with instructions on how to play the game.
+&nbsp; */
+&nbsp;public class InstructionScreen extends ScreenAdapter {
+&nbsp;
+<b class="nc">&nbsp;    private ScreenID prevScreenID = ScreenID.MENU;</b>
+&nbsp;    private OrthographicCamera camera;
+&nbsp;    private ScreenController screenController;
+&nbsp;    private FitViewport viewport;
+&nbsp;    private Stage stage;
+&nbsp;    private SpriteBatch batch;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link PauseScreen}.
+&nbsp;     * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
+&nbsp;     * @param orthographicCamera The {@link OrthographicCamera} that the game should use.
+&nbsp;     */
+<b class="nc">&nbsp;    public InstructionScreen(ScreenController screenController, OrthographicCamera orthographicCamera) {</b>
+<b class="nc">&nbsp;        this.screenController = screenController;</b>
+<b class="nc">&nbsp;        this.camera = orthographicCamera;</b>
+<b class="nc">&nbsp;        this.batch = screenController.getSpriteBatch();</b>
+&nbsp;
+<b class="nc">&nbsp;        viewport = new FitViewport(Constants.V_Width, Constants.V_Height, camera);</b>
+<b class="nc">&nbsp;        stage = new Stage(viewport, batch);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);</b>
+<b class="nc">&nbsp;        Table table = new Table();</b>
+<b class="nc">&nbsp;        table.center();</b>
+<b class="nc">&nbsp;        table.setFillParent(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label gameOverLabel = new Label(&quot;Instructions&quot;, font);</b>
+<b class="nc">&nbsp;        gameOverLabel.setFontScale(2);</b>
+<b class="nc">&nbsp;        table.add(gameOverLabel).expandX();</b>
+&nbsp;
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        String[] instructions = new String[] {</b>
+<b class="nc">&nbsp;                String.format(&quot;MOVE using WASD keys/Arrow keys&quot;),</b>
+&nbsp;                &quot;&quot;,
+<b class="nc">&nbsp;                String.format(&quot;SWAP COOKS using %s.&quot;,Interactions.getKeyString(InputKey.InputTypes.COOK_SWAP)),</b>
+&nbsp;                &quot;&quot;,
+<b class="nc">&nbsp;                String.format(&quot;USE A STATION using %s while facing it.&quot;, Interactions.getKeyString(InputKey.InputTypes.USE)),</b>
+&nbsp;                &quot;&quot;,
+<b class="nc">&nbsp;                String.format(&quot;PICKUP ITEMS using %s.&quot;, Interactions.getKeyString(InputKey.InputTypes.PICK_UP)),</b>
+&nbsp;                &quot;Pantries have an infinite number of resources, and the Cook has no carry limit.&quot;,
+&nbsp;                &quot;&quot;,
+<b class="nc">&nbsp;                String.format(&quot;PUT DOWN ITEMS using %s.&quot;, Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),</b>
+&nbsp;                &quot;Counters can do this for any item, but preparation stations require valid ingredients.&quot;,
+&nbsp;                &quot;&quot;,
+<b class="nc">&nbsp;                String.format(&quot;INGREDIENT PREP requires using (%s) on the station until bar is full.&quot;, Interactions.getKeyString(InputKey.InputTypes.USE)),</b>
+&nbsp;                // // I feel the below are unnecessary and the player can figure this out themselves.
+&nbsp;                // &quot;&quot;,
+&nbsp;                // &quot;Buns are added to the stack by giving you the opposite of the highest bun,&quot;,
+&nbsp;                // &quot;This means if your highest bun is a bottom bun, then you&#39;ll get a top bun.&quot;,
+&nbsp;                // &quot;&quot;,
+&nbsp;                &quot;&quot;,
+<b class="nc">&nbsp;                String.format(&quot;TRASH ITEMS with the bin. (%s or %s)&quot;,</b>
+<b class="nc">&nbsp;                        Interactions.getKeyString(InputKey.InputTypes.USE),</b>
+<b class="nc">&nbsp;                        Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),</b>
+&nbsp;                &quot;&quot;,
+&nbsp;                &quot;Each customer has a range of different foods they can request from.&quot;,
+&nbsp;                &quot;You can give them their request by remaking the recipe shown on the right,&quot;,
+<b class="nc">&nbsp;                String.format(&quot;and then using (%s) the serving counter while holding it.&quot;,Interactions.getKeyString(InputKey.InputTypes.USE)),</b>
+&nbsp;                &quot;&quot;,
+&nbsp;                &quot;Only one customer&#39;s order is shown at a time. At any time you may interact with any&quot;,
+<b class="nc">&nbsp;                String.format(&quot;customer to take their order, appearing on the right. (%s, %s or %s)&quot;,</b>
+<b class="nc">&nbsp;                        Interactions.getKeyString(InputKey.InputTypes.USE),</b>
+<b class="nc">&nbsp;                        Interactions.getKeyString(InputKey.InputTypes.PICK_UP),</b>
+<b class="nc">&nbsp;                        Interactions.getKeyString(InputKey.InputTypes.PUT_DOWN)),</b>
+&nbsp;                &quot;&quot;,
+&nbsp;                &quot;When power-ups appear, you can click them to gain benefits&quot;,
+&nbsp;                &quot;&quot;,
+&nbsp;                &quot;To make Jacket Potatoes and Pizza, just hold the ingredients shown in the recipe and you will create a single uncooked food from them.&quot;,
+&nbsp;                &quot;&quot;,
+&nbsp;                &quot;You can save your game in the pause menu and load the last saved game from the main menu. Only one saved game is supported.&quot;,
+&nbsp;                &quot;&quot;,
+<b class="nc">&nbsp;                String.format(&quot;PAUSE using %s.&quot;, Interactions.getKeyString(InputKey.InputTypes.PAUSE)),</b>
+&nbsp;                &quot;&quot;
+&nbsp;        };
+&nbsp;
+<b class="nc">&nbsp;        for (String instruction : instructions) {</b>
+<b class="nc">&nbsp;            Label instLabel = new Label(instruction, font);</b>
+<b class="nc">&nbsp;            instLabel.setFontScale(0.9f);</b>
+<b class="nc">&nbsp;            table.add(instLabel).expandX();</b>
+<b class="nc">&nbsp;            table.row();</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        Label extraText = new Label(&quot;GO BACK, PRESS I&quot;, font);</b>
+<b class="nc">&nbsp;        extraText.setFontScale(1.5F);</b>
+<b class="nc">&nbsp;        table.add(extraText);</b>
+&nbsp;
+<b class="nc">&nbsp;        stage.addActor(table);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check for user input every frame and act on specified inputs.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    public void update(float delta) {
+&nbsp;        // Check for input.
+<b class="nc">&nbsp;        Interactions.updateKeys();</b>
+<b class="nc">&nbsp;        if (Interactions.isJustPressed(InputKey.InputTypes.INSTRUCTIONS)) {</b>
+<b class="nc">&nbsp;            screenController.setScreen(prevScreenID);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link PauseScreen}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;Draws the {@link #stage} of the {@link PauseScreen},
+&nbsp;     * which contains all the text as {@link Label}s.
+&nbsp;     * @param delta The time in seconds since the last render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(float delta) {
+<b class="nc">&nbsp;        Gdx.gl.glClearColor(0,0,0,1);</b>
+<b class="nc">&nbsp;        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</b>
+<b class="nc">&nbsp;        stage.draw();</b>
+<b class="nc">&nbsp;        this.update(delta);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Sets the variable {@link #prevScreenID} to the input,
+&nbsp;     * which allows the {@link PauseScreen} to return the
+&nbsp;     * player to the screen they opened it from.
+&nbsp;     * @param scID The {@link ScreenController.ScreenID} of the previous {@link ScreenAdapter}.
+&nbsp;     */
+&nbsp;    public void setPrevScreenID(ScreenID scID) {
+<b class="nc">&nbsp;        prevScreenID = scID;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>

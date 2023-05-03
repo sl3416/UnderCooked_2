@@ -1,0 +1,295 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MenuScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">game</a>
+</div>
+
+<h1>Coverage Summary for Class: MenuScreen (game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MenuScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/90)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.*;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.graphics.GL20;
+&nbsp;import com.badlogic.gdx.graphics.OrthographicCamera;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+&nbsp;import com.badlogic.gdx.graphics.g2d.Sprite;
+&nbsp;import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Stage;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Label;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.Table;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;import com.badlogic.gdx.utils.viewport.Viewport;
+&nbsp;
+&nbsp;import game.ScreenController.ScreenID;
+&nbsp;import helper.Constants;
+&nbsp;import interactions.InputKey;
+&nbsp;import interactions.Interactions;
+&nbsp;
+&nbsp;/**
+&nbsp; * The {@link MenuScreen}, which provides the player with
+&nbsp; * a few options of inputs, which do different things.
+&nbsp; * One of which is to change to the {@link GameScreen} and
+&nbsp; * play the game.
+&nbsp; */
+&nbsp;public class MenuScreen extends ScreenAdapter {
+&nbsp;
+&nbsp;    private ScreenController screenController;
+&nbsp;    private OrthographicCamera camera;
+&nbsp;    private SpriteBatch batch;
+&nbsp;
+&nbsp;    private Viewport viewport;
+&nbsp;    private Stage stage;
+&nbsp;    private Sprite backgroundSprite;
+<b class="nc">&nbsp;    private int nCustomers=5;</b>
+&nbsp;    private Label startSLabel;
+&nbsp;    private Label startELabel;
+<b class="nc">&nbsp;    public static String difficulty = &quot;Normal&quot;;</b>
+<b class="nc">&nbsp;    public static boolean loading = false;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The constructor for the {@link MenuScreen}.
+&nbsp;     * @param screenController The {@link ScreenController} of the {@link ScreenAdapter}.
+&nbsp;     * @param orthographicCamera The {@link OrthographicCamera} that the game should use.
+&nbsp;     */
+<b class="nc">&nbsp;    public MenuScreen(ScreenController screenController, OrthographicCamera orthographicCamera) {</b>
+<b class="nc">&nbsp;        this.screenController = screenController;</b>
+<b class="nc">&nbsp;        this.camera = orthographicCamera;</b>
+<b class="nc">&nbsp;        this.batch = screenController.getSpriteBatch();</b>
+&nbsp;
+<b class="nc">&nbsp;        viewport = new FitViewport(Constants.V_Width, Constants.V_Height, camera);</b>
+<b class="nc">&nbsp;        stage = new Stage(viewport, batch);</b>
+<b class="nc">&nbsp;        this.backgroundSprite = new Sprite(new Texture(&quot;Maps/StartMenuBackground.png&quot;));</b>
+&nbsp;
+<b class="nc">&nbsp;        Label.LabelStyle font = new Label.LabelStyle(new BitmapFont(), Color.WHITE);</b>
+<b class="nc">&nbsp;        Table table = new Table();</b>
+<b class="nc">&nbsp;        table.center();</b>
+<b class="nc">&nbsp;        table.setFillParent(true);</b>
+&nbsp;
+<b class="nc">&nbsp;        Label welcomeLabel = new Label(&quot;UNDERCOOKED&quot;, font);</b>
+<b class="nc">&nbsp;        table.add(welcomeLabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        startSLabel = new Label(String.format(&quot;PRESS %s TO START SCENARIO MODE (%s CUSTOMERS)&quot;,Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(),nCustomers), font);</b>
+<b class="nc">&nbsp;        table.add(startSLabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        Label scenarioLabel = new Label(&quot;use up and down arrow keys to change customer count&quot;, font);</b>
+<b class="nc">&nbsp;        table.add(scenarioLabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        table.add(new Label(&quot; &quot;,font)).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        startELabel = new Label(String.format(&quot;PRESS %s TO START ENDLESS MODE (%s)&quot;,Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()), font);</b>
+<b class="nc">&nbsp;        table.add(startELabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        Label endlessLabel = new Label(&quot;use B, N or M to control difficulty&quot;, font);</b>
+<b class="nc">&nbsp;        table.add(endlessLabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        table.add(new Label(&quot; &quot;,font)).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        Label instructionLabel = new Label(String.format(&quot;PRESS %s FOR INSTRUCTIONS&quot;,Interactions.getKeyString(InputKey.InputTypes.INSTRUCTIONS).toUpperCase()), font);</b>
+<b class="nc">&nbsp;        table.add(instructionLabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        Label creditLabel = new Label(String.format(&quot;PRESS %s TO VIEW CREDITS&quot;,Interactions.getKeyString(InputKey.InputTypes.CREDITS).toUpperCase()), font);</b>
+<b class="nc">&nbsp;        table.add(creditLabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        Label quitLabel = new Label(String.format(&quot;PRESS %s TO QUIT&quot;,Interactions.getKeyString(InputKey.InputTypes.QUIT).toUpperCase()), font);</b>
+<b class="nc">&nbsp;        table.add(quitLabel).expandX();</b>
+<b class="nc">&nbsp;        table.row();</b>
+&nbsp;
+<b class="nc">&nbsp;        Label loadLabel = new Label(String.format(&quot;PRESS %s TO LOAD THE SAVED GAME&quot;,Interactions.getKeyString(InputKey.InputTypes.LOAD_GAME).toUpperCase()), font);</b>
+<b class="nc">&nbsp;        table.add(loadLabel).expandX();</b>
+&nbsp;
+<b class="nc">&nbsp;        welcomeLabel.setFontScale(4);</b>
+<b class="nc">&nbsp;        stage.addActor(table);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check for user input every frame and act on specified inputs.
+&nbsp;     * @param delta The time between frames as a float.
+&nbsp;     */
+&nbsp;    public void update(float delta) {
+<b class="nc">&nbsp;        Interactions.updateKeys();</b>
+&nbsp;
+&nbsp;        // Sets scenario mode customer count
+<b class="nc">&nbsp;        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)){</b>
+<b class="nc">&nbsp;            nCustomers = Math.min(nCustomers+1,20);</b>
+<b class="nc">&nbsp;            startSLabel.setText(String.format(&quot;PRESS %s TO START SCENARIO MODE (%s CUSTOMERS)&quot;,Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(),nCustomers));</b>
+<b class="nc">&nbsp;        } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {</b>
+<b class="nc">&nbsp;            nCustomers = Math.max(nCustomers - 1, 1);</b>
+<b class="nc">&nbsp;            if (nCustomers == 1) {</b>
+<b class="nc">&nbsp;                startSLabel.setText(String.format(&quot;PRESS %s TO START SCENARIO MODE (%s CUSTOMER)&quot;, Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(), nCustomers));</b>
+&nbsp;            } else {
+<b class="nc">&nbsp;                startSLabel.setText(String.format(&quot;PRESS %s TO START SCENARIO MODE (%s CUSTOMERS)&quot;, Interactions.getKeyString(InputKey.InputTypes.STARTS_GAME).toUpperCase(), nCustomers));</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Sets endless mode difficulty
+<b class="nc">&nbsp;        if(Gdx.input.isKeyJustPressed(Input.Keys.B)){</b>
+<b class="nc">&nbsp;            difficulty = &quot;Beginner&quot;;</b>
+<b class="nc">&nbsp;            startELabel.setText(String.format(&quot;PRESS %s TO START ENDLESS MODE (%s)&quot;,Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()));</b>
+<b class="nc">&nbsp;        } else if(Gdx.input.isKeyJustPressed(Input.Keys.N)){</b>
+<b class="nc">&nbsp;            difficulty = &quot;Normal&quot;;</b>
+<b class="nc">&nbsp;            startELabel.setText(String.format(&quot;PRESS %s TO START ENDLESS MODE (%s)&quot;,Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()));</b>
+<b class="nc">&nbsp;        } else if(Gdx.input.isKeyJustPressed(Input.Keys.M)){</b>
+<b class="nc">&nbsp;            difficulty = &quot;Master&quot;;</b>
+<b class="nc">&nbsp;            startELabel.setText(String.format(&quot;PRESS %s TO START ENDLESS MODE (%s)&quot;,Interactions.getKeyString(InputKey.InputTypes.STARTE_GAME).toUpperCase(),difficulty.toUpperCase()));</b>
+&nbsp;        }
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;        // Set the screen to the gameplay screen
+<b class="nc">&nbsp;        if (Interactions.isJustPressed(InputKey.InputTypes.STARTS_GAME)) {</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.GAME);</b>
+<b class="nc">&nbsp;            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(nCustomers, false);</b>
+&nbsp;        }
+&nbsp;        // Set the screen to the gameplay screen on endless mode
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.STARTE_GAME)) {</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.GAME);</b>
+<b class="nc">&nbsp;            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(Integer.MAX_VALUE, true, difficulty);</b>
+&nbsp;        }
+&nbsp;        // Set the screen to the instructions screen
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.INSTRUCTIONS)) {</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.INSTRUCTIONS);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.CREDITS)) {</b>
+<b class="nc">&nbsp;            ((CreditsScreen)screenController.getScreen(ScreenID.CREDITS)).setPrevScreenID(ScreenID.MENU);</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.CREDITS);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        else if (Interactions.isJustPressed(InputKey.InputTypes.QUIT)) {</b>
+<b class="nc">&nbsp;            Gdx.app.exit();</b>
+<b class="nc">&nbsp;        } else if (Interactions.isJustPressed(InputKey.InputTypes.LOAD_GAME)){</b>
+<b class="nc">&nbsp;            loading = true;</b>
+<b class="nc">&nbsp;            screenController.setScreen(ScreenID.GAME);</b>
+<b class="nc">&nbsp;            ((GameScreen) screenController.getScreen(ScreenID.GAME)).startGame(2, true);</b>
+&nbsp;            //Values in startGame() don&#39;t matter as they get overwritten in this next line
+<b class="nc">&nbsp;            FileInteractor.getInstance().loadFromJSON((GameScreen) screenController.getScreen(ScreenID.GAME));</b>
+<b class="nc">&nbsp;            loading = false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The function used to render the {@link MenuScreen}.
+&nbsp;     *
+&nbsp;     * &lt;br&gt;Draws the {@link #stage} of the {@link MenuScreen},
+&nbsp;     * which contains all the text as {@link Label}s.
+&nbsp;     * @param delta The time in seconds since the last render.
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(float delta) {
+<b class="nc">&nbsp;        Gdx.gl.glClearColor(0,0,0,1);</b>
+<b class="nc">&nbsp;        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);</b>
+&nbsp;
+<b class="nc">&nbsp;        batch.begin();</b>
+<b class="nc">&nbsp;        backgroundSprite.draw(batch);</b>
+<b class="nc">&nbsp;        batch.end();</b>
+<b class="nc">&nbsp;        stage.draw();</b>
+<b class="nc">&nbsp;        this.update(delta);</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-03 04:44</div>
+</div>
+</body>
+</html>
