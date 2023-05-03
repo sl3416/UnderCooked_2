@@ -92,8 +92,7 @@ We have provided fully documented code with JavaDocs and are within sorted folde
 
 [Software Testing PDF]({{page.test_pdf}})
 
-[Testing Statistics](../index.html)
-[Step Back version](../_site/index.html)
+[Testing Statistics](../testing.html)
 
 [Coverage Report](../coverage.html)
 
