@@ -27,7 +27,7 @@ public class FoodStackTests {
 
 
     @Test
-    public void testAddAndPop() {
+    public void testPop() {
         foodStack.addStack(FoodID.bun);
         assertEquals(FoodID.bun, foodStack.popStack());
         assertEquals(0, foodStack.size());

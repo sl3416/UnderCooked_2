@@ -14,7 +14,7 @@ import food.FoodItem.FoodID;
  * Also contains many helper functions useful in generating recipes.
  */
 public class Recipe {
-    private static Array<String> recipeNames = new Array<>();
+    public static Array<String> recipeNames = new Array<>();
 	/** A HashMap containing how each FoodItem's FoodID, via a station of StationID, can convert to another foodID.*/
 	private static final HashMap<String, Array<FoodStack>> recipes = new HashMap<>();
 		static {
@@ -133,7 +133,7 @@ public class Recipe {
 	 * @param recipeName The name of the recipe
 	 * @param listOfFoodStacks All FoodStacks which equal this recipe.
 	 */
-	private static void generateRecipes(String recipeName, Array<Array<FoodID>> listOfFoodStacks) {
+	public static void generateRecipes(String recipeName, Array<Array<FoodID>> listOfFoodStacks) {
 		Array<FoodStack> allValidRecipes = new Array<>();
 		for (int i = 0; i < listOfFoodStacks.size; i++) {
 			Array<FoodID> recipe = listOfFoodStacks.get(i);
@@ -148,7 +148,7 @@ public class Recipe {
 	 * @param stuff The items you want all combos out of
 	 * @return An array of arrays, containing all combos
 	 */
-	private static <T> Array<Array<T>> allCombos(T... stuff) {
+	public static <T> Array<Array<T>> allCombos(T... stuff) {
 		return allCombosR(new Array<T>(), new Array<T>(Array.with(stuff)));
 	}
 	/**
