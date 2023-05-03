@@ -59,7 +59,9 @@ public class InstructionScreen extends ScreenAdapter {
                 "",
                 String.format("SWAP COOKS using %s.",Interactions.getKeyString(InputKey.InputTypes.COOK_SWAP)),
                 "",
-                String.format("USE A STATION using %s while facing it.", Interactions.getKeyString(InputKey.InputTypes.USE)),
+                String.format("USE A STATION using %s while facing it. Locked stations can be unlocked this way.", Interactions.getKeyString(InputKey.InputTypes.USE)),
+                "",
+                String.format("BUY NEW COOKS pressing Y will allow you to buy new cooks up to three"),
                 "",
                 String.format("PICKUP ITEMS using %s.", Interactions.getKeyString(InputKey.InputTypes.PICK_UP)),
                 "Pantries have an infinite number of resources, and the Cook has no carry limit.",
@@ -94,8 +96,7 @@ public class InstructionScreen extends ScreenAdapter {
                 "",
                 "You can save your game in the pause menu and load the last saved game from the main menu. Only one saved game is supported.",
                 "",
-                String.format("PAUSE using %s.", Interactions.getKeyString(InputKey.InputTypes.PAUSE)),
-                ""
+                String.format("PAUSE using %s.", Interactions.getKeyString(InputKey.InputTypes.PAUSE))
         };
 
         for (String instruction : instructions) {
