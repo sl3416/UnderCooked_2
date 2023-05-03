@@ -4,10 +4,10 @@ permalink: /
 title: false
 github: https://github.com/
 download: https://github.com/sl3416/UnderCooked_2/releases
-change_pdf: https://drive.google.com/file/d/1riehAdib1IffNDNwmmPX9ugbUv2AZZnf
-ci_pdf: https://drive.google.com/file/d/1HipDr3_7fABNSKuUDhcKLNDbxVc3lMcK
-impl_pdf: https://drive.google.com/file/d/1PoRtP0_H23nPD6mZUeKYy8YWXTVgU7Rm
-test_pdf: https://drive.google.com/file/d/1VSMtAjT8UPiVwPZLI06Vrd8EyYSrAjU8
+change_pdf: https://drive.google.com/file/d/1Z4p-l2JDUONlrZcWyzU_qgK4cfJfVWhc/view?usp=share_link
+ci_pdf: https://drive.google.com/file/d/1-lIRApbBcKNpKaJp0bhnATqDw1pcPvED/view?usp=share_link
+impl_pdf: https://drive.google.com/file/d/12TOPVdw6L9w0WbyBLXEStSlE_2LIDCFn/view?usp=sharing
+test_pdf: 
 author_profile: false
 ---
 # Home
@@ -17,7 +17,7 @@ Welcome to our homepage for UnderCooked!
 
 All the contents for this website are on this page, the navigation bar in the header will take you to a specified heading on this page.
 
-![Game](https://github.com/sl3416/UnderCooked_2/tree/main/ENG1/SUBMITTABLES/assets/sample_game.png)
+![](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Images/game_image.png)
 
 ## Download UnderCooked!
 > [{{page.download}}]({{page.download}})
@@ -45,6 +45,18 @@ These are the changes we made to the original deliverables including what we add
 
 [Changes PDF]({{page.change_pdf}})
 
+#### Architecture:
+![cooks UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/cooks_UML.png)
+![customers UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/customers_UML.png)
+![food UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/food_UML.png)
+![game UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML.png)
+![](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML1.png)
+![](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML2.png)
+![](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML3.png)
+![helper UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/helper_UML.png)
+![interactions UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/interactions_UML.png)
+![stations UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/stations_UML.png)
+![Use-Case Diagram](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/Use_Case_Diagram.png)
 
 ## Continuous Integration:
 [Continuous Integration Google Doc](https://docs.google.com/document/d/1Q-1xYHXcE-K5PJ2D9rR_aNjQ5A-96T8IimDriMcvh2o/edit?usp=share_link)
@@ -52,7 +64,7 @@ These are the changes we made to the original deliverables including what we add
 [Continuous Integration PDF]({{ci_pdf}})
 
 ## Implementation:
-We have provided fully documented code with JavaDocs and are within sorted folders for organisation
+We have provided fully documented code with JavaDocs and are within sorted folders for organisation.
 
 [Implementation Google Doc](https://docs.google.com/document/d/1jrVzdXLCUq6QwhpbevFBfKr8NP9THZcmsCrOpPQelYI/edit?usp=share_link)
 
@@ -64,12 +76,12 @@ We have provided fully documented code with JavaDocs and are within sorted folde
 [Software Testing PDF]({{page.test_pdf}})
 
 #### Testing Materials:
+Within our doc contains: 
 - Testing Results
 - Coverage report
-- Descriptions of manual test-cases:
+- Descriptions of manual test-cases (which were not covered by our automated tests)
 
-Some of our code could not be covered by our automated tests. These include:
-- Screens
+[Testing Material Doc] (https://docs.google.com/document/d/1PI8E7NDeGtfS-tfhrb08WDrqjxRgIdzCgk7qK6iGe9o/edit?usp=sharing)
 
 ## Original Credits
 Credits to the previous team who worked on the project. Details for all the team members can be found here:
