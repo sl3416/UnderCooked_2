@@ -16,6 +16,10 @@ main:
     url: "/#implementation"
   - title: "Software Testing"
     url: "/#testing"
+  - title: "Testing Statistics"
+    url: <a href="./testing.html">Testing Statistics</a>
+  - title: "Coverage Report"
+    url: <a href="./coverage.html">Coverage Report</a>
   - title: "Implementation"
     url: "/#implementation"
   # - title: "Quick-Start Guide"
