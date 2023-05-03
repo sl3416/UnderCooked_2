@@ -92,6 +92,10 @@ We have provided fully documented code with JavaDocs and are within sorted folde
 
 [Software Testing PDF]({{page.test_pdf}})
 
+[Testing Statistics](../testing.html)
+
+[Coverage Report](../coverage.html)
+
 #### Testing Materials:
 Within our doc contains: 
 - Testing Statistics/Results
