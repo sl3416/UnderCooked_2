@@ -98,7 +98,7 @@ Within our doc contains:
 - Coverage report
 - Descriptions of manual test-cases (which were not covered by our automated tests)
 
-[Testing Material Doc] (https://docs.google.com/document/d/1PI8E7NDeGtfS-tfhrb08WDrqjxRgIdzCgk7qK6iGe9o/edit?usp=sharing)
+[Testing Material Google Doc](https://docs.google.com/document/d/1PI8E7NDeGtfS-tfhrb08WDrqjxRgIdzCgk7qK6iGe9o/edit?usp=sharing)
 
 ## Original Credits
 Credits to the previous team who worked on the project. Details for all the team members can be found here:
