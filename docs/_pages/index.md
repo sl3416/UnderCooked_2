@@ -46,16 +46,33 @@ These are the changes we made to the original deliverables including what we add
 [Changes PDF]({{page.change_pdf}})
 
 #### Architecture:
+cooks UML:
 ![cooks UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/cooks_UML.png)
+
+customers UML:
 ![customers UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/customers_UML.png)
+
+food UML:
 ![food UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/food_UML.png)
+
+game UML:
 ![game UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML.png)
+
+game UML is split into sub-sections so you can more clearly see what is going on within the UML:
 ![](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML1.png)
 ![](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML2.png)
 ![](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/game_UML3.png)
+
+helper UML:
 ![helper UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/helper_UML.png)
+
+interactions UML:
 ![interactions UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/interactions_UML.png)
+
+stations UML:
 ![stations UML](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/stations_UML.png)
+
+Use-Case Diagram:
 ![Use-Case Diagram](https://raw.githubusercontent.com/sl3416/UnderCooked_2/main/ENG1/SUBMITTABLES/Architecture/Updated/Use_Case_Diagram.png)
 
 ## Continuous Integration:
