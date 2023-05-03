@@ -94,9 +94,12 @@ We have provided fully documented code with JavaDocs and are within sorted folde
 
 #### Testing Materials:
 Within our doc contains: 
-- Testing Results
+- Testing Statistics/Results
 - Coverage report
 - Descriptions of manual test-cases (which were not covered by our automated tests)
+
+#### Testing Statistics
+#### Coverage Report
 
 [Testing Material Google Doc](https://docs.google.com/document/d/1PI8E7NDeGtfS-tfhrb08WDrqjxRgIdzCgk7qK6iGe9o/edit?usp=sharing)
 
